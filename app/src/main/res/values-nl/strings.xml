@@ -10,4 +10,8 @@
     <string name="prompt_username">Gebruikersnaam</string>
     <string name="prompt_password">Wachtwoord</string>
     <string name="permission_rationale"></string>
+    <string name="navigation_drawer_close">Sluit navigatiebalk</string>
+    <string name="navigation_drawer_open">Open navigatiebalk</string>
+    <string name="title_activity_hoofdmenu">Phapp</string>
+    <string name="action_settings">Instellingen</string>
 </resources>
