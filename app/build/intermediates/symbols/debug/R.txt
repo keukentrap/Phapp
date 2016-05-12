@@ -616,7 +616,6 @@ int id design_menu_item_text 0x7f0c0076
 int id design_navigation_view 0x7f0c0075
 int id disableHome 0x7f0c000e
 int id edit_query 0x7f0c005c
-int id email 0x7f0c006c
 int id email_login_form 0x7f0c006b
 int id email_sign_in_button 0x7f0c006f
 int id end 0x7f0c0021
@@ -705,6 +704,7 @@ int id topPanel 0x7f0c0047
 int id touch_outside 0x7f0c0070
 int id up 0x7f0c0009
 int id useLogo 0x7f0c0014
+int id username 0x7f0c006c
 int id view_offset_helper 0x7f0c000a
 int id withText 0x7f0c0037
 int id wrap_content 0x7f0c001a

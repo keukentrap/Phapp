@@ -2315,7 +2315,6 @@ containing a value of this type.
         public static final int design_navigation_view=0x7f0c0075;
         public static final int disableHome=0x7f0c000e;
         public static final int edit_query=0x7f0c005c;
-        public static final int email=0x7f0c006c;
         public static final int email_login_form=0x7f0c006b;
         public static final int email_sign_in_button=0x7f0c006f;
         public static final int end=0x7f0c0021;
@@ -2404,6 +2403,7 @@ containing a value of this type.
         public static final int touch_outside=0x7f0c0070;
         public static final int up=0x7f0c0009;
         public static final int useLogo=0x7f0c0014;
+        public static final int username=0x7f0c006c;
         public static final int view_offset_helper=0x7f0c000a;
         public static final int withText=0x7f0c0037;
         public static final int wrap_content=0x7f0c001a;
