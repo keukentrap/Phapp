@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Phapp</string>
+    <string name="action_sign_in"></string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="error_field_required">Dit veld is verplicht</string>
+    <string name="error_incorrect_password">Dit wachtwoord is onjuist</string>
+    <string name="error_invalid_email"></string>
+    <string name="error_invalid_password">Dit wachtwoord is te kort</string>
+    <string name="prompt_username">Gebruikersnaam</string>
+    <string name="prompt_password">Wachtwoord</string>
+    <string name="permission_rationale"></string>
+</resources>
