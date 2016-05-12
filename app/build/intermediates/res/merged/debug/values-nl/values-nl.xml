@@ -19,6 +19,7 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Delen met"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Delen met %s"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Samenvouwen"</string>
+    <string name="action_settings">Instellingen</string>
     <string name="action_sign_in">Log in</string>
     <string name="action_sign_in_short">Log in</string>
     <string name="app_name">Phapp</string>
@@ -26,8 +27,11 @@
     <string name="error_incorrect_password">Dit wachtwoord is onjuist</string>
     <string name="error_invalid_email"/>
     <string name="error_invalid_password">Dit wachtwoord is te kort</string>
+    <string name="navigation_drawer_close">Sluit navigatiebalk</string>
+    <string name="navigation_drawer_open">Open navigatiebalk</string>
     <string name="permission_rationale"/>
     <string name="prompt_password">Wachtwoord</string>
     <string name="prompt_username">Gebruikersnaam</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="title_activity_hoofdmenu">Phapp</string>
 </resources>
