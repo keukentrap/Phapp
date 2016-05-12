@@ -8,12 +8,12 @@
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
-        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_screen_toolbar.xml"
-    },
-    {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_screen_toolbar.xml"
     },
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
@@ -28,16 +28,16 @@
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_screen_content_include.xml"
     },
     {
-        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
-        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_list_menu_item_radio.xml"
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_action_menu_layout.xml"
     },
     {
-        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
-        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\notification_template_big_media_narrow.xml"
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_list_menu_item_radio.xml"
     },
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
@@ -64,6 +64,10 @@
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\src\\main\\res\\layout\\activity_login.xml"
     },
     {
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_hoofdmenu.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\src\\main\\res\\layout\\activity_hoofdmenu.xml"
+    },
+    {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_list_menu_item_icon.xml"
     },
@@ -72,8 +76,16 @@
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_layout_tab_icon.xml"
     },
     {
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\app_bar_hoofdmenu.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\src\\main\\res\\layout\\app_bar_hoofdmenu.xml"
+    },
+    {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\nav_header_hoofdmenu.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\src\\main\\res\\layout\\nav_header_hoofdmenu.xml"
     },
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
@@ -102,6 +114,10 @@
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
         "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_hoofdmenu.xml",
+        "source": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\src\\main\\res\\layout\\content_hoofdmenu.xml"
     },
     {
         "merged": "C:\\Users\\U\\AndroidStudioProjects\\Phapp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
