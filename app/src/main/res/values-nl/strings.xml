@@ -14,5 +14,7 @@
     <string name="navigation_drawer_open">Open navigatiebalk</string>
     <string name="title_activity_hoofdmenu">Phapp</string>
     <string name="action_settings">Instellingen</string>
-    <string name="photos">Foto\'s</string>
+    <string name="fotos">Foto\'s</string>
+    <string name="machtigingen">Machtigingen</string>
+    <string name="logout">Uitloggen</string>
 </resources>

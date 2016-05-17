@@ -8,11 +8,10 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/photos"/>
+            android:title="@string/fotos"/>
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Not gallery"/>
+            android:title="@string/machtigingen"/>
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
