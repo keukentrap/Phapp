@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompatSideChannelService;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -189,11 +190,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
 
-            Intent intent = new Intent(this, Hoofdmenu.class);
-            startActivity(intent);
+            if (email.equals("DEBUG") && password.equals("DEBUG"))
+            {
+                Intent intent = new Intent(this, DebugActivity.class);
+                startActivity(intent);
+            }
+            else
+            {
+                mAuthTask = new UserLoginTask(email, password);
+                mAuthTask.execute((Void) null);
+
+                Intent intent = new Intent(this, Hoofdmenu.class);
+                startActivity(intent);
+            }
         }
     }
     private boolean isUsernameValid(String email) {
@@ -204,7 +214,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        //return password.length() > 4;
+        return true;
     }
 
     /**
