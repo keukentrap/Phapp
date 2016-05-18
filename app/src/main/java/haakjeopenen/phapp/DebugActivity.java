@@ -60,7 +60,9 @@ public class DebugActivity extends AppCompatActivity {
 					int responseCode = con.getResponseCode();
 					System.out.println("\nSending 'GET' request to URL : " + url);
 					System.out.println("Response Code : " + responseCode);
-					responsecode.setText(String.valueOf(responseCode));
+					try {
+						responsecode.setText(String.valueOf(responseCode));
+					} catch (Exception e2) {}
 
 					BufferedReader in = new BufferedReader(
 							new InputStreamReader(con.getInputStream()));
@@ -75,6 +77,8 @@ public class DebugActivity extends AppCompatActivity {
 					//print result
 					//System.out.println(response.toString());
 					antwoord.setText(response.toString());
+
+					System.out.println("Should've completed");
 				}
 				catch (Exception e)
 				{
@@ -118,7 +122,9 @@ public class DebugActivity extends AppCompatActivity {
 					int responseCode = con.getResponseCode();
 					System.out.println("\nSending 'POST' request to URL : " + url);
 					System.out.println("Response Code : " + responseCode);
-					responsecode.setText(String.valueOf(responseCode));
+					try {
+						responsecode.setText(String.valueOf(responseCode));
+					} catch (Exception e2) {}
 
 					BufferedReader in = new BufferedReader(
 							new InputStreamReader(con.getInputStream()));
@@ -133,6 +139,8 @@ public class DebugActivity extends AppCompatActivity {
 					//print result
 					//System.out.println(response.toString());
 					antwoord.setText(response.toString());
+
+					System.out.println("Should've completed");
 				}
 				catch (Exception e)
 				{

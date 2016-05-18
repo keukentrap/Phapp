@@ -75,7 +75,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/debugRequestText"
-        android:layout_alignEnd="@+id/debugRequestText"/>
+        android:layout_alignEnd="@+id/debugRequestText"
+        android:text="LEEG"/>
 
     <Button
         android:layout_width="wrap_content"
