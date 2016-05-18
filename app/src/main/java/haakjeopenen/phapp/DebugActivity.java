@@ -2,6 +2,7 @@ package haakjeopenen.phapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -36,6 +37,8 @@ public class DebugActivity extends AppCompatActivity {
 		submit = (Button) findViewById(R.id.sendDebugGet);
 		antwoord = (TextView) findViewById(R.id.debugRequestAnswer);
 		responsecode = (TextView) findViewById(R.id.responseCodeView);
+
+		antwoord.setMovementMethod(new ScrollingMovementMethod());
 	}
 
 	public void sendAPIgetRequest(View v) throws Exception
@@ -70,7 +73,7 @@ public class DebugActivity extends AppCompatActivity {
 					StringBuffer response = new StringBuffer();
 
 					while ((inputLine = in.readLine()) != null) {
-						response.append(inputLine);
+						response.append(inputLine + "\n");
 					}
 					in.close();
 
@@ -132,7 +135,7 @@ public class DebugActivity extends AppCompatActivity {
 					StringBuffer response = new StringBuffer();
 
 					while ((inputLine = in.readLine()) != null) {
-						response.append(inputLine);
+						response.append(inputLine + "\n");
 					}
 					in.close();
 

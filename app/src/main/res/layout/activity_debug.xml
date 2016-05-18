@@ -76,7 +76,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/debugRequestText"
         android:layout_alignEnd="@+id/debugRequestText"
-        android:text="LEEG"/>
+        android:text="INIT"
+        android:scrollbars = "vertical"/>
 
     <Button
         android:layout_width="wrap_content"
