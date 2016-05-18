@@ -28,12 +28,30 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="POST body:"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/debugRequestText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/debugRequestText2"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GET"
         android:id="@+id/sendDebugGet"
-        android:layout_below="@+id/debugRequestText"
+        android:layout_below="@+id/debugRequestText2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="sendAPIgetRequest"/>
@@ -65,7 +83,7 @@
         android:text="POST"
         android:id="@+id/sendDebugPost"
         android:onClick="sendAPIpostRequest"
-        android:layout_below="@+id/debugRequestText"
+        android:layout_below="@+id/debugRequestText2"
         android:layout_toRightOf="@+id/sendDebugGet"
         android:layout_toEndOf="@+id/sendDebugGet"/>
 

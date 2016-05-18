@@ -19,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class DebugActivity extends AppCompatActivity {
 
 	EditText requesttext;
+	EditText requesttext2;
 	Button submit;
 	TextView antwoord;
 	TextView responsecode;
@@ -31,6 +32,7 @@ public class DebugActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_debug);
 
 		requesttext = (EditText) findViewById(R.id.debugRequestText);
+		requesttext2 = (EditText) findViewById(R.id.debugRequestText2);
 		submit = (Button) findViewById(R.id.sendDebugGet);
 		antwoord = (TextView) findViewById(R.id.debugRequestAnswer);
 		responsecode = (TextView) findViewById(R.id.responseCodeView);
@@ -104,7 +106,7 @@ public class DebugActivity extends AppCompatActivity {
 					con.setRequestProperty("User-Agent", USER_AGENT);
 					con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-					String urlParameters = "";
+					String urlParameters = requesttext2.getText().toString();
 
 					// Nodig voor POST
 					con.setDoOutput(true);
