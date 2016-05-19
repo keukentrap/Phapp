@@ -107,4 +107,15 @@
         android:layout_below="@+id/sendDebugPost"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oude code"
+        android:id="@+id/oudecodeSwitch"
+        android:layout_below="@+id/debugRequestText2"
+        android:layout_alignRight="@+id/debugRequestText2"
+        android:layout_alignEnd="@+id/debugRequestText2"
+        android:enabled="true"
+        android:checked="false"/>
 </RelativeLayout>
