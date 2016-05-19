@@ -28,6 +28,9 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ *  H I D D E N   T E S T I N G   C O D E
+ */
 public class DebugActivity extends AppCompatActivity {
 
 	EditText urltext;

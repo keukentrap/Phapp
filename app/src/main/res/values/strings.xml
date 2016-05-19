@@ -19,8 +19,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="fotos">Photos</string>
-    <string name="machtigingen">Authorizations</string>
+    <string name="photos">Photos</string>
+    <string name="authorizations">Authorizations</string>
+    <string name="mainpage">Main page</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

@@ -13,4 +13,13 @@
     tools:context="haakjeopenen.phapp.Hoofdmenu"
     tools:showIn="@layout/app_bar_hoofdmenu">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Is dit de goede pagina??"
+        android:id="@+id/textView5"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
