@@ -19,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DebugActivity extends AppCompatActivity {
 
+	EditText urltext;
 	EditText requesttext;
 	EditText requesttext2;
 	Button submit;
@@ -32,6 +33,7 @@ public class DebugActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_debug);
 
+		urltext = (EditText) findViewById(R.id.debugUrlText);
 		requesttext = (EditText) findViewById(R.id.debugRequestText);
 		requesttext2 = (EditText) findViewById(R.id.debugRequestText2);
 		submit = (Button) findViewById(R.id.sendDebugGet);
@@ -52,7 +54,7 @@ public class DebugActivity extends AppCompatActivity {
 					System.out.println("Sending GET request");
 					String requeststring = requesttext.getText().toString();
 
-					String url = "https://public-api.wordpress.com/rest/v1.1/" + requeststring;
+					String url = urltext.getText().toString() + requeststring;
 					URL obj = new URL(url);
 					HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
@@ -104,7 +106,7 @@ public class DebugActivity extends AppCompatActivity {
 					System.out.println("Sending GET request");
 					String requeststring = requesttext.getText().toString();
 
-					String url = "https://public-api.wordpress.com/rest/v1.1/" + requeststring;
+					String url = urltext.getText().toString() + requeststring;
 					URL obj = new URL(url);
 					HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
