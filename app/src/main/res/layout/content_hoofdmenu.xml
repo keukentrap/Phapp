@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Is dit de goede pagina??"
+        android:text="Is dit de goede pagina?? 🐼"
         android:id="@+id/textView5"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>

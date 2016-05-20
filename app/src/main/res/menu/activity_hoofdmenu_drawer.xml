@@ -6,7 +6,7 @@
             android:id="@+id/nav_mainpage"
             android:title="@string/mainpage"/>
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_photos"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/photos"/>
         <item

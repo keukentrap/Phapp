@@ -102,12 +102,14 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 			main_container_included = inflater.inflate(R.layout.app_bar_hoofdmenu, main_container, false);
 			main_container.removeAllViews();
 			main_container.addView(main_container_included);
-		} else if (id == R.id.nav_camera) {
+		} else if (id == R.id.nav_photos) {
 			//Intent intent = new Intent(this, Fotos.class);
 			//startActivity(intent);
 			main_container_included = inflater.inflate(R.layout.content_fotos, main_container, false);
 			main_container.removeAllViews();
 			main_container.addView(main_container_included);
+			//Fotos fotos = new Fotos();
+			//fotos.onCreate(null);
 		} else if (id == R.id.nav_gallery) {
 
 		} else if (id == R.id.nav_slideshow) {
