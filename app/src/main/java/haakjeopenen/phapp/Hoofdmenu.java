@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,12 +18,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
 	CoordinatorLayout main_container;
 	LayoutInflater inflater;
 	View main_container_included;
+	private API api;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,13 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 		main_container_included = inflater.inflate(R.layout.app_bar_hoofdmenu, main_container, false);
 		main_container.removeAllViews();
 		main_container.addView(main_container_included);
+
+		api = new API(this);
+
+		// Duidelijk tijdelijk dit
+		Hoofdpagina hoofdpagina = new Hoofdpagina();
+		hoofdpagina.loadMainPage(api, main_container_included);
+		((TextView) main_container_included.findViewById(R.id.tempPostsTextView)).setMovementMethod(new ScrollingMovementMethod());
 	}
 
 	@Override
