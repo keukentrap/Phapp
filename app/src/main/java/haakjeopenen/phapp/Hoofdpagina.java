@@ -10,4 +10,12 @@ public class Hoofdpagina extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoofdpagina);
     }
+
+	/**
+	 * Load the last couple of posts from the main page
+     */
+    public void loadMainPage()
+    {
+
+    }
 }

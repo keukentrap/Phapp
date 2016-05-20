@@ -33,14 +33,15 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class DebugActivity extends AppCompatActivity {
 
-	EditText urltext;
-	EditText requesttext;
-	EditText requesttext2;
-	Button submit;
-	TextView antwoord;
-	TextView responsecode;
-	Switch oudecodeswitch;
-	RequestQueue queue;
+	private EditText urltext;
+	private EditText requesttext;
+	private EditText requesttext2;
+	private Button submit;
+	private TextView antwoord;
+	private TextView responsecode;
+	private Switch oudecodeswitch;
+	private RequestQueue queue;
+	private API api;
 
 	private final String USER_AGENT = "Phapp/0.0";
 
@@ -62,6 +63,8 @@ public class DebugActivity extends AppCompatActivity {
 
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(this);
+
+		api = new API(this);
 	}
 
 	public void sendAPIgetRequest(View v) throws Exception
@@ -262,10 +265,15 @@ public class DebugActivity extends AppCompatActivity {
 			@Override
 			public Map<String,String> getHeaders() throws AuthFailureError {
 				Map<String,String> params = new HashMap<String,String>();
-				params.put("Content-Type","appplication/x-www-form-urlencoded");
+				params.put("Content-Type","application/x-www-form-urlencoded");
 				return params;
 			}
 		};
 		queue.add(stringRequest);
+	}
+
+	public void apiTest(View v)
+	{
+		api.cmd_test();
 	}
 }

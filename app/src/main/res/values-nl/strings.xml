@@ -18,4 +18,6 @@
     <string name="authorizations">Machtigingen</string>
     <string name="mainpage">Hoofdpagina</string>
     <string name="logout">Uitloggen</string>
+    <string name="connect_error">Er is een verbindingsfout opgetreden!</string>
+    <string name="title_activity_settings">Intellingen</string>
 </resources>

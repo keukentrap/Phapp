@@ -118,4 +118,15 @@
         android:layout_alignEnd="@+id/debugRequestText2"
         android:enabled="true"
         android:checked="false"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="API T"
+        android:id="@+id/button"
+        android:layout_below="@+id/debugRequestText2"
+        android:layout_toRightOf="@+id/sendDebugPost"
+        android:layout_toEndOf="@+id/sendDebugPost"
+        android:onClick="apiTest"/>
 </RelativeLayout>
