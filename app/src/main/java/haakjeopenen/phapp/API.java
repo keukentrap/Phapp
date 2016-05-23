@@ -3,6 +3,7 @@ package haakjeopenen.phapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -15,6 +16,10 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +30,8 @@ import java.util.Map;
 public class API {
 	private Context mContext;
 	private RequestQueue queue;
-	private final String globalUrlPrefix = "https://public-api.wordpress.com/rest/v1.1/";
+	//private final String globalUrlPrefix = "https://public-api.wordpress.com/rest/v1.1/";
+	private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
 
 	public API(Context context)
 	{
@@ -53,12 +59,31 @@ public class API {
 
 	public void loadLatestPosts(final TextView textview)
 	{
-		getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cexcerpt", new Response.Listener<String>() {
+		getRequest("posts", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
 				// We hebben de posts nu, tijdelijke textview hiervoor
-				textview.setText(response);
-			}
+				//textview.setText(response);
+
+
+                try {
+                    JSONArray jArray;
+                    textview.setText("");
+
+                    jArray = new JSONArray(response);
+
+                    for(int i = 0;i < jArray.length();i++) {
+                        JSONObject j = jArray.getJSONObject(i);
+                        textview.append(j.getJSONObject("title").getString("rendered") + "\n");
+                        textview.append(Html.fromHtml(j.getJSONObject("content").getString("rendered")));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
 		});
 	}
 
