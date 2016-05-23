@@ -99,8 +99,8 @@ public class API {
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
 
-					textview.append(j.get("title").getAsJsonObject().get("rendered").toString() + "\n");
-					textview.append(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").toString()));
+					textview.append(j.get("title").getAsJsonObject().get("rendered").getAsString() + "\n");
+					textview.append(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
 				}
 			}
 		});
