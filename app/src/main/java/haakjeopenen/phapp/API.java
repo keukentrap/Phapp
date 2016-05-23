@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -16,12 +17,14 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * Created by David on 20-5-2016.
@@ -30,14 +33,15 @@ import java.util.Map;
 public class API {
 	private Context mContext;
 	private RequestQueue queue;
-	//private final String globalUrlPrefix = "https://public-api.wordpress.com/rest/v1.1/";
 	private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
+	private Gson gson;
 
 	public API(Context context)
 	{
 		mContext = context;
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
+		gson = new Gson();
 	}
 
 	public void cmd_test()
@@ -57,33 +61,48 @@ public class API {
 		System.out.println("NOW LET'S WAIT I GUESS");
 	}
 
-	public void loadLatestPosts(final TextView textview)
+	public void loadLatestPosts(final TextView textview) // WebView postswebview
 	{
-		getRequest("posts", new Response.Listener<String>() {
+		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
+		getRequest("posts/?number=5", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				// We hebben de posts nu, tijdelijke textview hiervoor
-				//textview.setText(response);
+				// We hebben de posts nu
+				/*
+				JsonObject jobject = parseJsonObject(response);
+				JsonArray posts = jobject.getAsJsonArray("posts");
 
+				//Post[] posts = gson.fromJson(response, Post[].class);
+				String postslist = "";
+				for (JsonElement post : posts)
+				{
+					JsonObject postobject = post.getAsJsonObject();
 
-                try {
-                    JSONArray jArray;
-                    textview.setText("");
+					JsonObject authorobject = postobject.getAsJsonObject("author");
 
-                    jArray = new JSONArray(response);
+					//postslist += post.toString() + "\n\n";
+					postslist += "<b>" + postobject.get("title").toString() + "</b><br>" + authorobject.get("name") + ", " + postobject.get("date") + postobject.get("excerpt").toString();
+				}
+				postswebview.loadData("<!DOCTYPE html>" +
+						"<html>" +
+						"<head>" +
+						"<style>" +
+						"" +
+						"</style>" +
+						"</head>" +
+						"<body><h2>Recent posts</h2><small>(Beter niet als webview eigenlijk maar iets natives)<br><br></small>" + postslist + "</body>" +
+						"</html>", "text/html", null);
+				*/
+				textview.setText("");
+				JsonArray jArray = parseJsonArray(response);
 
-                    for(int i = 0;i < jArray.length();i++) {
-                        JSONObject j = jArray.getJSONObject(i);
-                        textview.append(j.getJSONObject("title").getString("rendered") + "\n");
-                        textview.append(Html.fromHtml(j.getJSONObject("content").getString("rendered")));
-                    }
+				for (int i = 0; i < jArray.size(); i++) {
+					JsonObject j = jArray.get(i).getAsJsonObject();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
+					textview.append(j.get("title").getAsJsonObject().get("rendered").toString() + "\n");
+					textview.append(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").toString()));
+				}
+			}
 		});
 	}
 
@@ -147,5 +166,17 @@ public class API {
 			}
 		};
 		queue.add(stringRequest);
+	}
+
+	private JsonArray parseJsonArray(String jsonstring)
+	{
+		JsonElement jelement = new JsonParser().parse(jsonstring);
+		return jelement.getAsJsonArray();
+	}
+
+	private JsonObject parseJsonObject(String jsonstring)
+	{
+		JsonElement jelement = new JsonParser().parse(jsonstring);
+		return jelement.getAsJsonObject();
 	}
 }
