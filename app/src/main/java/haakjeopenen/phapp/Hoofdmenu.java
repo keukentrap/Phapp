@@ -122,7 +122,7 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 			//fotos.onCreate(null);
 		} else if (id == R.id.nav_gallery) {
 
-		} else if (id == R.id.nav_slideshow) {
+		} /* else if (id == R.id.nav_slideshow) {
 
 		} else if (id == R.id.nav_manage) {
 
@@ -130,7 +130,7 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 
 		} else if (id == R.id.nav_send) {
 
-		}
+		} */
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
