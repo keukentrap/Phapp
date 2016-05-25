@@ -2,8 +2,10 @@ package haakjeopenen.phapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Base64;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -34,18 +36,27 @@ public class API {
 	private Context mContext;
 	private RequestQueue queue;
 	private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
+	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 	private Gson gson;
 
-	public API(Context context)
-	{
+	private String username;
+	private String password;
+
+	private static API instance;
+
+	public static API getInstance(Context context) {
+		if (instance == null) instance = new API(context);
+		return instance;
+	}
+
+	private API(Context context) {
 		mContext = context;
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
 		gson = new Gson();
 	}
 
-	public void cmd_test()
-	{
+	public void cmd_test() {
 		System.out.println("STARTING COMMAND TEST");
 		getRequest("test/1234?pretty=true", new Response.Listener<String>() {
 			@Override
@@ -106,77 +117,133 @@ public class API {
 		});
 	}
 
-	/**
-	 * Perform a GET request
-	 * @param url The last part of the URL to send the request to (prefixed by globalUrlPrefix)
-	 * @param listener A listener that runs when there's a server response
-	 */
-	private void getRequest(String url, Response.Listener<String> listener)
-	{
-		System.out.println("GET  request: " + url);
-		StringRequest stringRequest = new StringRequest(Request.Method.GET, globalUrlPrefix+url,
-				listener,
-				new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-						builder.setTitle(R.string.connect_error);
-						builder.setMessage(error.toString() + (error.networkResponse != null ? ", " + String.valueOf(error.networkResponse.statusCode) : ""));
-						builder.create().show();
-						System.out.println("Error response for GET!");
-					}
+	private int validLogin;
+
+	public boolean checkLogin() {
+		validLogin = -1;
+		getRequest("users/me", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				JsonObject jObject = parseJsonObject(response);
+
+				if (jObject.has("code") && (jObject.get("code").getAsString() == "rest_not_logged_in" || jObject.get("code").getAsString() == "rest_no_route")) {
+					//assert(false);
+					validLogin = 0;
+				} else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
+					validLogin = 1;
+				} else {
+					validLogin = 0;
 				}
-		);
-		queue.add(stringRequest);
+			}
+		});
+		//TODO: Dit weghalen
+		// Zo van yo dit wordt ergens anders aangepast
+		while (validLogin == -1);
+
+		return validLogin == 1;
 	}
 
 	/**
-	 * Perform a POST request
-	 * @param url The last part of the URL to send the request to (prefixed by globalUrlPrefix)
+	 * Perform a GET request
+	 *
+	 * @param url      The last part of the URL to send the request to (prefixed by globalUrlPrefix)
 	 * @param listener A listener that runs when there's a server response
-	 * @param params The POST form parameters
 	 */
-	private void postRequest(String url, Response.Listener<String> listener, final Map<String,String> params)
-	{
-		System.out.println("POST request: " + url);
-		StringRequest stringRequest = new StringRequest(Request.Method.POST, globalUrlPrefix+url,
+	private void getRequest(String url, Response.Listener<String> listener) {
+		System.out.println("GET  request: " + url);
+		StringRequest stringRequest = new StringRequest(Request.Method.GET, globalUrlPrefix + url,
 				listener,
 				new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-						builder.setTitle(R.string.connect_error + String.valueOf(error.networkResponse.statusCode));
-						builder.setMessage(error.toString() + (error.networkResponse != null ? ", " + String.valueOf(error.networkResponse.statusCode) : ""));
-						builder.create().show();
-						System.out.println("Error response for POST!");
+						if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+							builder.setTitle(R.string.loginerror);
+							builder.setMessage("Iets met wachtwoord ofzo");
+							builder.create().show();
+							System.out.println("Login error!");
+						} else {
+							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+							builder.setTitle(R.string.connect_error);
+							builder.setMessage(error.toString() + (error.networkResponse != null ? ", " + String.valueOf(error.networkResponse.statusCode) : ""));
+							builder.create().show();
+							System.out.println("Error response for GET!");
+						}
 					}
 				}
-		){
+		) {
 			@Override
-			protected Map<String,String> getParams()
-			{
-				return params;
-			}
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				byte[] auth64 = (username + ":" + password).getBytes();
+				params.put("Authorization", "Basic " + Base64.encodeToString(auth64, 0));
 
-			@Override
-			public Map<String,String> getHeaders() throws AuthFailureError {
-				Map<String,String> params = new HashMap<String,String>();
-				params.put("Content-Type","application/x-www-form-urlencoded");
 				return params;
 			}
 		};
 		queue.add(stringRequest);
 	}
 
-	private JsonArray parseJsonArray(String jsonstring)
-	{
+	/**
+	 * Perform a POST request
+	 *
+	 * @param url      The last part of the URL to send the request to (prefixed by globalUrlPrefix)
+	 * @param listener A listener that runs when there's a server response
+	 * @param params   The POST form parameters
+	 */
+	private void postRequest(String url, Response.Listener<String> listener, final Map<String, String> params) {
+		System.out.println("POST request: " + url);
+		StringRequest stringRequest = new StringRequest(Request.Method.POST, globalUrlPrefix + url,
+				listener,
+				new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+							builder.setTitle(R.string.loginerror);
+							builder.setMessage("Iets met wachtwoord ofzo");
+							builder.create().show();
+							System.out.println("Login error!");
+						} else {
+							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+							builder.setTitle(R.string.connect_error);
+							builder.setMessage(error.toString() + (error.networkResponse != null ? ", " + String.valueOf(error.networkResponse.statusCode) : ""));
+							builder.create().show();
+							System.out.println("Error response for POST!");
+						}
+					}
+				}
+		) {
+			@Override
+			protected Map<String, String> getParams() {
+				return params;
+			}
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Content-Type", "application/x-www-form-urlencoded");
+				return params;
+			}
+		};
+		queue.add(stringRequest);
+	}
+
+	private JsonArray parseJsonArray(String jsonstring) {
 		JsonElement jelement = new JsonParser().parse(jsonstring);
 		return jelement.getAsJsonArray();
 	}
 
-	private JsonObject parseJsonObject(String jsonstring)
-	{
+	private JsonObject parseJsonObject(String jsonstring) {
 		JsonElement jelement = new JsonParser().parse(jsonstring);
 		return jelement.getAsJsonObject();
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

@@ -60,7 +60,7 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 		main_container.removeAllViews();
 		main_container.addView(main_container_included);
 
-		api = new API(this);
+		api = API.getInstance(this);
 
 		// Duidelijk tijdelijk dit
 		Hoofdpagina hoofdpagina = new Hoofdpagina();

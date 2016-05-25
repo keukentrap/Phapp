@@ -3,6 +3,8 @@ package haakjeopenen.phapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -47,11 +49,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
+     * TO/DO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
+    /**private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
-    };
+    };*/
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        api = new API(this);
+        api = API.getInstance(this);
     }
 
     private void populateAutoComplete() {
@@ -201,11 +203,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             else
             {
-                mAuthTask = new UserLoginTask(email, password);
+                mAuthTask = new UserLoginTask(email, password, this);
                 mAuthTask.execute((Void) null);
-
-                Intent intent = new Intent(this, Hoofdmenu.class);
-                startActivity(intent);
             }
         }
     }
@@ -318,16 +317,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        private Context context;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String password, Context context) {
             mEmail = email;
             mPassword = password;
+            this.context = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // TO/DO: attempt authentication against a network service.
 
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -342,8 +344,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
+            */
 
-            // TODO: register the new account here.
+            api.setUsername(mEmail);
+            api.setPassword(mPassword);
+
+            boolean validlogin = api.checkLogin();
+
+            if (validlogin)
+            {
+                Intent intent = new Intent(context, Hoofdmenu.class);
+                startActivity(intent);
+            }
+            else
+            {
+                System.out.println("invalid!");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("INVALID LOGIN!!!111");
+                builder.setMessage("!!!!!");
+                builder.create().show();
+            }
+
+            // TO/DO: register the new account here.
             return true;
         }
 

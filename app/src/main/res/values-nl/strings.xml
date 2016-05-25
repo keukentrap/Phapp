@@ -21,4 +21,5 @@
     <string name="connect_error">Er is een verbindingsfout opgetreden!</string>
     <string name="title_activity_settings">Intellingen</string>
     <string name="loading">Laden...</string>
+    <string name="loginerror">Login error</string>
 </resources>
