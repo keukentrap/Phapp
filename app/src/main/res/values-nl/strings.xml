@@ -30,4 +30,5 @@
     <string name="planning">Uitslagen en planning</string>
     <string name="weather">Weer</string>
     <string name="smoelenboek">Smoelenboek</string>
+    <string name="keep_me_logged_in">Houd me ingelogd</string>
 </resources>

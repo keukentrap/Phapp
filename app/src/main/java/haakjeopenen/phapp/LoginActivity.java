@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -63,9 +65,12 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
     // UI references.
     private AutoCompleteTextView mUsernameView; //TODO autocomplete weghalen??
     private EditText mPasswordView;
+    private CheckBox mKeepLoggedIn;
     private View mProgressView;
     private View mLoginFormView;
     protected API api;
+
+    private static final String PREFS_NAME = "Phapp_BasicLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mKeepLoggedIn = (CheckBox) findViewById(R.id.keepLoggedIn);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -85,8 +91,8 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+        mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -97,6 +103,16 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
         mProgressView = findViewById(R.id.login_progress);
 
         api = API.getInstance(this);
+
+        // If we were supposed to remember username and password, automatically log in with them!
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        if (settings.getBoolean("rememberLogin", false))
+        {
+            mUsernameView.setText(settings.getString("username", ""));
+            mPasswordView.setText(settings.getString("password", ""));
+
+            attemptLogin();
+        }
     }
 
     /**
@@ -150,7 +166,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
             }
             else
             {
-                mAuthTask = new UserLoginTask(username, password, this);
+                mAuthTask = new UserLoginTask(username, password, mKeepLoggedIn.isChecked(), this);
                 mAuthTask.execute((Void) null);
             }
         }
@@ -262,11 +278,15 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
 
         private final String mUsername;
         private final String mPassword;
+        private boolean keepLoggedIn;
         private Context context;
 
-        UserLoginTask(String username, String password, Context context) {
+        private static final String PREFS_NAME = "Phapp_BasicLogin";
+
+        UserLoginTask(String username, String password, boolean keepLoggedIn, Context context) {
             mUsername = username;
             mPassword = password;
+            this.keepLoggedIn = keepLoggedIn;
             this.context = context;
         }
 
@@ -283,6 +303,17 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
 
             if (validlogin)
             {
+                if (keepLoggedIn)
+                {
+                    // Remember the username&password
+                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("rememberLogin", true);
+                    editor.putString("username", mUsername);
+                    editor.putString("password", mPassword);
+                    editor.commit();
+                }
+
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
                 return true;
