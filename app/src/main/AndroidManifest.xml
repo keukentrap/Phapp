@@ -36,7 +36,6 @@
         <activity android:name=".DebugActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
