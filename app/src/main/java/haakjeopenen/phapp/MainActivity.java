@@ -45,7 +45,10 @@ public class MainActivity extends AppCompatActivity
 
 
         fragmentManager = getFragmentManager();
-
+        fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment testFragment = new PostFragment();
+        fragmentTransaction.replace(R.id.content_main, testFragment);
+        fragmentTransaction.commit();
 
         api = API.getInstance(this);
 

@@ -9,17 +9,6 @@
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/content_main">
 
-    <fragment android:name="haakjeopenen.phapp.PostFragment"
-        android:id="@+id/list"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
 
 </RelativeLayout>
 
