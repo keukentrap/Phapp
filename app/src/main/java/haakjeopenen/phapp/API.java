@@ -242,4 +242,10 @@ public class API {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public void logout()
+	{
+		this.username = ""; // NULL?
+		this.password = "";
+	}
 }

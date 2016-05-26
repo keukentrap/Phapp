@@ -37,4 +37,5 @@
     <string name="weather">Weather</string>
     <string name="smoelenboek">Phacebook</string>
     <string name="keep_me_logged_in">Keep me signed in</string>
+    <string name="account">Account</string>
 </resources>

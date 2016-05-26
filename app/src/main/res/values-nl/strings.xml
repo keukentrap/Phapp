@@ -31,4 +31,5 @@
     <string name="weather">Weer</string>
     <string name="smoelenboek">Smoelenboek</string>
     <string name="keep_me_logged_in">Houd me ingelogd</string>
+    <string name="account">Account</string>
 </resources>
