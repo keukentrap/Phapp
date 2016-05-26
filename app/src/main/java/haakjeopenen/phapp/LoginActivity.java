@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             else
             {
-                mAuthTask = new UserLoginTask(email, password, this);
+                mAuthTask = new UserLoginTask(username, password, this);
                 mAuthTask.execute((Void) null);
             }
         }
