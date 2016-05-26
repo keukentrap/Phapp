@@ -151,48 +151,48 @@ public class Hoofdmenu extends AppCompatActivity implements NavigationView.OnNav
 
 	/** Swaps fragments in the main content view */
 	private void selectItem(int position) {
-		// Create a new fragment and specify the planet to show based on position
-		Fragment fragment = new PlanetFragment();
-		Bundle args = new Bundle();
-		args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-		fragment.setArguments(args);
-
-		// Insert the fragment by replacing any existing fragment
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.content_frame, fragment)
-				.commit();
-
-		// Highlight the selected item, update the title, and close the drawer
-		mDrawerList.setItemChecked(position, true);
-		setTitle(mPlanetTitles[position]);
-		mDrawerLayout.closeDrawer(mDrawerList);
+//		// Create a new fragment and specify the planet to show based on position
+//		Fragment fragment = new PlanetFragment();
+//		Bundle args = new Bundle();
+//		args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+//		fragment.setArguments(args);
+//
+//		// Insert the fragment by replacing any existing fragment
+//		FragmentManager fragmentManager = getFragmentManager();
+//		fragmentManager.beginTransaction()
+//				.replace(R.id.content_main, fragment)
+//				.commit();
+//
+//		// Highlight the selected item, update the title, and close the drawer
+//		mDrawerList.setItemChecked(position, true);
+//		setTitle(mPlanetTitles[position]);
+//		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
 	@Override
 	public void setTitle(CharSequence title) {
-		mTitle = title;
-		getActionBar().setTitle(mTitle);
+//		mTitle = title;
+//		getActionBar().setTitle(mTitle);
 	}
 }
 
-public class PlanetFragment extends Fragment {
-
-	public static final String ARG_PLANET_NUMBER = "planet_number";
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
-
-		Bundle bundle=getArguments();
-		int num = bundle.getInt(ARG_PLANET_NUMBER);
-
-		// Inflate the layout for this fragment
-		View v = inflater.inflate(R.layout.fragment_planet, container, false);
-		TextView tvPlanet = (TextView)v.findViewById(R.id.tv_planet_title);
-		tvPlanet.setText("Planet "+num);
-
-		return v;
-	}
-
-}
+//public class PlanetFragment extends Fragment {
+//
+//	public static final String ARG_PLANET_NUMBER = "planet_number";
+//
+//	@Override
+//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//							 Bundle savedInstanceState) {
+//
+//		Bundle bundle=getArguments();
+//		int num = bundle.getInt(ARG_PLANET_NUMBER);
+//
+//		// Inflate the layout for this fragment
+//		View v = inflater.inflate(R.layout.fragment_planet, container, false);
+//		TextView tvPlanet = (TextView)v.findViewById(R.id.tv_planet_title);
+//		tvPlanet.setText("Planet "+num);
+//
+//		return v;
+//	}
+//
+//}

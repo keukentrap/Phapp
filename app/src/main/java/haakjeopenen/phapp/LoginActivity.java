@@ -356,7 +356,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (validlogin)
             {
-                Intent intent = new Intent(context, Hoofdmenu.class);
+                Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
                 return true;
             }
