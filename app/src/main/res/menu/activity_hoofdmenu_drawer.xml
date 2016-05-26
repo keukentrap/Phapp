@@ -7,10 +7,10 @@
             android:title="@string/mainpage"/>
         <item
             android:id="@+id/nav_contact"
-            android:title="Contact"/>
+            android:title="@string/contact"/>
         <item
             android:id="@+id/nav_agenda"
-            android:title="Agenda"/>
+            android:title="@string/agenda"/>
         <item
             android:id="@+id/nav_photos"
             android:icon="@drawable/ic_menu_gallery"
@@ -20,22 +20,22 @@
             android:title="@string/authorizations"/>
         <item
             android:id="@+id/nav_workactions"
-            android:title="Werkacties"/>
+            android:title="@string/workactions"/>
         <item
             android:id="@+id/nav_werelookingfor"
-            android:title="'We zoeken nog'"/>
+            android:title="@string/werelookingfor"/>
         <item
             android:id="@+id/nav_news"
-            android:title="Nieuws"/>
+            android:title="@string/news"/>
         <item
             android:id="@+id/nav_planning"
-            android:title="Uitslagen en planning"/>
+            android:title="@string/planning"/>
         <item
             android:id="@+id/nav_weather"
-            android:title="Weer"/>
+            android:title="@string/weather"/>
         <item
             android:id="@+id/nav_smoelenboek"
-            android:title="Smoelenboek"/>
+            android:title="@string/smoelenboek"/>
         <!--
         <item
             android:id="@+id/nav_slideshow"

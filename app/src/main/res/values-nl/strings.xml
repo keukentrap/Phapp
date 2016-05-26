@@ -22,4 +22,12 @@
     <string name="title_activity_settings">Intellingen</string>
     <string name="loading">Laden...</string>
     <string name="loginerror">Login error</string>
+    <string name="contact">Contact</string>
+    <string name="agenda">Agenda</string>
+    <string name="workactions">Werkacties</string>
+    <string name="werelookingfor">\'We zoeken nog\'</string>
+    <string name="news">Nieuws</string>
+    <string name="planning">Uitslagen en planning</string>
+    <string name="weather">Weer</string>
+    <string name="smoelenboek">Smoelenboek</string>
 </resources>
