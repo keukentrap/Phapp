@@ -18,6 +18,10 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
+    private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+
+
+        fragmentManager = getFragmentManager();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -74,28 +83,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        // Create a new fragment and specify the planet to show based on position
-//        Fragment fragment = new PlanetFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, );
-//        fragment.setArguments(args);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = new PlusOneFragment();
-        fragmentTransaction.add(R.id.content_main, fragment);
-        fragmentTransaction.commit();
-//
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.content_main, fragment)
-//                .commit();
 
         if (id == R.id.nav_mainpage) {
-
+            setTitle("Phocas");
         } else if (id == R.id.nav_photos) {
-
+            this.setTitle(R.string.photos);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment testFragment = new PlusOneFragment();
+            fragmentTransaction.add(R.id.content_main, testFragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -105,5 +102,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+		mTitle = title;
+		getSupportActionBar().setTitle(mTitle);
     }
 }
