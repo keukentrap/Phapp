@@ -3,42 +3,23 @@ package haakjeopenen.phapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompatSideChannelService;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -55,22 +36,20 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
      * TO/DO: remove after connecting to a real authentication system.
      */
     /**private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };*/
+     "foo@example.com:hello", "bar@example.com:world"
+     };*/
+    private static final String PREFS_NAME = "Phapp_BasicLogin";
+    protected API api;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-
     // UI references.
     private AutoCompleteTextView mUsernameView; //TODO autocomplete weghalen??
     private EditText mPasswordView;
     private CheckBox mKeepLoggedIn;
     private View mProgressView;
     private View mLoginFormView;
-    protected API api;
-
-    private static final String PREFS_NAME = "Phapp_BasicLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +85,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
 
         // If we were supposed to remember username and password, automatically log in with them!
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (settings.getBoolean("rememberLogin", false))
-        {
+        if (settings.getBoolean("rememberLogin", false)) {
             mUsernameView.setText(settings.getString("username", ""));
             mPasswordView.setText(settings.getString("password", ""));
 
@@ -159,13 +137,10 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
             // perform the user login attempt.
             showProgress(true);
 
-            if (username.equals("DEBUG") && password.equals("DEBUG"))
-            {
+            if (username.equals("DEBUG") && password.equals("DEBUG")) {
                 Intent intent = new Intent(this, DebugActivity.class);
                 startActivity(intent);
-            }
-            else
-            {
+            } else {
                 mAuthTask = new UserLoginTask(username, password, mKeepLoggedIn.isChecked(), this);
                 mAuthTask.execute((Void) null);
             }
@@ -276,12 +251,11 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        private static final String PREFS_NAME = "Phapp_BasicLogin";
         private final String mUsername;
         private final String mPassword;
         private boolean keepLoggedIn;
         private Context context;
-
-        private static final String PREFS_NAME = "Phapp_BasicLogin";
 
         UserLoginTask(String username, String password, boolean keepLoggedIn, Context context) {
             mUsername = username;
@@ -301,10 +275,8 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
 
             System.out.println("We krijgen " + (validlogin ? "TRUE" : "FALSE"));
 
-            if (validlogin)
-            {
-                if (keepLoggedIn)
-                {
+            if (validlogin) {
+                if (keepLoggedIn) {
                     // Remember the username&password
                     SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                     SharedPreferences.Editor editor = settings.edit();
@@ -317,9 +289,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
                 return true;
-            }
-            else
-            {
+            } else {
                 System.out.println("invalid!");
                 //AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 //builder.setTitle(R.string.loginerror);

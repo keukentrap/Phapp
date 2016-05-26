@@ -6,9 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,14 +17,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String PREFS_NAME = "Phapp_BasicLogin";
+    protected API api;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
     private CharSequence mTitle;
-
-    protected API api;
-
-    private static final String PREFS_NAME = "Phapp_BasicLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +35,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
 
 
         fragmentManager = getFragmentManager();
@@ -130,7 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setTitle(CharSequence title) {
-		mTitle = title;
-		getSupportActionBar().setTitle(mTitle);
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
     }
 }
