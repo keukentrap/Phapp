@@ -1,9 +1,9 @@
 package haakjeopenen.phapp;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import com.google.android.gms.plus.PlusOneButton;
  * to handle interaction events.
  * Use the {@link PlusOneFragment#newInstance} factory method to
  * create an instance of this fragment.
+ * TODO remove this class
  */
 public class PlusOneFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

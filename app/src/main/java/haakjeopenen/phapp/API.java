@@ -2,52 +2,40 @@ package haakjeopenen.phapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Base64;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by David on 20-5-2016.
  * Handles all network-related things
  */
 public class API {
-	private Context mContext;
+    private static API instance;
+    private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
+    private Context mContext;
 	private RequestQueue queue;
-	private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 	private Gson gson;
-
 	private String username;
 	private String password;
-
-	private static API instance;
-
-	public static API getInstance(Context context) {
-		if (instance == null) instance = new API(context);
-		return instance;
-	}
+    private int validLogin;
 
 	private API(Context context) {
 		mContext = context;
@@ -55,6 +43,11 @@ public class API {
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
 		gson = new Gson();
 	}
+
+    public static API getInstance(Context context) {
+        if (instance == null) instance = new API(context);
+        return instance;
+    }
 
 	public void cmd_test() {
 		System.out.println("STARTING COMMAND TEST");
@@ -72,7 +65,8 @@ public class API {
 		System.out.println("NOW LET'S WAIT I GUESS");
 	}
 
-	public void loadLatestPosts(final TextView textview) // WebView postswebview
+    //TODO make useful again
+    public void loadLatestPosts(final TextView textview) // WebView postswebview
 	{
 		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
 		getRequest("posts/?number=5", new Response.Listener<String>() {
@@ -116,8 +110,6 @@ public class API {
 			}
 		});
 	}
-
-	private int validLogin;
 
 	public boolean checkLogin() {
 		validLogin = -1;
