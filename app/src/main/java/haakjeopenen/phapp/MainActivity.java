@@ -83,15 +83,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
-
         if (id == R.id.nav_mainpage) {
             setTitle("Phocas");
+            fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment testFragment = new PostFragment();
+            fragmentTransaction.replace(R.id.content_main, testFragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_photos) {
             this.setTitle(R.string.photos);
             fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new PlusOneFragment();
-            fragmentTransaction.add(R.id.content_main, testFragment);
+            fragmentTransaction.replace(R.id.content_main, testFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_share) {
 
