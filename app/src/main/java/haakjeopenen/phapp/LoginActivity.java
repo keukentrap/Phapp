@@ -41,7 +41,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity { // implements LoaderCallbacks<Cursor>
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -155,11 +155,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-    private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
-        //return email.contains("@");
-        return true;
-    }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -202,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    /*
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -236,6 +232,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -255,6 +252,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mUsernameView.setAdapter(adapter);
     }
+    */
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -262,38 +260,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
         private Context context;
 
-        UserLoginTask(String email, String password, Context context) {
-            mEmail = email;
+        UserLoginTask(String username, String password, Context context) {
+            mUsername = username;
             mPassword = password;
             this.context = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TO/DO: attempt authentication against a network service.
+            // Attempt authentication against the network service.
 
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            */
-
-            api.setUsername(mEmail);
+            api.setUsername(mUsername);
             api.setPassword(mPassword);
 
             boolean validlogin = api.checkLogin();
