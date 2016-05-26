@@ -78,7 +78,8 @@ public class PostFragment extends Fragment {
     private ArrayList<PostItem> getPosts() {
         ArrayList<PostItem> list = new ArrayList<>();
 
-        list.add(new PostItem(1, "test", "testbericht", new Date(), "Wietze"));
+        list.add(new PostItem(1, "test", "Testbericht", new Date(), "Wietze"));
+        list.add(new PostItem(1, "test", "Testbericht 2", new Date(), "Wietze"));
 
         return list;
     }
