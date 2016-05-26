@@ -4,7 +4,7 @@
     <string name="action_sign_in">Log in</string>
     <string name="action_sign_in_short">Log in</string>
     <string name="error_field_required">Dit veld is verplicht</string>
-    <string name="error_incorrect_password">Dit wachtwoord is onjuist</string>
+    <string name="error_incorrect_password">Inloggegevens zijn onjuist</string>
     <string name="error_invalid_email"></string>
     <string name="error_invalid_password">Dit wachtwoord is te kort</string>
     <string name="prompt_username">Gebruikersnaam</string>

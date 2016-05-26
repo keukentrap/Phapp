@@ -157,11 +157,8 @@ public class API {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
-							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-							builder.setTitle(R.string.loginerror);
-							builder.setMessage("Iets met wachtwoord ofzo");
-							builder.create().show();
 							System.out.println("Login error!");
+							validLogin = 0;
 						} else {
 							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 							builder.setTitle(R.string.connect_error);
@@ -199,11 +196,8 @@ public class API {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
-							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-							builder.setTitle(R.string.loginerror);
-							builder.setMessage("Iets met wachtwoord ofzo");
-							builder.create().show();
 							System.out.println("Login error!");
+							validLogin = 0;
 						} else {
 							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 							builder.setTitle(R.string.connect_error);
@@ -223,6 +217,8 @@ public class API {
 			public Map<String, String> getHeaders() throws AuthFailureError {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("Content-Type", "application/x-www-form-urlencoded");
+				byte[] auth64 = (username + ":" + password).getBytes();
+				params.put("Authorization", "Basic " + Base64.encodeToString(auth64, 0));
 				return params;
 			}
 		};
