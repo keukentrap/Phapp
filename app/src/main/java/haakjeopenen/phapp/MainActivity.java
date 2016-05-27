@@ -16,23 +16,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import fragments.AgendaFragment;
-import fragments.ContactFragment;
-import fragments.PlusOneFragment;
-import fragments.PostFragment;
+import haakjeopenen.phapp.fragments.AgendaFragment;
+import haakjeopenen.phapp.fragments.ContactFragment;
+import haakjeopenen.phapp.fragments.PlusOneFragment;
+import haakjeopenen.phapp.fragments.PostFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String PREFS_NAME = "Phapp_BasicLogin";
+    protected API api;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
     private CharSequence mTitle;
-
-    protected API api;
-
     private TextView nameText;
-
-    private static final String PREFS_NAME = "Phapp_BasicLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

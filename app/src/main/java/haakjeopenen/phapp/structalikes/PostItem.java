@@ -1,4 +1,4 @@
-package structalikes;
+package haakjeopenen.phapp.structalikes;
 
 import java.util.Date;
 

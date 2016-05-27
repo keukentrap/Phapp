@@ -1,4 +1,4 @@
-package fragments;
+package haakjeopenen.phapp.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import haakjeopenen.phapp.MyItemRecyclerViewAdapter;
-import structalikes.PostItem;
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
  * A fragment representing a list of Items.
@@ -108,7 +108,7 @@ public class PostFragment extends Fragment {
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
+     * to the activity and potentially other haakjeopenen.phapp.fragments contained in that
      * activity.
      * <p/>
      * See the Android Training lesson <a href=

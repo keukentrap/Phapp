@@ -2,13 +2,22 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="fragments.AgendaFragment">
+    tools:context=".fragments.AgendaFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/calendarView"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:firstDayOfWeek="2"
+        android:showWeekNumber="true" />
+
+    <TextView
+        android:id="@+id/dateInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="115dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="-dag-" />
 </FrameLayout>

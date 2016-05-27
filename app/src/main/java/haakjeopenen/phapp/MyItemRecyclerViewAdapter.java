@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fragments.PostFragment.OnListFragmentInteractionListener;
-import structalikes.PostItem;
+import haakjeopenen.phapp.fragments.PostFragment.OnListFragmentInteractionListener;
+import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
