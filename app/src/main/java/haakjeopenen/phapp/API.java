@@ -25,6 +25,7 @@ import java.util.Map;
 /**
  * Created by David on 20-5-2016.
  * Handles all network-related things
+ * Contains some user details
  */
 public class API {
     private static API instance;
@@ -33,9 +34,11 @@ public class API {
 	private RequestQueue queue;
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 	private Gson gson;
+
 	private String username;
 	private String password;
     private int validLogin;
+	private String displayName;
 
 	private API(Context context) {
 		mContext = context;
@@ -122,6 +125,12 @@ public class API {
 					//assert(false);
 					validLogin = 0;
 				} else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
+//					System.out.println("#############################");
+//					System.out.println(response);
+//					System.out.println("######################");
+//					System.out.println(jObject.get("name").getAsString());
+
+					setDisplayName(jObject.get("name").getAsString());
 					validLogin = 1;
 				} else {
 					validLogin = 0;
@@ -235,9 +244,15 @@ public class API {
 		this.username = username;
 	}
 
+	public void setDisplayName (String displayName) { this.displayName = displayName; }
+
 	public void logout()
 	{
 		this.username = ""; // NULL?
 		this.password = "";
+	}
+
+	public String getDisplayName() {
+		return displayName;
 	}
 }
