@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import fragments.AgendaFragment;
 import fragments.ContactFragment;
@@ -22,11 +23,16 @@ import fragments.PostFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String PREFS_NAME = "Phapp_BasicLogin";
-    protected API api;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+
     private CharSequence mTitle;
+
+    protected API api;
+
+    private TextView nameText;
+
+    private static final String PREFS_NAME = "Phapp_BasicLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 
+
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         Fragment testFragment = new PostFragment();
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        nameText = (TextView) findViewById(R.id.nameText);
     }
 
     @Override
@@ -68,6 +77,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        nameText.setText(api.getDisplayName());
+
         return true;
     }
 
@@ -140,7 +152,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setTitle(CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+		mTitle = title;
+		getSupportActionBar().setTitle(mTitle);
     }
 }
