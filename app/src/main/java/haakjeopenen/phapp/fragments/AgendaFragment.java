@@ -64,14 +64,19 @@ public class AgendaFragment extends Fragment implements CalendarView.OnDateChang
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
-        //mCalender =
     }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_agenda, container, false);
+		View view = inflater.inflate(R.layout.fragment_agenda, container, false);
+
+		mCalender = (CalendarView) view.findViewById(R.id.calendarView);
+		mCalender.setOnDateChangeListener(this);
+		mDateInfo = (TextView) view.findViewById(R.id.dateInfo);
+
+		return view;
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
@@ -100,7 +105,7 @@ public class AgendaFragment extends Fragment implements CalendarView.OnDateChang
 
     @Override
     public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
-
+		mDateInfo.setText((i2 + 1) + "/" + (i1 + 1) + "/" + i);
     }
 
 	/**
