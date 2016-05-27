@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        nameText = (TextView) findViewById(R.id.nameText);
     }
 
     @Override
@@ -74,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
+        nameText = (TextView) findViewById(R.id.nameText);
         nameText.setText(api.getDisplayName());
 
         return true;
