@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
 
+import haakjeopenen.phapp.API;
 import haakjeopenen.phapp.R;
 
 /**
@@ -30,13 +33,20 @@ public class ContactFragment extends Fragment {
 
 	private OnFragmentInteractionListener mListener;
 
+	protected API api;
+
+	private TextView contacttextview;
+
 	public ContactFragment() {
 		// Required empty public constructor
+		api = API.getInstance(null);
 	}
 
 	/**
 	 * Use this factory method to create a new instance of
 	 * this fragment using the provided parameters.
+	 *
+	 * Van deze constructor wordt niet verwacht dat hij uitgevoerd wordt!
 	 *
 	 * @param param1 Parameter 1.
 	 * @param param2 Parameter 2.
@@ -66,6 +76,14 @@ public class ContactFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.fragment_contact, container, false);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
+		api.loadPageContents("contact", contacttextview);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event

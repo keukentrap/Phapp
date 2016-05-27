@@ -64,7 +64,7 @@ public class AgendaFragment extends Fragment implements CalendarView.OnDateChang
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
-        mCalender =
+        //mCalender =
     }
 
 	@Override

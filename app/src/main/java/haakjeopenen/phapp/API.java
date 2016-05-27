@@ -114,6 +114,33 @@ public class API {
 		});
 	}
 
+	public void loadPageContents(final String pageslug, final TextView textview)
+	{
+		getRequest("pages", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				// Get page with specified slug if it exists!
+				JsonArray jArray = parseJsonArray(response);
+
+				boolean slugFound = false;
+
+				for (int i = 0; i < jArray.size(); i++) {
+					JsonObject j = jArray.get(i).getAsJsonObject();
+
+					if (j.get("slug").getAsString().equals(pageslug)) {
+						slugFound = true;
+
+						textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
+					}
+
+					if (!slugFound) {
+						textview.setText(String.format(mContext.getString(R.string.page404), pageslug));
+					}
+				}
+			}
+		});
+	}
+
 	public boolean checkLogin() {
 		validLogin = -1;
 		getRequest("users/me", new Response.Listener<String>() {
