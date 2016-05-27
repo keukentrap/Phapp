@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.plus.PlusOneButton;
+
+import haakjeopenen.phapp.R;
 
 /**
  * A fragment with a Google +1 button.

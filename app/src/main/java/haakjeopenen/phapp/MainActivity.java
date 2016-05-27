@@ -15,6 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import fragments.AgendaFragment;
+import fragments.ContactFragment;
+import fragments.PlusOneFragment;
+import fragments.PostFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
@@ -91,6 +96,18 @@ public class MainActivity extends AppCompatActivity
             setTitle("Phocas");
             fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new PostFragment();
+            fragmentTransaction.replace(R.id.content_main, testFragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_contact) {
+            this.setTitle(R.string.contact);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment testFragment = new ContactFragment();
+            fragmentTransaction.replace(R.id.content_main, testFragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_agenda) {
+            this.setTitle(R.string.agenda);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment testFragment = new AgendaFragment();
             fragmentTransaction.replace(R.id.content_main, testFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_photos) {

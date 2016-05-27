@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import haakjeopenen.phapp.MyItemRecyclerViewAdapter;
+import structalikes.PostItem;
+import haakjeopenen.phapp.R;
 
 /**
  * A fragment representing a list of Items.
