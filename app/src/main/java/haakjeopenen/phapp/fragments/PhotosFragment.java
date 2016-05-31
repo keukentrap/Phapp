@@ -7,8 +7,11 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
+import haakjeopenen.phapp.API;
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.classes.ImageAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +33,12 @@ public class PhotosFragment extends Fragment {
 
 	private OnFragmentInteractionListener mListener;
 
+	protected API api;
+
+	private GridView photosgridview;
+
+	//private Context mContext;
+
 	/**
 	 * Use this factory method to create a new instance of
 	 * this fragment using the provided parameters.
@@ -46,8 +55,10 @@ public class PhotosFragment extends Fragment {
 		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
-	}	public PhotosFragment() {
-		// Required empty public constructor
+	}
+
+	public PhotosFragment() {
+		api = API.getInstance(null);
 	}
 
 	@Override
@@ -71,6 +82,19 @@ public class PhotosFragment extends Fragment {
 		if (mListener != null) {
 			mListener.onFragmentInteraction(uri);
 		}
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		//contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
+		photosgridview = (GridView) getView().findViewById(R.id.photosGridView);
+		ImageAdapter imageadapter = new ImageAdapter(getActivity());
+		api.loadPhotos("koala", imageadapter);
+		photosgridview.setAdapter(imageadapter);
+
+		//api.loadPhotos("contact", photosgridview);
 	}
 
 	@Override

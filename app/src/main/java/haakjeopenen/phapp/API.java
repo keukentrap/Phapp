@@ -22,6 +22,8 @@ import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.Map;
 
+import haakjeopenen.phapp.classes.ImageAdapter;
+
 /**
  * Created by David on 20-5-2016.
  * Handles all network-related things
@@ -139,6 +141,10 @@ public class API {
 				}
 			}
 		});
+	}
+
+	public void loadPhotos(String page, ImageAdapter imageadapter) {
+
 	}
 
 	public boolean checkLogin() {
