@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import haakjeopenen.phapp.API;
+import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.classes.ImageAdapter;
+import haakjeopenen.phapp.nonactivityclasses.ImageAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

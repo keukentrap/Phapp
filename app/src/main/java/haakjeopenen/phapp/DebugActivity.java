@@ -26,6 +26,8 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import haakjeopenen.phapp.nonactivityclasses.API;
+
 // Kijken wat hiervan nodig is
 
 /**

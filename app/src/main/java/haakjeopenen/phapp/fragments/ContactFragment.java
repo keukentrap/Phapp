@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.support.v7.app.AppCompatActivity;
 
-import haakjeopenen.phapp.API;
+import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
 
 /**

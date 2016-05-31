@@ -21,6 +21,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import haakjeopenen.phapp.nonactivityclasses.API;
+
 /**
  * A login screen that offers login via email/password.
  */

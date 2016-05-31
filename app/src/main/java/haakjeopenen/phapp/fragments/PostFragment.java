@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import haakjeopenen.phapp.API;
+import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.MyItemRecyclerViewAdapter;
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.structalikes.PostItem;

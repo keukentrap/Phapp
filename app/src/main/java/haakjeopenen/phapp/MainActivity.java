@@ -20,6 +20,7 @@ import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.ContactFragment;
 import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
+import haakjeopenen.phapp.nonactivityclasses.API;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

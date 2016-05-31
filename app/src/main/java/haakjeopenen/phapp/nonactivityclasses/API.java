@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package haakjeopenen.phapp.nonactivityclasses;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import haakjeopenen.phapp.classes.ImageAdapter;
+import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
