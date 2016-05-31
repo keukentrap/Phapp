@@ -83,7 +83,7 @@ public class API {
     //TODO make useful again
     public void loadLatestPosts(ArrayList<PostItem> list ) // WebView postswebview
 	{
-		this.list = list;
+		API.list = list; // TODO: make this less uggly (seriously) (also, race conditions)
 
 		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
 		getRequest("posts/?number=5", new Response.Listener<String>() {
@@ -298,8 +298,8 @@ public class API {
 
 	public void logout()
 	{
-		this.username = ""; // NULL?
-		this.password = "";
+		this.username = null; // TODO: NULL?
+		this.password = null;
 	}
 
 	public String getDisplayName() {
