@@ -3,6 +3,7 @@ package haakjeopenen.phapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Base64;
 import android.widget.TextView;
 
@@ -19,10 +20,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import haakjeopenen.phapp.classes.ImageAdapter;
+import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
  * Created by David on 20-5-2016.
@@ -54,6 +58,10 @@ public class API {
         return instance;
     }
 
+	public static API getInstance() {
+		return instance;
+	}
+
 	public void cmd_test() {
 		System.out.println("STARTING COMMAND TEST");
 		getRequest("test/1234?pretty=true", new Response.Listener<String>() {
@@ -70,9 +78,13 @@ public class API {
 		System.out.println("NOW LET'S WAIT I GUESS");
 	}
 
+	public static ArrayList<PostItem> list;
+
     //TODO make useful again
-    public void loadLatestPosts(final TextView textview) // WebView postswebview
+    public void loadLatestPosts(ArrayList<PostItem> list ) // WebView postswebview
 	{
+		this.list = list;
+
 		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
 		getRequest("posts/?number=5", new Response.Listener<String>() {
 			@Override
@@ -103,14 +115,19 @@ public class API {
 						"<body><h2>Recent posts</h2><small>(Beter niet als webview eigenlijk maar iets natives)<br><br></small>" + postslist + "</body>" +
 						"</html>", "text/html", null);
 				*/
-				textview.setText("");
+
+				API.list.clear();
 				JsonArray jArray = parseJsonArray(response);
 
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
 
-					textview.append(j.get("title").getAsJsonObject().get("rendered").getAsString() + "\n");
-					textview.append(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
+					String title = j.get("title").getAsJsonObject().get("rendered").getAsString();
+					Spanned content = Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString());
+					Date date = new Date();
+					String author = j.get("author").getAsString();
+					PostItem item = new PostItem(i,title,content.toString(),date,author);
+					API.list.add(item);
 				}
 			}
 		});

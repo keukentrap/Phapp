@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Date;
 
+import haakjeopenen.phapp.API;
 import haakjeopenen.phapp.MyItemRecyclerViewAdapter;
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.structalikes.PostItem;
@@ -82,8 +83,20 @@ public class PostFragment extends Fragment {
     private ArrayList<PostItem> getPosts() {
         ArrayList<PostItem> list = new ArrayList<>();
 
-        list.add(new PostItem(1, "test", "Testbericht", new Date(), "Wietze"));
-        list.add(new PostItem(1, "test", "Testbericht 2", new Date(), "Wietze"));
+        API api = API.getInstance();
+//        list.add(new PostItem(1, "test", "Testbericht", new Date(), "Wietze"));
+//        list.add(new PostItem(1, "test", "Testbericht 2", new Date(), "Wietze"));
+        api.loadLatestPosts(list);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for(PostItem item : API.list) {
+            System.out.println(item);
+        }
 
         return list;
     }
