@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
      "foo@example.com:hello", "bar@example.com:world"
      };*/
     private static final String PREFS_NAME = "Phapp_BasicLogin";
-    protected API api;
+    private API api;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -256,7 +256,7 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
         private final String mUsername;
         private final String mPassword;
         private boolean keepLoggedIn;
-        private Context context;
+        private final Context context;
 
         UserLoginTask(String username, String password, boolean keepLoggedIn, Context context) {
             mUsername = username;

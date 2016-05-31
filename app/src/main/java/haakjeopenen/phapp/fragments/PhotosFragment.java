@@ -33,7 +33,7 @@ public class PhotosFragment extends Fragment {
 
 	private OnFragmentInteractionListener mListener;
 
-	protected API api;
+	private API api;
 
 	private GridView photosgridview;
 

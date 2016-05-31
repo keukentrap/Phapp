@@ -39,10 +39,10 @@ public class API {
     private static API instance;
     private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
 	private static JsonParser jsonParser;
-	private Context mContext;
-	private RequestQueue queue;
+	private final Context mContext;
+	private final RequestQueue queue;
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
-	private Gson gson;
+//	private Gson gson;
 
 	private String username;
 	private String password;
@@ -53,7 +53,7 @@ public class API {
 		mContext = context;
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
-		gson = new Gson();
+//		gson = new Gson();
 	}
 
 	private static JsonParser getJsonParser() {
@@ -100,7 +100,7 @@ public class API {
 		getRequest("posts/?number=5", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				// We hebben de posts nu
+				// We hebben de posts nuwrap_content
 				/*
 				JsonObject jobject = parseJsonObject(response);
 				JsonArray posts = jobject.getAsJsonArray("posts");
@@ -210,7 +210,8 @@ public class API {
 			public void onResponse(String response) {
 				JsonObject jObject = parseJsonObject(response);
 
-				if (jObject.has("code") && (jObject.get("code").getAsString() == "rest_not_logged_in" || jObject.get("code").getAsString() == "rest_no_route")) {
+				if (jObject.has("code") && (jObject.get("code").getAsString().equals("rest_not_logged_in") || jObject.get("code").getAsString().equals("rest_no_route"))) {
+					// TODO: If something in the login breaks, check here first.
 					//assert(false);
 					validLogin = 0;
 				} else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
@@ -371,7 +372,7 @@ public class API {
 		this.username = username;
 	}
 
-	public void setDisplayName (String displayName) { this.displayName = displayName; }
+	private void setDisplayName(String displayName) { this.displayName = displayName; }
 
 	public void logout()
 	{

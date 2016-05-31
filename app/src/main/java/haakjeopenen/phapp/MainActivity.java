@@ -25,7 +25,7 @@ import haakjeopenen.phapp.nonactivityclasses.API;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
-    protected API api;
+    private API api;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private CharSequence mTitle;

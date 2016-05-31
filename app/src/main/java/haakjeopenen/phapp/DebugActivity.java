@@ -32,7 +32,26 @@ import haakjeopenen.phapp.nonactivityclasses.API;
 
 /**
  * H I D D E N   T E S T I N G   C O D E
+ * I
+ * D
+ * D
+ * E
+ * N
+ *
+ * T
+ * E
+ * S
+ * T
+ * I
+ * N
+ * G
+ *
+ * C
+ * O
+ * D
+ * E
  */
+@SuppressWarnings("ALL")
 public class DebugActivity extends AppCompatActivity {
 
     private final String USER_AGENT = "Phapp/0.0";
@@ -40,7 +59,7 @@ public class DebugActivity extends AppCompatActivity {
     private EditText requesttext;
     private EditText requesttext2;
     private Button submit;
-    private TextView antwoord;
+    private TextView answer;
     private TextView responsecode;
     private Switch oudecodeswitch;
     private RequestQueue queue;
@@ -55,11 +74,11 @@ public class DebugActivity extends AppCompatActivity {
         requesttext = (EditText) findViewById(R.id.debugRequestText);
         requesttext2 = (EditText) findViewById(R.id.debugRequestText2);
         submit = (Button) findViewById(R.id.sendDebugGet);
-        antwoord = (TextView) findViewById(R.id.debugRequestAnswer);
+        answer = (TextView) findViewById(R.id.debugRequestAnswer);
         responsecode = (TextView) findViewById(R.id.responseCodeView);
         oudecodeswitch = (Switch) findViewById(R.id.oudecodeSwitch);
 
-        antwoord.setMovementMethod(new ScrollingMovementMethod());
+        answer.setMovementMethod(new ScrollingMovementMethod());
 
 
         // Instantiate the RequestQueue.
@@ -112,13 +131,13 @@ public class DebugActivity extends AppCompatActivity {
                     StringBuffer response = new StringBuffer();
 
                     while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine + "\n");
+                        response.append(inputLine).append("\n");
                     }
                     in.close();
 
                     //print result
                     //System.out.println(response.toString());
-                    antwoord.setText(response.toString());
+                    answer.setText(response.toString());
 
                     System.out.println("Should've completed");
                 } catch (Exception e) {
@@ -170,13 +189,13 @@ public class DebugActivity extends AppCompatActivity {
                     StringBuffer response = new StringBuffer();
 
                     while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine + "\n");
+                        response.append(inputLine).append("\n");
                     }
                     in.close();
 
                     //print result
                     //System.out.println(response.toString());
-                    antwoord.setText(response.toString());
+                    answer.setText(response.toString());
 
                     System.out.println("Should've completed");
                 } catch (Exception e) {
@@ -199,13 +218,13 @@ public class DebugActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display all of the response.
-                        antwoord.setText(response);
+                        answer.setText(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        antwoord.setText("Ño: " + error.toString() + ", " + String.valueOf(error.networkResponse.statusCode));
+                        answer.setText("Ño: " + error.toString() + ", " + String.valueOf(error.networkResponse.statusCode));
                         responsecode.setText(String.valueOf(error.networkResponse.statusCode));
                     }
                 }
@@ -224,13 +243,13 @@ public class DebugActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display all of the response.
-                        antwoord.setText(response);
+                        answer.setText(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        antwoord.setText("Ño: " + error.toString() + ", " + String.valueOf(error.networkResponse.statusCode));
+                        answer.setText("Ño: " + error.toString() + ", " + String.valueOf(error.networkResponse.statusCode));
                         responsecode.setText(String.valueOf(error.networkResponse.statusCode));
                     }
                 }

@@ -17,7 +17,7 @@ import haakjeopenen.phapp.R;
  * Created by U on 31-5-2016.
  */
 public class ImageAdapter extends BaseAdapter {
-	private Context mContext;
+	private final Context mContext;
 
 	public ImageAdapter(Context c) {
 		mContext = c;

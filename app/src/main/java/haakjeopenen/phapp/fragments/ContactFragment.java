@@ -32,7 +32,7 @@ public class ContactFragment extends Fragment {
 
 	private OnFragmentInteractionListener mListener;
 
-	protected API api;
+	private API api;
 
 	private TextView contacttextview;
 
