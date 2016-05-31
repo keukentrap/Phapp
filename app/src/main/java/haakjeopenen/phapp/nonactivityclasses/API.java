@@ -73,7 +73,7 @@ public class API {
 		return instance;
 	}
 
-	public void cmd_test() {
+	public void cmd_test() { // TODO: remove this when no longer needed
 		System.out.println("STARTING COMMAND TEST");
 		getRequest("test/1234?pretty=true", new Response.Listener<String>() {
 			@Override
@@ -154,12 +154,12 @@ public class API {
 
 				boolean slugFound = false;
 
-				for (int i = 0; i < jArray.size(); i++) {
-					JsonObject j = jArray.get(i).getAsJsonObject();
+				for (JsonElement e : jArray) {
+//					JsonElement jsonElement = jArray.get(i);
+					JsonObject j = e.getAsJsonObject();
 
 					if (j.get("slug").getAsString().equals(pageslug)) {
 						slugFound = true;
-
 						textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
 					}
 
