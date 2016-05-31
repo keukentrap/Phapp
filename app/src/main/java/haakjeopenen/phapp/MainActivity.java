@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.ContactFragment;
-import haakjeopenen.phapp.fragments.PlusOneFragment;
+import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_photos) {
             this.setTitle(R.string.photos);
             fragmentTransaction = fragmentManager.beginTransaction();
-            Fragment testFragment = new PlusOneFragment();
+            Fragment testFragment = new PhotosFragment();
             fragmentTransaction.replace(R.id.content_main, testFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_logout) {
