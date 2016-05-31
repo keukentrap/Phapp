@@ -36,7 +36,8 @@ import haakjeopenen.phapp.structalikes.PostItem;
 public class API {
     private static API instance;
     private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
-    private Context mContext;
+	private static JsonParser jsonParser;
+	private Context mContext;
 	private RequestQueue queue;
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 	private Gson gson;
@@ -51,6 +52,14 @@ public class API {
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
 		gson = new Gson();
+	}
+
+	private static JsonParser getJsonParser() {
+		if (jsonParser == null) {
+			jsonParser = new JsonParser();
+		}
+
+		return jsonParser;
 	}
 
     public static API getInstance(Context context) {
@@ -277,12 +286,12 @@ public class API {
 	}
 
 	private JsonArray parseJsonArray(String jsonstring) {
-		JsonElement jelement = new JsonParser().parse(jsonstring);
+		JsonElement jelement = getJsonParser().parse(jsonstring);
 		return jelement.getAsJsonArray();
 	}
 
 	private JsonObject parseJsonObject(String jsonstring) {
-		JsonElement jelement = new JsonParser().parse(jsonstring);
+		JsonElement jelement = getJsonParser().parse(jsonstring);
 		return jelement.getAsJsonObject();
 	}
 
