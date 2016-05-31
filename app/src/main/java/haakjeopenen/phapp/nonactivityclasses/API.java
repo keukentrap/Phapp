@@ -2,6 +2,8 @@ package haakjeopenen.phapp.nonactivityclasses;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
@@ -160,8 +162,36 @@ public class API {
 		});
 	}
 
-	public void loadPhotos(String page, ImageAdapter imageadapter) {
+	public void loadPhotos(final ImageAdapter imageadapter) {
+		//imageadapter.addThumb(R.drawable.sample_3);
+		//imageadapter.addThumb(R.drawable.sample_2);
+		//imageadapter.addThumb(R.drawable.sample_7);
 
+		getRequest("media", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				// Get page with specified slug if it exists!
+				JsonArray jArray = parseJsonArray(response);
+
+				for (int i = 0; i < jArray.size(); i++) {
+					JsonObject j = jArray.get(i).getAsJsonObject();
+
+					String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
+
+					//imageadapter.addThumb(BitmapFactory.decodeStream(
+					fullGetRequest(imgurl, new Response.Listener<String>() {
+						@Override
+						public void onResponse(String iresponse) {
+							// Get this image and add it to the grid
+							imageadapter.addThumb(BitmapFactory.decodeByteArray(iresponse.getBytes(), 0, iresponse.length()));
+
+							// Temp
+							//imageadapter.addThumb(BitmapFactory.decodeResource(null, R.drawable.sample_7));
+						}
+					});
+				}
+			}
+		});
 	}
 
 	public boolean checkLogin() {
@@ -192,6 +222,44 @@ public class API {
 		while (validLogin == -1);
 
 		return validLogin == 1;
+	}
+
+	/**
+	 * Perform a GET request with a full URL
+	 *
+	 * @param url      A full URL
+	 * @param listener A listener that runs when there's a server response
+	 */
+	private void fullGetRequest(String url, Response.Listener<String> listener) {
+		System.out.println("Full GET  request: " + url);
+		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+				listener,
+				new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+							System.out.println("Login error!");
+							validLogin = 0;
+						} else {
+							AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+							builder.setTitle(R.string.connect_error);
+							builder.setMessage(error.toString() + (error.networkResponse != null ? ", " + String.valueOf(error.networkResponse.statusCode) : ""));
+							builder.create().show();
+							System.out.println("Error response for GET!");
+						}
+					}
+				}
+		) {
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				byte[] auth64 = (username + ":" + password).getBytes();
+				params.put("Authorization", "Basic " + Base64.encodeToString(auth64, 0));
+
+				return params;
+			}
+		};
+		queue.add(stringRequest);
 	}
 
 	/**

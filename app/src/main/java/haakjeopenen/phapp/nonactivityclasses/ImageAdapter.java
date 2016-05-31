@@ -1,11 +1,15 @@
 package haakjeopenen.phapp.nonactivityclasses;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import haakjeopenen.phapp.R;
 
@@ -20,7 +24,7 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		return mThumbIds.length;
+		return mThumbIds.size();
 	}
 
 	public Object getItem(int position) {
@@ -44,12 +48,13 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		imageView.setImageResource(mThumbIds[position]);
+		imageView.setImageBitmap(mThumbIds.get(position));
 		return imageView;
 	}
 
 	// references to our images
-	private Integer[] mThumbIds = {
+	//private Integer[] mThumbIds = {
+			/*
 			R.drawable.sample_2, R.drawable.sample_3,
 			R.drawable.sample_4, R.drawable.sample_5,
 			R.drawable.sample_6, R.drawable.sample_7,
@@ -61,5 +66,25 @@ public class ImageAdapter extends BaseAdapter {
 			R.drawable.sample_2, R.drawable.sample_3,
 			R.drawable.sample_4, R.drawable.sample_5,
 			R.drawable.sample_6, R.drawable.sample_7
-	};
+			*/
+	//};
+
+	private List<Bitmap> mThumbIds = new ArrayList<Bitmap>();
+
+	/**
+	 * Remove all thumbs
+	 */
+	public void resetThumbs()
+	{
+		mThumbIds.clear();
+	}
+
+	// Temp
+	public void addThumb(Bitmap bitmap)
+	{
+		//mThumbIds.add(R.drawable.sample_3);
+		assert(bitmap != null);
+
+		mThumbIds.add(bitmap);
+	}
 }

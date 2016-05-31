@@ -91,7 +91,7 @@ public class PhotosFragment extends Fragment {
 		//contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
 		photosgridview = (GridView) getView().findViewById(R.id.photosGridView);
 		ImageAdapter imageadapter = new ImageAdapter(getActivity());
-		api.loadPhotos("koala", imageadapter);
+		api.loadPhotos(imageadapter);
 		photosgridview.setAdapter(imageadapter);
 
 		//api.loadPhotos("contact", photosgridview);
