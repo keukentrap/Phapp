@@ -38,7 +38,8 @@ import haakjeopenen.phapp.structalikes.PostItem;
 public class API {
     private static API instance;
     private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
-    private Context mContext;
+	private static JsonParser jsonParser;
+	private Context mContext;
 	private RequestQueue queue;
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 	private Gson gson;
@@ -53,6 +54,14 @@ public class API {
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
 		gson = new Gson();
+	}
+
+	private static JsonParser getJsonParser() {
+		if (jsonParser == null) {
+			jsonParser = new JsonParser();
+		}
+
+		return jsonParser;
 	}
 
     public static API getInstance(Context context) {
@@ -85,7 +94,7 @@ public class API {
     //TODO make useful again
     public void loadLatestPosts(ArrayList<PostItem> list ) // WebView postswebview
 	{
-		this.list = list;
+		API.list = list; // TODO: make this less uggly (seriously) (also, race conditions)
 
 		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
 		getRequest("posts/?number=5", new Response.Listener<String>() {
@@ -345,12 +354,12 @@ public class API {
 	}
 
 	private JsonArray parseJsonArray(String jsonstring) {
-		JsonElement jelement = new JsonParser().parse(jsonstring);
+		JsonElement jelement = getJsonParser().parse(jsonstring);
 		return jelement.getAsJsonArray();
 	}
 
 	private JsonObject parseJsonObject(String jsonstring) {
-		JsonElement jelement = new JsonParser().parse(jsonstring);
+		JsonElement jelement = getJsonParser().parse(jsonstring);
 		return jelement.getAsJsonObject();
 	}
 
@@ -366,8 +375,8 @@ public class API {
 
 	public void logout()
 	{
-		this.username = ""; // NULL?
-		this.password = "";
+		this.username = null; // TODO: NULL?
+		this.password = null;
 	}
 
 	public String getDisplayName() {
