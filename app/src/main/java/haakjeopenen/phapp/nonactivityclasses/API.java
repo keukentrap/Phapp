@@ -3,7 +3,9 @@ package haakjeopenen.phapp.nonactivityclasses;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
@@ -21,7 +23,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +47,7 @@ public class API {
     private static API instance;
     private final String globalUrlPrefix = "http://dev.phocasnijmegen.nl/wp-json/wp/v2/";
 	private static JsonParser jsonParser;
-	private final Context mContext;
+	private Context mContext; // was final
 	private final RequestQueue queue;
 	//private final String globalUrlPrefix = "http://145.116.153.188/wordphress/wp-json/wp/v2/";
 //	private Gson gson;
@@ -70,11 +74,16 @@ public class API {
 
     public static API getInstance(Context context) {
         if (instance == null) instance = new API(context);
+		else if (context != null) instance.setContext(context);
         return instance;
     }
 
 	public static API getInstance() {
 		return instance;
+	}
+
+	public void setContext(Context context) {
+		mContext = context;
 	}
 
 	public void cmd_test() { // TODO: remove this when no longer needed
@@ -172,17 +181,34 @@ public class API {
 
 					String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
 
+					Bitmap thisbitmap = null;
+					try {
+						thisbitmap = Picasso.with(mContext).load(imgurl).get();
+					}
+					catch (Exception e) {
+						// Gulp
+					}
+
+					imageadapter.addThumb(thisbitmap);
+
 					//imageadapter.addThumb(BitmapFactory.decodeStream(
-					fullGetRequest(imgurl, new Response.Listener<String>() {
-						@Override
-							public void onResponse(String iresponse) {
+					//fullGetRequest(imgurl, new Response.Listener<String>() {
+						//@Override
+							//public void onResponse(String iresponse) {
 							// Get this image and add it to the grid
-							imageadapter.addThumb(BitmapFactory.decodeByteArray(iresponse.getBytes(), 0, iresponse.length()));
+							//imageadapter.addThumb(BitmapFactory.decodeByteArray(iresponse.getBytes(), 0, iresponse.length()));
 
 							// Temp
-							imageadapter.addThumb(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sample_7));
-						}
-					});
+							//imageadapter.addThumb(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sample_7));
+
+							//ByteArrayInputStream is = new ByteArrayInputStream(iresponse.getBytes());
+
+							//if (is.markSupported())
+								//is.reset();
+
+							//Drawable drw = Drawable.createFromStream(is, "galleryImage");
+						//}
+					//});
 				}
 			}
 		});

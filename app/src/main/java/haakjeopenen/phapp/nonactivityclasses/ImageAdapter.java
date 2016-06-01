@@ -2,6 +2,7 @@ package haakjeopenen.phapp.nonactivityclasses;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,7 +25,7 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		return mThumbIds.size();
+		return mThumbs.size();
 	}
 
 	public Object getItem(int position) {
@@ -48,7 +49,7 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		imageView.setImageBitmap(mThumbIds.get(position));
+		imageView.setImageBitmap(mThumbs.get(position)); // .setImageBitmap(mThumbIds.get(position));
 		return imageView;
 	}
 
@@ -69,14 +70,14 @@ public class ImageAdapter extends BaseAdapter {
 			*/
 	//};
 
-	private List<Bitmap> mThumbIds = new ArrayList<Bitmap>();
+	private List<Bitmap> mThumbs = new ArrayList<Bitmap>();
 
 	/**
 	 * Remove all thumbs
 	 */
 	public void resetThumbs()
 	{
-		mThumbIds.clear();
+		mThumbs.clear();
 	}
 
 	// Temp
@@ -85,6 +86,8 @@ public class ImageAdapter extends BaseAdapter {
 		//mThumbIds.add(R.drawable.sample_3);
 		assert(bitmap != null);
 
-		mThumbIds.add(bitmap);
+		mThumbs.add(bitmap);
+
+		System.out.println("Adding drawable");
 	}
 }
