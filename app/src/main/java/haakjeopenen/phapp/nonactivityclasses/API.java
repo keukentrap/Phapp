@@ -126,28 +126,30 @@ public class API {
 		});
 	}
 
-	public void loadPageContents(final String pageslug, final TextView textview)
+	private int pageslugToID(String pageslug)
 	{
-		getRequest("pages", new Response.Listener<String>() {
+		//TODO: When moving to the non-dev site, change the IDs
+		if (pageslug.equals("contact"))		{ return 19; }
+
+		return -1;
+	}
+
+	public void loadPageContents(String pageslug, final TextView textview)
+	{
+		final int pid = pageslugToID(pageslug);
+
+		getRequest("pages/"+pid, new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				// Get page with specified slug if it exists!
-				JsonArray jArray = parseJsonArray(response);
+				JsonObject j = parseJsonObject(response);
 
-				boolean slugFound = false;
-
-				for (JsonElement e : jArray) {
-//					JsonElement jsonElement = jArray.get(i);
-					JsonObject j = e.getAsJsonObject();
-
-					if (j.get("slug").getAsString().equals(pageslug)) {
-						slugFound = true;
-						textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
-					}
-
-					if (!slugFound) {
-						textview.setText(String.format(mContext.getString(R.string.page404), pageslug));
-					}
+				if (j.has("code") && (j.get("code").getAsString() != null) && (j.get("code").getAsString() == "rest_post_invalid_id"))
+				{
+					textview.setText(String.format(mContext.getString(R.string.page404), pid));
+				}
+				else
+				{
+					textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
 				}
 			}
 		});
@@ -172,12 +174,12 @@ public class API {
 					//imageadapter.addThumb(BitmapFactory.decodeStream(
 					fullGetRequest(imgurl, new Response.Listener<String>() {
 						@Override
-						public void onResponse(String iresponse) {
+							public void onResponse(String iresponse) {
 							// Get this image and add it to the grid
 							imageadapter.addThumb(BitmapFactory.decodeByteArray(iresponse.getBytes(), 0, iresponse.length()));
 
 							// Temp
-							//imageadapter.addThumb(BitmapFactory.decodeResource(null, R.drawable.sample_7));
+							imageadapter.addThumb(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sample_7));
 						}
 					});
 				}
