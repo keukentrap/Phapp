@@ -14,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.ContactFragment;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private CharSequence mTitle;
     private TextView nameText;
+	private ImageView avaView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,10 @@ public class MainActivity extends AppCompatActivity
 
         nameText = (TextView) findViewById(R.id.nameText);
         nameText.setText(api.getDisplayName());
+
+		avaView = (ImageView) findViewById(R.id.avaView);
+		//avaView.setImageBitmap(api.getAvabitmap());
+		Picasso.with(this).load(api.getAvaurl()).into(avaView);
 
         return true;
     }

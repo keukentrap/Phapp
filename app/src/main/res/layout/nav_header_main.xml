@@ -13,7 +13,7 @@
     android:weightSum="1">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/avaView"
         android:layout_width="94dp"
         android:layout_height="0dp"
         android:layout_weight="0.60"

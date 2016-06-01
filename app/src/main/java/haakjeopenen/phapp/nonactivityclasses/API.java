@@ -56,6 +56,7 @@ public class API {
 	private String password;
     private int validLogin;
 	private String displayName;
+	private String avaurl;
 
 	private API(Context context) {
 		mContext = context;
@@ -154,13 +155,9 @@ public class API {
 				JsonObject j = parseJsonObject(response);
 
 				if (j.has("code") && (j.get("code").getAsString() != null) && (j.get("code").getAsString() == "rest_post_invalid_id"))
-				{
 					textview.setText(String.format(mContext.getString(R.string.page404), pid));
-				}
 				else
-				{
 					textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
-				}
 			}
 		});
 	}
@@ -232,6 +229,9 @@ public class API {
 //					System.out.println(jObject.get("name").getAsString());
 
 					setDisplayName(jObject.get("name").getAsString());
+
+					avaurl = jObject.get("avatar_urls").getAsJsonObject().get("96").getAsString();
+
 					validLogin = 1;
 				} else {
 					validLogin = 0;
@@ -393,5 +393,9 @@ public class API {
 
 	public String getDisplayName() {
 		return displayName;
+	}
+
+	public String getAvaurl() {
+		return avaurl;
 	}
 }
