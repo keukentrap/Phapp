@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.nonactivityclasses.API;
-import haakjeopenen.phapp.MyItemRecyclerViewAdapter;
+import haakjeopenen.phapp.structalikes.PostRecyclerViewAdapter;
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.structalikes.PostItem;
 
@@ -30,6 +30,10 @@ public class PostFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private PostRecyclerViewAdapter adapter;
+
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -66,38 +70,27 @@ public class PostFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(getPosts(), mListener));
+            ArrayList<PostItem> list = new ArrayList<>();
+
+            API api = API.getInstance();
+            api.loadLatestPosts(list,this);
+
+            adapter =  new PostRecyclerViewAdapter(list, mListener);
+
+           //recyclerView.setAdapter(adapter);
         }
         return view;
     }
 
-    //TODO get info from Wordpress API
-    private ArrayList<PostItem> getPosts() {
-        ArrayList<PostItem> list = new ArrayList<>();
-
-        API api = API.getInstance();
-//        list.add(new PostItem(1, "test", "Testbericht", new Date(), "Wietze"));
-//        list.add(new PostItem(1, "test", "Testbericht 2", new Date(), "Wietze"));
-        api.loadLatestPosts(list);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        for(PostItem item : API.list) {
-            System.out.println(item);
-        }
-
-        return list;
+    public void notifyUpdatePosts() {
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

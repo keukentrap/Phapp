@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.fragments.PostFragment;
 import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
@@ -89,45 +91,17 @@ public class API {
 		System.out.println("NOW LET'S WAIT I GUESS");
 	}
 
-	public static ArrayList<PostItem> list;
-
-    //TODO make useful again
-    public void loadLatestPosts(ArrayList<PostItem> list ) // WebView postswebview
+    public void loadLatestPosts(final ArrayList<PostItem> list ,final PostFragment fragment) // WebView postswebview
 	{
-		API.list = list; // TODO: make this less uggly (seriously) (also, race conditions)
-
-		//getRequest("sites/phocasnijmegen.nl/posts/?number=5&pretty=true&fields=ID%2Ctitle%2Cauthor%2Cdate%2Cexcerpt", new Response.Listener<String>() {
-		getRequest("posts/?number=5", new Response.Listener<String>() {
+		getRequest("posts", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
 				// We hebben de posts nuwrap_content
-				/*
-				JsonObject jobject = parseJsonObject(response);
-				JsonArray posts = jobject.getAsJsonArray("posts");
 
-				//Post[] posts = gson.fromJson(response, Post[].class);
-				String postslist = "";
-				for (JsonElement post : posts)
-				{
-					JsonObject postobject = post.getAsJsonObject();
+				//JsonObject jobject = parseJsonObject(response);
+				//JsonArray posts = jobject.getAsJsonArray("posts");
+				// We hebben de posts nu
 
-					JsonObject authorobject = postobject.getAsJsonObject("author");
-
-					//postslist += post.toString() + "\n\n";
-					postslist += "<b>" + postobject.get("title").toString() + "</b><br>" + authorobject.get("name") + ", " + postobject.get("date") + postobject.get("excerpt").toString();
-				}
-				postswebview.loadData("<!DOCTYPE html>" +
-						"<html>" +
-						"<head>" +
-						"<style>" +
-						"" +
-						"</style>" +
-						"</head>" +
-						"<body><h2>Recent posts</h2><small>(Beter niet als webview eigenlijk maar iets natives)<br><br></small>" + postslist + "</body>" +
-						"</html>", "text/html", null);
-				*/
-
-				API.list.clear();
 				JsonArray jArray = parseJsonArray(response);
 
 				for (int i = 0; i < jArray.size(); i++) {
@@ -138,8 +112,9 @@ public class API {
 					Date date = new Date();
 					String author = j.get("author").getAsString();
 					PostItem item = new PostItem(i,title,content.toString(),date,author);
-					API.list.add(item);
+					list.add(item);
 				}
+				fragment.notifyUpdatePosts();
 			}
 		});
 	}

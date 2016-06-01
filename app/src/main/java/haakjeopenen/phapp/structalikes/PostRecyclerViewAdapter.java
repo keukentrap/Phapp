@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package haakjeopenen.phapp.structalikes;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,20 +8,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.fragments.PostFragment.OnListFragmentInteractionListener;
-import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link PostItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder> {
 
     private final List<PostItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<PostItem> items, OnListFragmentInteractionListener listener) {
+    public PostRecyclerViewAdapter(List<PostItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,11 +32,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return new ViewHolder(view);
     }
 
-    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         //holder.mIdView.setText(mValues.get(position).id);
+        holder.mTitleView.setText(mValues.get(position).title);
         holder.mContentView.setText(mValues.get(position).content);
+        holder.mAuthorView.setText(mValues.get(position).author);
+        holder.mDateView.setText(mValues.get(position).date.toString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,16 +57,21 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return mValues.size();
     }
 
-    //TODO design a nice viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
+        public final TextView mTitleView;
         public final TextView mContentView;
+        public final TextView mAuthorView;
+        public final TextView mDateView;
         public PostItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTitleView = (TextView) view.findViewById(R.id.title);
+            mContentView = (TextView) view.findViewById(R.id.author);
+            mAuthorView = (TextView) view.findViewById(R.id.content);
+            mDateView = (TextView) view.findViewById(R.id.date);
         }
 
         @Override
