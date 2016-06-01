@@ -110,28 +110,20 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_mainpage) {
             setTitle("Phocas");
-            fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new PostFragment();
-            fragmentTransaction.replace(R.id.content_main, testFragment);
-            fragmentTransaction.commit();
+            loadFragment(testFragment);
         } else if (id == R.id.nav_contact) {
             this.setTitle(R.string.contact);
-            fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new ContactFragment();
-            fragmentTransaction.replace(R.id.content_main, testFragment);
-            fragmentTransaction.commit();
+            loadFragment(testFragment);
         } else if (id == R.id.nav_agenda) {
             this.setTitle(R.string.agenda);
-            fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new AgendaFragment();
-            fragmentTransaction.replace(R.id.content_main, testFragment);
-            fragmentTransaction.commit();
+            loadFragment(testFragment);
         } else if (id == R.id.nav_photos) {
             this.setTitle(R.string.photos);
-            fragmentTransaction = fragmentManager.beginTransaction();
             Fragment testFragment = new PhotosFragment();
-            fragmentTransaction.replace(R.id.content_main, testFragment);
-            fragmentTransaction.commit();
+            loadFragment(testFragment);
         } else if (id == R.id.nav_logout) {
             // Forget everything
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -153,6 +145,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void loadFragment(Fragment testFragment) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, testFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
