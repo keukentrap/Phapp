@@ -1,6 +1,7 @@
 package haakjeopenen.phapp.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+
+import java.util.ArrayList;
 
 import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
@@ -34,7 +37,7 @@ public class PhotosFragment extends Fragment {
 	private OnFragmentInteractionListener mListener;
 
 	private API api;
-
+	private ImageAdapter imageadapter;
 	private GridView photosgridview;
 
 	//private Context mContext;
@@ -90,11 +93,17 @@ public class PhotosFragment extends Fragment {
 
 		//contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
 		photosgridview = (GridView) getView().findViewById(R.id.photosGridView);
-		ImageAdapter imageadapter = new ImageAdapter(getActivity());
-		api.loadPhotos(imageadapter);
-		photosgridview.setAdapter(imageadapter);
+		ArrayList<String> thumbs = new ArrayList<>();
+		imageadapter = new ImageAdapter(getActivity(),thumbs);
+		api.loadPhotos(thumbs,this);
+
 
 		//api.loadPhotos("contact", photosgridview);
+	}
+
+	public void notifyUpdatePhotos() {
+		//System.out.println("notified UpdatePhotos");
+		photosgridview.setAdapter(imageadapter);
 	}
 
 	@Override

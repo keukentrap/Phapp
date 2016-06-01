@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -26,6 +27,8 @@ import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ import java.util.Map;
 
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
 import haakjeopenen.phapp.structalikes.PostItem;
 
@@ -162,10 +166,7 @@ public class API {
 		});
 	}
 
-	public void loadPhotos(final ImageAdapter imageadapter) {
-		//imageadapter.addThumb(R.drawable.sample_3);
-		//imageadapter.addThumb(R.drawable.sample_2);
-		//imageadapter.addThumb(R.drawable.sample_7);
+	public void loadPhotos(final ArrayList<String> thumbs, final PhotosFragment photosFragment) {
 
 		getRequest("media", new Response.Listener<String>() {
 			@Override
@@ -176,37 +177,13 @@ public class API {
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
 
-					String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
+					final String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
 
-					Bitmap thisbitmap = null;
-					try {
-						thisbitmap = Picasso.with(mContext).load(imgurl).get();
-					}
-					catch (Exception e) {
-						// Gulp
-					}
+					thumbs.add(imgurl);
 
-					imageadapter.addThumb(thisbitmap);
-
-					//imageadapter.addThumb(BitmapFactory.decodeStream(
-					//fullGetRequest(imgurl, new Response.Listener<String>() {
-						//@Override
-							//public void onResponse(String iresponse) {
-							// Get this image and add it to the grid
-							//imageadapter.addThumb(BitmapFactory.decodeByteArray(iresponse.getBytes(), 0, iresponse.length()));
-
-							// Temp
-							//imageadapter.addThumb(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sample_7));
-
-							//ByteArrayInputStream is = new ByteArrayInputStream(iresponse.getBytes());
-
-							//if (is.markSupported())
-								//is.reset();
-
-							//Drawable drw = Drawable.createFromStream(is, "galleryImage");
-						//}
-					//});
 				}
+				photosFragment.notifyUpdatePhotos();
+
 			}
 		});
 	}

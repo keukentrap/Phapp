@@ -2,12 +2,16 @@ package haakjeopenen.phapp.nonactivityclasses;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +23,11 @@ import haakjeopenen.phapp.R;
  */
 public class ImageAdapter extends BaseAdapter {
 	private final Context mContext;
+	private List<String> mThumbs = new ArrayList<>();
 
-	public ImageAdapter(Context c) {
+	public ImageAdapter(Context c, ArrayList<String> thumbs) {
 		mContext = c;
+		mThumbs = thumbs;
 	}
 
 	public int getCount() {
@@ -39,6 +45,9 @@ public class ImageAdapter extends BaseAdapter {
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
+		TextView textView = new TextView(mContext);
+		textView.setText("Roeiboot");
+
 		if (convertView == null) {
 			// if it's not recycled, initialize some attributes
 			imageView = new ImageView(mContext);
@@ -49,28 +58,10 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		imageView.setImageBitmap(mThumbs.get(position)); // .setImageBitmap(mThumbIds.get(position));
+		Picasso.with(mContext).load(mThumbs.get(position)).into(imageView);
+
 		return imageView;
 	}
-
-	// references to our images
-	//private Integer[] mThumbIds = {
-			/*
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7,
-			R.drawable.sample_0, R.drawable.sample_1,
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7,
-			R.drawable.sample_0, R.drawable.sample_1,
-			R.drawable.sample_2, R.drawable.sample_3,
-			R.drawable.sample_4, R.drawable.sample_5,
-			R.drawable.sample_6, R.drawable.sample_7
-			*/
-	//};
-
-	private List<Bitmap> mThumbs = new ArrayList<Bitmap>();
 
 	/**
 	 * Remove all thumbs
@@ -78,16 +69,5 @@ public class ImageAdapter extends BaseAdapter {
 	public void resetThumbs()
 	{
 		mThumbs.clear();
-	}
-
-	// Temp
-	public void addThumb(Bitmap bitmap)
-	{
-		//mThumbIds.add(R.drawable.sample_3);
-		assert(bitmap != null);
-
-		mThumbs.add(bitmap);
-
-		System.out.println("Adding drawable");
 	}
 }
