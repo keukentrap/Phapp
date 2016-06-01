@@ -3,8 +3,7 @@ package haakjeopenen.phapp.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.nonactivityclasses.API;
+import haakjeopenen.phapp.structalikes.MultiSwipeRefreshLayout;
 import haakjeopenen.phapp.structalikes.PostRecyclerViewAdapter;
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.structalikes.PostItem;
@@ -23,14 +23,11 @@ import haakjeopenen.phapp.structalikes.PostItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class PostFragment extends Fragment {
+public class PostFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+
     private OnListFragmentInteractionListener mListener;
-
+    private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
     private PostRecyclerViewAdapter adapter;
 
     private RecyclerView recyclerView;
@@ -47,7 +44,6 @@ public class PostFragment extends Fragment {
     public static PostFragment newInstance(int columnCount) {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +53,6 @@ public class PostFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
     }
@@ -67,29 +62,25 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+        recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
-            ArrayList<PostItem> list = new ArrayList<>();
+        multiSwipeRefreshLayout = (MultiSwipeRefreshLayout) view;
+        multiSwipeRefreshLayout.setSwipeableChildren(R.id.list);
+        multiSwipeRefreshLayout.setOnRefreshListener(this);
 
-            API api = API.getInstance();
-            api.loadLatestPosts(list,this);
+        ArrayList<PostItem> list = new ArrayList<>();
 
-            adapter =  new PostRecyclerViewAdapter(list, mListener);
+        API api = API.getInstance();
+        api.loadLatestPosts(list,this);
 
-           //recyclerView.setAdapter(adapter);
-        }
+        adapter =  new PostRecyclerViewAdapter(list, mListener);
+
+
         return view;
     }
 
     public void notifyUpdatePosts() {
+        multiSwipeRefreshLayout.setRefreshing(false);
         recyclerView.setAdapter(adapter);
     }
 
@@ -108,6 +99,14 @@ public class PostFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        System.out.println("Refreshing");
+        ArrayList<PostItem> list = new ArrayList<>();
+        adapter = new PostRecyclerViewAdapter(list,mListener);
+        API.getInstance().loadLatestPosts(list,this);
     }
 
     /**

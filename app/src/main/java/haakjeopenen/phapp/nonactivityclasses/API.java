@@ -104,6 +104,7 @@ public class API {
 				//JsonArray posts = jobject.getAsJsonArray("posts");
 				// We hebben de posts nu
 
+				list.clear();
 				JsonArray jArray = parseJsonArray(response);
 
 				for (int i = 0; i < jArray.size(); i++) {
