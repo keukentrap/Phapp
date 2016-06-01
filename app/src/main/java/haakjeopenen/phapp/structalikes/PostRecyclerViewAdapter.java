@@ -38,7 +38,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         holder.mTitleView.setText(mValues.get(position).title);
         holder.mContentView.setText(mValues.get(position).content);
         holder.mAuthorView.setText(mValues.get(position).author);
-        holder.mDateView.setText(mValues.get(position).date.toString());
+        holder.mDateView.setText(String.format("%te %tb %tY",mValues.get(position).date,mValues.get(position).date,mValues.get(position).date));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +69,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
             super(view);
             mView = view;
             mTitleView = (TextView) view.findViewById(R.id.title);
-            mContentView = (TextView) view.findViewById(R.id.author);
-            mAuthorView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.content);
+            mAuthorView = (TextView) view.findViewById(R.id.author);
             mDateView = (TextView) view.findViewById(R.id.date);
         }
 

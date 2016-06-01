@@ -22,6 +22,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -109,7 +111,12 @@ public class API {
 
 					String title = j.get("title").getAsJsonObject().get("rendered").getAsString();
 					Spanned content = Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString());
-					Date date = new Date();
+					Date date = null;
+					try {
+						date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(j.get("date").getAsString());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 					String author = j.get("author").getAsString();
 					PostItem item = new PostItem(i,title,content.toString(),date,author);
 					list.add(item);
