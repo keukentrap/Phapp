@@ -124,19 +124,35 @@ public class API {
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
 
-					String title = j.get("title").getAsJsonObject().get("rendered").getAsString();
-					Spanned content = Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString());
+					final int finali = i;
+					final String title = j.get("title").getAsJsonObject().get("rendered").getAsString();
+					final Spanned content = Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString());
 					Date date = null;
 					try {
 						date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(j.get("date").getAsString());
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					String author = j.get("author").getAsString();
-					PostItem item = new PostItem(i,title,content.toString(),date,author);
-					list.add(item);
+					final Date finaldate = (Date) date.clone();
+					int authorid = j.get("author").getAsInt();
+
+					getRequest("users/"+authorid, new Response.Listener<String>() {
+						@Override
+						public void onResponse(String response2) {
+							// What is the username for this user?
+							String thisusername = userDetailsFromJsonObjectString(response2, false);
+
+							if (thisusername == null)
+								thisusername = mContext.getString(R.string.userdeleted);
+
+							PostItem item = new PostItem(finali,title,content.toString(),finaldate,thisusername);
+							list.add(item);
+							System.out.println("ADDED LIST ITEM with title " + title);
+
+							fragment.notifyUpdatePosts();
+						}
+					});
 				}
-				fragment.notifyUpdatePosts();
 			}
 		});
 	}
@@ -193,26 +209,10 @@ public class API {
 		getRequest("users/me", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				JsonObject jObject = parseJsonObject(response);
-
-				if (jObject.has("code") && (jObject.get("code").getAsString().equals("rest_not_logged_in") || jObject.get("code").getAsString().equals("rest_no_route"))) {
-					// TODO: If something in the login breaks, check here first.
-					//assert(false);
+				if (userDetailsFromJsonObjectString(response, true) == null)
 					validLogin = 0;
-				} else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
-//					System.out.println("#############################");
-//					System.out.println(response);
-//					System.out.println("######################");
-//					System.out.println(jObject.get("name").getAsString());
-
-					setDisplayName(jObject.get("name").getAsString());
-
-					avaurl = jObject.get("avatar_urls").getAsJsonObject().get("96").getAsString();
-
+				else
 					validLogin = 1;
-				} else {
-					validLogin = 0;
-				}
 			}
 		});
 		//TODO: Dit weghalen
@@ -221,6 +221,49 @@ public class API {
 
 		return validLogin == 1;
 	}
+
+	/**
+	 * Handles getting the user data out of a user jsonobject
+	 * @param response JsonObject as a string
+	 * @param you whether or not to set logged in user's parameters
+	 * @return username, or NULL if the user is invalid
+	 */
+	private String userDetailsFromJsonObjectString(String response, boolean you)
+	{
+		JsonObject jObject = parseJsonObject(response);
+
+		if (jObject.has("code")) {
+			// TODO: If something in the login breaks, check here first.
+			//assert(false);
+			//validLogin = 0;
+			return null;
+		} else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
+			if (you)
+			{
+				setDisplayName(jObject.get("name").getAsString());
+				avaurl = jObject.get("avatar_urls").getAsJsonObject().get("96").getAsString();
+			}
+
+			//validLogin = 1;
+			return jObject.get("name").getAsString();
+		} else {
+			//validLogin = 0;
+			return null;
+		}
+	}
+
+	/*
+	public void getUsernameFromID(int userid)
+	{
+		getRequest("users/"+userid, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				JsonObject jObject = parseJsonObject(response);
+
+			}
+		});
+	}
+	*/
 
 	/**
 	 * Perform a GET request with a full URL
