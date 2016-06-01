@@ -3,11 +3,17 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
     tools:context=".fragments.ContactFragment">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:id="@+id/contacttextview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/loading"/>
+        android:layout_margin="8dp"
+        android:text="@string/loading"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    </ScrollView>
 
 </FrameLayout>

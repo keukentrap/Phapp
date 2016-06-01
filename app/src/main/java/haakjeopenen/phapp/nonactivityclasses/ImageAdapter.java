@@ -45,15 +45,15 @@ public class ImageAdapter extends BaseAdapter {
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
-		TextView textView = new TextView(mContext);
-		textView.setText("Roeiboot");
 
 		if (convertView == null) {
 			// if it's not recycled, initialize some attributes
+			// imageView = (ImageView) parent.findViewById(R.id.post_image);
 			imageView = new ImageView(mContext);
-			imageView.setLayoutParams(new GridView.LayoutParams(240, 180));
+			//imageView.setLayoutParams(new GridView.LayoutParams(300 , 300));
+			imageView.setAdjustViewBounds(true);
 			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-			imageView.setPadding(2, 2, 2, 2);
+			//imageView.setPadding(2, 2, 2, 2);
 		} else {
 			imageView = (ImageView) convertView;
 		}

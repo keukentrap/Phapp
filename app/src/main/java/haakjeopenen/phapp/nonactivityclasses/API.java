@@ -168,7 +168,7 @@ public class API {
 
 	public void loadPhotos(final ArrayList<String> thumbs, final PhotosFragment photosFragment) {
 
-		getRequest("media", new Response.Listener<String>() {
+		getRequest("media?per_page=100", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
 				// Get page with specified slug if it exists!
