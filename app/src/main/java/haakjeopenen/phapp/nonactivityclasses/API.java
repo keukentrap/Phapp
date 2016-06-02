@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -100,13 +101,10 @@ public class API {
 		getRequest("posts", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				// We hebben de posts nuwrap_content
 
-				//JsonObject jobject = parseJsonObject(response);
-				//JsonArray posts = jobject.getAsJsonArray("posts");
-				// We hebben de posts nu
 
 				list.clear();
+
 				JsonArray jArray = parseJsonArray(response);
 
 				for (int i = 0; i < jArray.size(); i++) {
@@ -153,19 +151,23 @@ public class API {
 		return -1;
 	}
 
-	public void loadPageContents(String pageslug, final TextView textview)
+	public void loadPageContents(final String pageslug, final TextView textview)
 	{
-		final int pid = pageslugToID(pageslug);
+//		final int pid = pageslugToID(pageslug);
 
-		getRequest("pages/"+pid, new Response.Listener<String>() {
+		//We use the slug to search the pages
+		getRequest("pages?slug="+pageslug, new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				JsonObject j = parseJsonObject(response);
 
-				if (j.has("code") && (j.get("code").getAsString() != null) && (j.get("code").getAsString() == "rest_post_invalid_id"))
-					textview.setText(String.format(mContext.getString(R.string.page404), pid));
-				else
+				JsonArray jArray = parseJsonArray(response);
+				if( jArray.size() == 0) { //Error when empty
+					textview.setText(String.format(mContext.getString(R.string.page404), pageslug));
+				} else {
+					//Result is in array so pick the first result
+					JsonObject j = jArray.get(0).getAsJsonObject();
 					textview.setText(Html.fromHtml(j.get("content").getAsJsonObject().get("rendered").getAsString()));
+				}
 			}
 		});
 	}

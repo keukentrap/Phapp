@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.ContactFragment;
+import haakjeopenen.phapp.fragments.PhaceBookFragment;
 import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
 import haakjeopenen.phapp.nonactivityclasses.API;
@@ -123,6 +124,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_photos) {
             this.setTitle(R.string.photos);
             Fragment testFragment = new PhotosFragment();
+            loadFragment(testFragment);
+        } else if (id == R.id.nav_smoelenboek) {
+            this.setTitle(R.string.smoelenboek);
+            Fragment testFragment = new PhaceBookFragment();
             loadFragment(testFragment);
         } else if (id == R.id.nav_logout) {
             // Forget everything

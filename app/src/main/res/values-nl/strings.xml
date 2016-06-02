@@ -32,6 +32,6 @@
     <string name="smoelenboek">Smoelenboek</string>
     <string name="keep_me_logged_in">Houd me ingelogd</string>
     <string name="account">Account</string>
-    <string name="page404">Pagina met ID %i niet gevonden!</string>
+    <string name="page404">Pagina met slug %i niet gevonden!</string>
     <string name="description_zoom_touch_close">description_zoom_touch_close</string>
 </resources>

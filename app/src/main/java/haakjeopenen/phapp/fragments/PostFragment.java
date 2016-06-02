@@ -41,7 +41,6 @@ public class PostFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public PostFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static PostFragment newInstance(int columnCount) {
         PostFragment fragment = new PostFragment();
