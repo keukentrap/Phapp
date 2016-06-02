@@ -1,5 +1,6 @@
 package haakjeopenen.phapp.fragments;
 
+import android.animation.Animator;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class PostFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private OnListFragmentInteractionListener mListener;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
     private PostRecyclerViewAdapter adapter;
+
 
     private RecyclerView recyclerView;
 

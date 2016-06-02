@@ -170,7 +170,7 @@ public class API {
 		});
 	}
 
-	public void loadPhotos(final ArrayList<String> thumbs, final PhotosFragment photosFragment) {
+	public void loadPhotos(final ArrayList<ImageInfo> thumbs, final PhotosFragment photosFragment) {
 
 		getRequest("media?per_page=100", new Response.Listener<String>() {
 			@Override
@@ -181,9 +181,12 @@ public class API {
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
 
-					final String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
+					final String thumburl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
+					final String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("full").getAsJsonObject().get("source_url").getAsString();
 
-					thumbs.add(imgurl);
+					ImageInfo imgInfo = new ImageInfo(imgurl,thumburl);
+
+					thumbs.add(imgInfo);
 
 				}
 				photosFragment.notifyUpdatePhotos();

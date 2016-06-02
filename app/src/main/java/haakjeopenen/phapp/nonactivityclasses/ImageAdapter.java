@@ -1,11 +1,15 @@
 package haakjeopenen.phapp.nonactivityclasses;
 
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -17,17 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.fragments.PhotosFragment;
+import haakjeopenen.phapp.fragments.PostFragment;
 
 /**
  * Created by U on 31-5-2016.
  */
 public class ImageAdapter extends BaseAdapter {
 	private final Context mContext;
-	private List<String> mThumbs = new ArrayList<>();
+	private List<ImageInfo> mThumbs = new ArrayList<>();
+	private final PhotoZoomListener mListener;
 
-	public ImageAdapter(Context c, ArrayList<String> thumbs) {
+	public ImageAdapter(Context c, ArrayList<ImageInfo> thumbs, PhotoZoomListener listener) {
 		mContext = c;
 		mThumbs = thumbs;
+		mListener = listener;
 	}
 
 	public int getCount() {
@@ -43,8 +51,8 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	// create a new ImageView for each item referenced by the Adapter
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageView imageView;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ImageView imageView;
 
 		if (convertView == null) {
 			// if it's not recycled, initialize some attributes
@@ -58,8 +66,15 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		Picasso.with(mContext).load(mThumbs.get(position)).into(imageView);
+		String thumburl = mThumbs.get(position).thumburl;
+		Picasso.with(mContext).load(thumburl).into(imageView);
 
+		imageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onPhotoZoom(imageView,mThumbs.get(position));
+			}
+		});
 		return imageView;
 	}
 
@@ -70,4 +85,5 @@ public class ImageAdapter extends BaseAdapter {
 	{
 		mThumbs.clear();
 	}
+
 }

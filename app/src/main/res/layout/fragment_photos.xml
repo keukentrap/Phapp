@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <GridView
         android:id="@+id/photosGridView"
         android:name="haakjeopenen.phapp.PhotosFragment"
@@ -18,5 +20,20 @@
         android:gravity="center"
         tools:context=".fragments.PhotosFragment"
         tools:listitem="@layout/fragment_photos_item"
-        />
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:adjustViewBounds="false"
+        android:src="@drawable/sample_7"
+        android:contentDescription="Hoi" />
+        <!--TODO nice description-->
+
+
+
+    </FrameLayout>
+
 </haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout>
