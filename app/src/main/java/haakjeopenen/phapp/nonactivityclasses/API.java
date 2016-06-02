@@ -2,14 +2,9 @@ package haakjeopenen.phapp.nonactivityclasses;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -19,16 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,10 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
-import haakjeopenen.phapp.structalikes.PostItem;
 
 /**
  * Created by David on 20-5-2016.

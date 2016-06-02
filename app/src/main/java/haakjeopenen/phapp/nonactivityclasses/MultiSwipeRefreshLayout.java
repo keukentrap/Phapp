@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package haakjeopenen.phapp.structalikes;
+package haakjeopenen.phapp.nonactivityclasses;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

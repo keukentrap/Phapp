@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.structalikes;
+package haakjeopenen.phapp.nonactivityclasses;
 
 import java.util.Date;
 

@@ -1,7 +1,6 @@
 package haakjeopenen.phapp.fragments;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.nonactivityclasses.ImageAdapter;
-import haakjeopenen.phapp.structalikes.MultiSwipeRefreshLayout;
+import haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout;
 
 /**
  * A simple {@link Fragment} subclass.

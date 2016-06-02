@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.nonactivityclasses.API;
-import haakjeopenen.phapp.structalikes.MultiSwipeRefreshLayout;
-import haakjeopenen.phapp.structalikes.PostRecyclerViewAdapter;
+import haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout;
+import haakjeopenen.phapp.nonactivityclasses.PostRecyclerViewAdapter;
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.structalikes.PostItem;
+import haakjeopenen.phapp.nonactivityclasses.PostItem;
 
 /**
  * A fragment representing a list of Items.

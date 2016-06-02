@@ -1,4 +1,4 @@
-<haakjeopenen.phapp.structalikes.MultiSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_container_photos"
@@ -19,4 +19,4 @@
         tools:context=".fragments.PhotosFragment"
         tools:listitem="@layout/fragment_photos_item"
         />
-</haakjeopenen.phapp.structalikes.MultiSwipeRefreshLayout>
+</haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout>
