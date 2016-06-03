@@ -210,9 +210,9 @@ public class API {
 					ImageInfo imgInfo = new ImageInfo(imgurl,thumburl);
 
 					thumbs.add(imgInfo);
-
+					photosFragment.notifyUpdatePhotos();
 				}
-				photosFragment.notifyUpdatePhotos();
+
 
 			}
 		});
