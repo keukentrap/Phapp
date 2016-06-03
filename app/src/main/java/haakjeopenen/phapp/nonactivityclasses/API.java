@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
+import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -14,17 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.cast.TextTrackStyle;
-import com.google.android.gms.maps.UiSettings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonArray;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,10 +53,13 @@ public class API {
 	private String displayName;
 	private String avaurl;
 
+	private final SparseArray<String> names;
+
 	private API(Context context) {
 		mContext = context;
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
+		names = new SparseArray<String>();
 //		gson = new Gson();
 	}
 
@@ -107,7 +109,9 @@ public class API {
 
 				list.clear();
 
-				JsonArray jArray = parseJsonArray(response);
+
+
+				final JsonArray jArray = parseJsonArray(response);
 
 				for (int i = 0; i < jArray.size(); i++) {
 					JsonObject j = jArray.get(i).getAsJsonObject();
@@ -122,24 +126,39 @@ public class API {
 						e.printStackTrace();
 					}
 					final Date finaldate = (Date) date.clone();
-					int authorid = j.get("author").getAsInt();
+					final int authorid = j.get("author").getAsInt();
 
-					getRequest("users/"+authorid, new Response.Listener<String>() {
-						@Override
-						public void onResponse(String response2) {
-							// What is the username for this user?
-							String thisusername = userDetailsFromJsonObjectString(response2, false);
+					//If it's already known
+					if (names.get(authorid) != null) {
+						PostItem item = new PostItem(finali,title,content.toString(),finaldate,names.get(authorid));
+						list.add(item);
+						System.out.println("ADDED LIST ITEM with title " + title);
+						Collections.sort(list);
+						fragment.notifyUpdatePosts();
+					} else {
+						//Make a new request
+						getRequest("users/" + authorid, new Response.Listener<String>() {
+							@Override
+							public void onResponse(String response2) {
+								// get username
+								String thisusername = userDetailsFromJsonObjectString(response2, false);
 
-							if (thisusername == null)
-								thisusername = mContext.getString(R.string.userdeleted);
+								if (thisusername == null)
+									thisusername = mContext.getString(R.string.userdeleted);
 
-							PostItem item = new PostItem(finali,title,content.toString(),finaldate,thisusername);
-							list.add(item);
-							System.out.println("ADDED LIST ITEM with title " + title);
+								//add to cache
+								names.put(authorid,thisusername);
 
-							fragment.notifyUpdatePosts();
-						}
-					});
+								PostItem item = new PostItem(finali, title, content.toString(), finaldate, thisusername);
+
+								list.add(item);
+								Collections.sort(list);
+
+								System.out.println("ADDED LIST ITEM with title " + title);
+								fragment.notifyUpdatePosts();
+							}
+						});
+					}
 				}
 			}
 		});
