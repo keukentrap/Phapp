@@ -4,19 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
-import android.animation.FloatEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.Image;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +24,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.nonactivityclasses.ImageAdapter;
 import haakjeopenen.phapp.nonactivityclasses.ImageInfo;
 import haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout;
@@ -108,12 +103,15 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 		//contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
 		photosgridview = (GridView) getView().findViewById(R.id.photosGridView);
-		images = new ArrayList<>();
-		imageadapter = new ImageAdapter(getActivity(),images,this);
-		api.loadPhotos(images,this);
 
-
-		//api.loadPhotos("contact", photosgridview);
+		//check if this is the first time loading
+		if(imageadapter == null) {
+			images = new ArrayList<>();
+			imageadapter = new ImageAdapter(getActivity(),images,this);
+			api.loadPhotos(images,this);
+		} else {
+			photosgridview.setAdapter(imageadapter);
+		}
 	}
 
 	public void notifyUpdatePhotos() {

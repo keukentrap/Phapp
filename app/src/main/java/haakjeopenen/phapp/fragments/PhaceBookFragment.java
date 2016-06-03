@@ -1,8 +1,8 @@
 package haakjeopenen.phapp.fragments;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.R;
@@ -91,14 +90,16 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener{
 
         mRecyclerView.setHasFixedSize(true);
 
-        results = new ArrayList<>();
-        adapter = new PhacebookRecyclerViewAdapter(view.getContext(),results);
+        //check if this is the first time loading
+        if (adapter == null) {
+            results = new ArrayList<>();
+            adapter = new PhacebookRecyclerViewAdapter(view.getContext(), results);
 
-        mSearch.setOnClickListener(this);
-
-
-        api = API.getInstance();
-
+            mSearch.setOnClickListener(this);
+            api = API.getInstance();
+        } else {
+            mRecyclerView.setAdapter(adapter);
+        }
 
         return view;
 

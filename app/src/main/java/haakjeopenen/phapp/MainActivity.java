@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.ContactFragment;
 import haakjeopenen.phapp.fragments.PhaceBookFragment;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     private TextView nameText;
 	private ImageView avaView;
 
+    private HashMap<Integer,Fragment> fragments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 
+        fragments = new HashMap<>();
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -110,27 +115,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_mainpage) {
-            setTitle("Phocas");
-            Fragment testFragment = new PostFragment();
-            loadFragment(testFragment);
-        } else if (id == R.id.nav_contact) {
-            this.setTitle(R.string.contact);
-            Fragment testFragment = new ContactFragment();
-            loadFragment(testFragment);
-        } else if (id == R.id.nav_agenda) {
-            this.setTitle(R.string.agenda);
-            Fragment testFragment = new AgendaFragment();
-            loadFragment(testFragment);
-        } else if (id == R.id.nav_photos) {
-            this.setTitle(R.string.photos);
-            Fragment testFragment = new PhotosFragment();
-            loadFragment(testFragment);
-        } else if (id == R.id.nav_smoelenboek) {
-            this.setTitle(R.string.smoelenboek);
-            Fragment testFragment = new PhaceBookFragment();
-            loadFragment(testFragment);
-        } else if (id == R.id.nav_logout) {
+        if (id == R.id.nav_logout) {
             // Forget everything
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
@@ -145,17 +130,66 @@ public class MainActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
             startActivity(intent);
             this.finish();
-        } else if (id == R.id.nav_smoelenboek) {
+            return true;
         }
+
+        //TODO ugly
+        if (id == R.id.nav_mainpage) {
+            setTitle("Phocas");
+        } else if (id == R.id.nav_contact) {
+            this.setTitle(R.string.contact);
+        } else if (id == R.id.nav_agenda) {
+            this.setTitle(R.string.agenda);
+        } else if (id == R.id.nav_photos) {
+            this.setTitle(R.string.photos);
+        } else if (id == R.id.nav_smoelenboek) {
+            this.setTitle(R.string.smoelenboek);
+        }
+        loadFragment(id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void loadFragment(Fragment testFragment) {
+    private void loadFragment(int id) {
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main, testFragment);
+        Fragment f;
+        if (fragments.get(id) == null) {
+            //TODO also ugly
+            System.out.println("Creating new Fragment for: " + id);
+            switch(id) {
+                case R.id.nav_mainpage:
+                    f = new PostFragment();
+                    break;
+                case R.id.nav_contact:
+                    f = new ContactFragment();
+                    break;
+                case R.id.nav_agenda:
+                    f = new AgendaFragment();
+                    break;
+                case R.id.nav_photos:
+                    f = new PhotosFragment();
+                    break;
+                case R.id.nav_authorizations:
+                    return;
+                case R.id.nav_workactions:
+                    return;
+                case R.id.nav_werelookingfor:
+                    return;
+                case R.id.nav_planning:
+                    return;
+                case R.id.nav_weather:
+                    return;
+                case R.id.nav_smoelenboek:
+                    f = new PhaceBookFragment();
+                    break;
+                default:
+                    return;
+            }
+            fragments.put(id,f);
+        }
+        fragmentTransaction.replace(R.id.content_main, fragments.get(id));
         fragmentTransaction.commit();
     }
 

@@ -1,6 +1,5 @@
 package haakjeopenen.phapp.fragments;
 
-import android.animation.Animator;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,11 +11,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout;
-import haakjeopenen.phapp.nonactivityclasses.PostRecyclerViewAdapter;
-import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.nonactivityclasses.PostItem;
+import haakjeopenen.phapp.nonactivityclasses.PostRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.
@@ -69,12 +68,17 @@ public class PostFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         multiSwipeRefreshLayout.setSwipeableChildren(R.id.list);
         multiSwipeRefreshLayout.setOnRefreshListener(this);
 
-        ArrayList<PostItem> list = new ArrayList<>();
+        //check if this is the first time loading
+        if (adapter == null) {
+            ArrayList<PostItem> list = new ArrayList<>();
 
-        API api = API.getInstance();
-        api.loadLatestPosts(list,this);
+            API api = API.getInstance();
+            api.loadLatestPosts(list, this);
 
-        adapter =  new PostRecyclerViewAdapter(list, mListener);
+            adapter = new PostRecyclerViewAdapter(list, mListener);
+        } else {
+            recyclerView.setAdapter(adapter);
+        }
 
 
         return view;
