@@ -34,4 +34,5 @@
     <string name="account">Account</string>
     <string name="page404">Pagina met slug %i niet gevonden!</string>
     <string name="description_zoom_touch_close">description_zoom_touch_close</string>
+    <string name="name">Naam</string>
 </resources>

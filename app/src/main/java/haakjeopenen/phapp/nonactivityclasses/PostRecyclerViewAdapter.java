@@ -1,6 +1,7 @@
 package haakjeopenen.phapp.nonactivityclasses;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         //holder.mIdView.setText(mValues.get(position).id);
         holder.mTitleView.setText(mValues.get(position).title);
         holder.mContentView.setText(mValues.get(position).content);
+        holder.mContentView.setMovementMethod(LinkMovementMethod.getInstance());
         holder.mAuthorView.setText(mValues.get(position).author);
         holder.mDateView.setText(String.format("%te %tb %tY",mValues.get(position).date,mValues.get(position).date,mValues.get(position).date));
 

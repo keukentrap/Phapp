@@ -43,4 +43,5 @@
     <string name="page404">Page with slug %s not found!</string>
     <string name="userdeleted">User deleted</string>
     <string name="description_zoom_touch_close">description_zoom_touch_close</string>
+    <string name="name">Name</string>
 </resources>

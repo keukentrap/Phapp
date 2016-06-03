@@ -4,13 +4,14 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import haakjeopenen.phapp.nonactivityclasses.API;
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.nonactivityclasses.API;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +80,7 @@ public class ContactFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 
 		contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
+		contacttextview.setMovementMethod(LinkMovementMethod.getInstance());
 		api.loadPageContents("contact", contacttextview);
 	}
 
