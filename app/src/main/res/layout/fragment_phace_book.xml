@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:hint="@string/name"
             android:ems="10"
             android:id="@+id/input_phacebook_field"
-            android:layout_weight="0"
-            android:hint="Name"/>
+            android:layout_weight="0" />
 
         <Button
             android:layout_width="match_parent"
