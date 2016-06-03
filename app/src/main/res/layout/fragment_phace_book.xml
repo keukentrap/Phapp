@@ -24,7 +24,8 @@
             android:hint="@string/name"
             android:ems="10"
             android:id="@+id/input_phacebook_field"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:imeOptions="actionSearch" />
 
         <Button
             android:layout_width="match_parent"

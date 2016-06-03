@@ -4,11 +4,14 @@ package haakjeopenen.phapp.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -50,6 +53,19 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_phace_book, container, false);
 
         mName = (EditText) view.findViewById(R.id.input_phacebook_field);
+
+        mName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				boolean handled = false;
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					onClick(v); // TODO: als er meer knoppen nodig zijn, view goed afhandelen
+					handled = true;
+				}
+				return handled;
+			}
+		});
+
         mSearch = (Button) view.findViewById(R.id.search_phacebook_button);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.result_view);
