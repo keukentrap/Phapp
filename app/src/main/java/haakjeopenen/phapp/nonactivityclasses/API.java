@@ -14,6 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.cast.TextTrackStyle;
+import com.google.android.gms.maps.UiSettings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.fragments.PhaceBookFragment;
 import haakjeopenen.phapp.fragments.PhotosFragment;
 import haakjeopenen.phapp.fragments.PostFragment;
 
@@ -101,7 +104,6 @@ public class API {
 		getRequest("posts", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-
 
 				list.clear();
 
@@ -192,6 +194,36 @@ public class API {
 
 				}
 				photosFragment.notifyUpdatePhotos();
+
+			}
+		});
+	}
+
+	public void searchUsers(final String search, final ArrayList<UserItem> result, final PhaceBookFragment fragment) {
+		getRequest("users?search="+search, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				// Get page with specified slug if it exists!
+				JsonArray jArray = parseJsonArray(response);
+				if( jArray.size() == 0) { //Error when empty
+					//TODO nice error message
+					//result.setText(String.format(mContext.getString(R.string.page404), search));
+				} else {
+					result.clear();
+					for (int i = 0; i < jArray.size(); i++) {
+						JsonObject j = jArray.get(i).getAsJsonObject();
+
+						String name = j.getAsJsonPrimitive("name").getAsString();
+
+						String avatarUrl = j.getAsJsonObject("avatar_urls").getAsJsonPrimitive("48").getAsString();
+
+						UserItem item = new UserItem(name,avatarUrl);
+
+						result.add(item);
+						System.out.println("added " + item.name);
+					}
+				}
+				fragment.notifyUpdate();
 
 			}
 		});

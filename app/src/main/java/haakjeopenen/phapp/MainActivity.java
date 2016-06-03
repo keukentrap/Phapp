@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         nameText = (TextView) findViewById(R.id.nameText);
+        //TODO hij crasht hier soms
         nameText.setText(api.getDisplayName());
 
 		avaView = (ImageView) findViewById(R.id.avaView);
