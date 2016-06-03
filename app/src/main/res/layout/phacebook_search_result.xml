@@ -5,7 +5,7 @@
     android:weightSum="1"
     android:measureWithLargestChild="false">
 
-    <ImageView
+    <haakjeopenen.phapp.nonactivityclasses.RoundedImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/phacebook_avatar"
