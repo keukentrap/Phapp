@@ -14,8 +14,8 @@
 
     <haakjeopenen.phapp.nonactivityclasses.RoundedImageView
         android:id="@+id/avaView"
-        android:layout_width="94dp"
-        android:layout_height="0dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_weight="0.60"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/ic_action_person" />
