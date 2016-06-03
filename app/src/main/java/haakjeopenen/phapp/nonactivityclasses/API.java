@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import haakjeopenen.phapp.R;
@@ -54,12 +55,14 @@ public class API {
 	private String avaurl;
 
 	private final SparseArray<String> names;
+	private Hashtable<String, String> requestsCache;
 
 	private API(Context context) {
 		mContext = context;
 		// Instantiate the RequestQueue.
 		queue = Volley.newRequestQueue(mContext.getApplicationContext());
 		names = new SparseArray<String>();
+		requestsCache = new Hashtable<String, String>();
 //		gson = new Gson();
 	}
 
@@ -310,13 +313,34 @@ public class API {
 	*/
 
 	/**
-	 * Perform a GET request with a full URL
+	 * Perform a GET request with a full URL, not caching by default.
 	 *
-	 * @param url      A full URL
+	 * @param url A full URL
 	 * @param listener A listener that runs when there's a server response
 	 */
-	private void fullGetRequest(String url, Response.Listener<String> listener) {
+	private void fullGetRequest(String url, Response.Listener<String> listener)
+	{
+		fullGetRequest(url, listener, false);
+	}
+
+	/**
+	 * Perform a GET request with a full URL, caching only if noCache is false.
+	 * If you want to cache a request, call cacheRequest(url, response) within the responselistener
+	 * (A request will not be cached if it results in an error)
+	 *
+	 * @param url A full URL
+	 * @param listener A listener that runs when there's a server response
+	 * @param tryCache Try to get the response from the request cache
+	 */
+	private void fullGetRequest(String url, Response.Listener<String> listener, boolean tryCache) {
 		System.out.println("Full GET  request: " + url);
+
+		if (tryCache && requestsCache.containsKey(url))
+		{
+			System.out.println("  Cache hit for " + url + "!");
+			listener.onResponse(requestsCache.get(url));
+		}
+
 		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 				listener,
 				new Response.ErrorListener() {
@@ -348,13 +372,33 @@ public class API {
 	}
 
 	/**
-	 * Perform a GET request
-	 *
-	 * @param url      The last part of the URL to send the request to (prefixed by globalUrlPrefix)
-	 * @param listener A listener that runs when there's a server response
+	 * Perform a GET request to the global server, not caching by default
+	 * @param url
+	 * @param listener
 	 */
-	private void getRequest(String url, Response.Listener<String> listener) {
+	private void getRequest(String url, Response.Listener<String> listener)
+	{
+		getRequest(url, listener, false);
+	}
+
+	/**
+	 * Perform a GET request to the global server, caching only if tryCache is true.
+	 * If you want to cache a request, call cacheRequest(url, response) within the responselistener
+	 * (A request will not be cached if it results in an error)
+	 *
+	 * @param url The last part of the URL to send the request to (prefixed by globalUrlPrefix)
+	 * @param listener A listener that runs when there's a server response
+	 * @param tryCache Try to get the response from the request cache
+	 */
+	private void getRequest(String url, Response.Listener<String> listener, boolean tryCache) {
 		System.out.println("GET  request: " + url);
+
+		if (tryCache && requestsCache.containsKey(url))
+		{
+			System.out.println("  Cache hit for " + url + "!");
+			listener.onResponse(requestsCache.get(url));
+		}
+
 		StringRequest stringRequest = new StringRequest(Request.Method.GET, globalUrlPrefix + url,
 				listener,
 				new Response.ErrorListener() {
@@ -387,6 +431,7 @@ public class API {
 
 	/**
 	 * Perform a POST request
+	 * Note: POST requests should obviously never be cached
 	 *
 	 * @param url      The last part of the URL to send the request to (prefixed by globalUrlPrefix)
 	 * @param listener A listener that runs when there's a server response
@@ -427,6 +472,12 @@ public class API {
 			}
 		};
 		queue.add(stringRequest);
+	}
+
+	private void cacheRequest(String url, String response)
+	{
+		// If it already exists, it should just be overwritten...
+		requestsCache.put(url, response);
 	}
 
 	private JsonArray parseJsonArray(String jsonstring) {
