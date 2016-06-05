@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.phacebook;
+package haakjeopenen.phapp.fragments.phacebook;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,18 +13,18 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.models.NewsItem;
-import haakjeopenen.phapp.models.UserItem;
+import haakjeopenen.phapp.models.Post;
+import haakjeopenen.phapp.models.User;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link NewsItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link Post}.
  */
 public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<PhacebookRecyclerViewAdapter.ViewHolder> {
 
-    private final List<UserItem> mValues;
+    private final List<User> mValues;
     private final Context mContext;
 
-    public PhacebookRecyclerViewAdapter(Context c, List<UserItem> items) {
+    public PhacebookRecyclerViewAdapter(Context c, List<User> items) {
         mValues = items;
         mContext = c;
     }
@@ -32,7 +32,7 @@ public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<Phacebook
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.phacebook_search_result, parent, false);
+                .inflate(R.layout.fragment_phacebook_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,7 +60,7 @@ public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<Phacebook
         public final View mView;
         public final TextView mName;
         public final ImageView mAvatar;
-        public UserItem mItem;
+        public User mItem;
 
         public ViewHolder(View view) {
             super(view);

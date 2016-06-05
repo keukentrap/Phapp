@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.photos;
+package haakjeopenen.phapp.fragments.photos;
 
 import android.content.Context;
 import android.view.View;
@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import haakjeopenen.phapp.models.PhotoItem;
+import haakjeopenen.phapp.models.Photo;
 
 /**
  * {@link BaseAdapter} to display photos in the {@link PhotosFragment}
@@ -19,9 +19,9 @@ import haakjeopenen.phapp.models.PhotoItem;
 public class PhotoAdapter extends BaseAdapter {
 	private final Context mContext;
 	private final PhotoZoomListener mListener;
-	private List<PhotoItem> mThumbs = new ArrayList<>();
+	private List<Photo> mThumbs = new ArrayList<>();
 
-	public PhotoAdapter(Context c, ArrayList<PhotoItem> thumbs, PhotoZoomListener listener) {
+	public PhotoAdapter(Context c, ArrayList<Photo> thumbs, PhotoZoomListener listener) {
 		mContext = c;
 		mThumbs = thumbs;
 		mListener = listener;

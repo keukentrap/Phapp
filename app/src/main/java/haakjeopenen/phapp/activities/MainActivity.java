@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui;
+package haakjeopenen.phapp.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -22,11 +22,12 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.fragments.AgendaFragment;
+import haakjeopenen.phapp.fragments.contact.ContactFragment;
+import haakjeopenen.phapp.fragments.news.NewsFragment;
+import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
+import haakjeopenen.phapp.fragments.photos.PhotosFragment;
 import haakjeopenen.phapp.net.API;
-import haakjeopenen.phapp.ui.contact.ContactFragment;
-import haakjeopenen.phapp.ui.news.NewsFragment;
-import haakjeopenen.phapp.ui.phacebook.PhaceBookFragment;
-import haakjeopenen.phapp.ui.photos.PhotosFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

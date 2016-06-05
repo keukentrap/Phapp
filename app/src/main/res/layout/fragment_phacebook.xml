@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.phacebook.PhaceBookFragment">
+    tools:context=".fragments.phacebook.PhaceBookFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -52,7 +52,7 @@
                 android:layout_gravity="center_horizontal"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".fragments.PhacebookFragment"
-                tools:listitem="@layout/phacebook_search_result"
+                tools:listitem="@layout/fragment_phacebook_item"
                 />
         </ScrollView>
 

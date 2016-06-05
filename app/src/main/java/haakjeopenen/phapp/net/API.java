@@ -30,9 +30,9 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.models.NewsItem;
-import haakjeopenen.phapp.models.PhotoItem;
-import haakjeopenen.phapp.models.UserItem;
+import haakjeopenen.phapp.models.Photo;
+import haakjeopenen.phapp.models.Post;
+import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.util.Notify;
 
 /**
@@ -101,13 +101,13 @@ public class API {
     }
 
     /**
-     * Load the /posts and parse the items in a {@link NewsItem} list.
+     * Load the /posts and parse the items in a {@link Post} list.
      * Notify the fragment when done
      *
      * @param list   list for the news items
      * @param notify
      */
-    public void loadNews(final ArrayList<NewsItem> list, final Notify notify) {
+    public void loadNews(final ArrayList<Post> list, final Notify notify) {
         getRequest("posts", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -134,7 +134,7 @@ public class API {
 
                     //If it's already known
                     if (names.get(authorid) != null) {
-                        NewsItem item = new NewsItem(finali, title, content.toString(), finaldate, names.get(authorid));
+                        Post item = new Post(finali, title, content.toString(), finaldate, names.get(authorid));
                         list.add(item);
                         System.out.println("ADDED LIST ITEM with title " + title);
                         Collections.sort(list);
@@ -153,7 +153,7 @@ public class API {
                                 //add to cache
                                 names.put(authorid, thisusername);
 
-                                NewsItem item = new NewsItem(finali, title, content.toString(), finaldate, thisusername);
+                                Post item = new Post(finali, title, content.toString(), finaldate, thisusername);
 
                                 list.add(item);
                                 Collections.sort(list);
@@ -187,13 +187,13 @@ public class API {
     }
 
     /**
-     * Load the photos and parse the images in a {@link PhotoItem} list.
+     * Load the photos and parse the images in a {@link Photo} list.
      * Notify the fragment when done
      *
      * @param list   list for the photos
      * @param notify
      */
-    public void loadPhotos(final ArrayList<PhotoItem> list, final Notify notify) {
+    public void loadPhotos(final ArrayList<Photo> list, final Notify notify) {
 
         getRequest("media?per_page=100", new Response.Listener<String>() {
             @Override
@@ -207,7 +207,7 @@ public class API {
                     final String thumburl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("thumbnail").getAsJsonObject().get("source_url").getAsString();
                     final String imgurl = j.get("media_details").getAsJsonObject().get("sizes").getAsJsonObject().get("full").getAsJsonObject().get("source_url").getAsString();
 
-                    PhotoItem imgInfo = new PhotoItem(imgurl, thumburl);
+                    Photo imgInfo = new Photo(imgurl, thumburl);
 
                     list.add(imgInfo);
                     notify.notifyUpdate();
@@ -225,7 +225,7 @@ public class API {
      * @param result list for the results
      * @param notify
      */
-    public void searchUsers(final String search, final ArrayList<UserItem> result, final Notify notify) {
+    public void searchUsers(final String search, final ArrayList<User> result, final Notify notify) {
         getRequest("users?search=" + search, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -243,7 +243,7 @@ public class API {
 
                         String avatarUrl = j.getAsJsonObject("avatar_urls").getAsJsonPrimitive("48").getAsString();
 
-                        UserItem item = new UserItem(name, avatarUrl);
+                        User item = new User(name, avatarUrl);
 
                         result.add(item);
                         System.out.println("added " + item.name);

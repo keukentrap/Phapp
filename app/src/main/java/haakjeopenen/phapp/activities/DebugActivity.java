@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui;
+package haakjeopenen.phapp.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

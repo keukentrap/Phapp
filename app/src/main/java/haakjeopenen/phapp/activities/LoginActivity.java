@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui;
+package haakjeopenen.phapp.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

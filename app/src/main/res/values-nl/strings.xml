@@ -5,7 +5,7 @@
     <string name="action_sign_in_short">Log in</string>
     <string name="error_field_required">Dit veld is verplicht</string>
     <string name="error_incorrect_password">Inloggegevens zijn onjuist</string>
-    <string name="error_invalid_email"></string>
+    <string name="error_invalid_email">Dit emailadres is incorrect</string>
     <string name="error_invalid_password">Dit wachtwoord is te kort</string>
     <string name="prompt_username">Gebruikersnaam</string>
     <string name="prompt_password">Wachtwoord</string>
@@ -35,4 +35,6 @@
     <string name="page404">Pagina met slug %i niet gevonden!</string>
     <string name="description_zoom_touch_close">description_zoom_touch_close</string>
     <string name="name">Naam</string>
+    <string name="hello_blank_fragment">hoi</string>
+    <string name="userdeleted">Gebruiker verwijderd</string>
 </resources>

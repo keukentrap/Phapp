@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.news;
+package haakjeopenen.phapp.fragments.news;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
@@ -10,23 +10,23 @@ import android.widget.TextView;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.models.NewsItem;
+import haakjeopenen.phapp.models.Post;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link NewsItem} for the {@link NewsFragment}.
+ * {@link RecyclerView.Adapter} that can display a {@link Post} for the {@link NewsFragment}.
  */
 public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<NewsItem> mValues;
+    private final List<Post> mValues;
 
-    public NewsRecyclerViewAdapter(List<NewsItem> items) {
+    public NewsRecyclerViewAdapter(List<Post> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.fragment_news_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -59,7 +59,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         public final TextView mContentView;
         public final TextView mAuthorView;
         public final TextView mDateView;
-        public NewsItem mItem;
+        public Post mItem;
 
         public ViewHolder(View view) {
             super(view);

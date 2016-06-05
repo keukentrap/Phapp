@@ -12,53 +12,53 @@
 
 
     <LinearLayout
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/content"
     android:layout_margin="10dp"
-    android:background="@color/bright_foreground_material_dark">
+        android:background="@color/bright_foreground_material_dark"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/title" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/content"
-            android:autoLink="web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="Test bericht" />
+            android:autoLink="web"
+            android:text="Test bericht"
+            android:textAppearance="?attr/textAppearanceListItem" />
 
     <GridLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
             android:id="@+id/author"
-            android:layout_gravity="right"
-            android:layout_marginLeft="16dp" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_gravity="right"
+            android:layout_marginLeft="16dp"
             android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
             android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp" />
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </GridLayout>
 

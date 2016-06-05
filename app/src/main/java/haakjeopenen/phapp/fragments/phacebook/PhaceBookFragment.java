@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.phacebook;
+package haakjeopenen.phapp.fragments.phacebook;
 
 
 import android.app.Fragment;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.models.UserItem;
+import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.net.API;
 import haakjeopenen.phapp.util.Notify;
 import haakjeopenen.phapp.widgets.DividerItemDecoration;
@@ -32,7 +32,7 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
     private RecyclerView mRecyclerView;
     private PhacebookRecyclerViewAdapter adapter;
 
-    private ArrayList<UserItem> results;
+    private ArrayList<User> results;
 
 
     public PhaceBookFragment() {
@@ -43,7 +43,7 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_phace_book, container, false);
+        View view = inflater.inflate(R.layout.fragment_phacebook, container, false);
 
         mName = (EditText) view.findViewById(R.id.input_phacebook_field);
 

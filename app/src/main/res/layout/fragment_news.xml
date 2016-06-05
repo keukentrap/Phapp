@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background_floating_material_light"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".ui.news.NewsFragment"
-            tools:listitem="@layout/fragment_item" />
+            tools:context=".fragments.news.NewsFragment"
+            tools:listitem="@layout/fragment_news_item" />
 
 </haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout>

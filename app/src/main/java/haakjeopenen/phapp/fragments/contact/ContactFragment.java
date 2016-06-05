@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.contact;
+package haakjeopenen.phapp.fragments.contact;
 
 import android.app.Fragment;
 import android.os.Bundle;

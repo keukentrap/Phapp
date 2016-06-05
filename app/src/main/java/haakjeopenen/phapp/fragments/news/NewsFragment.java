@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.ui.news;
+package haakjeopenen.phapp.fragments.news;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.models.NewsItem;
+import haakjeopenen.phapp.models.Post;
 import haakjeopenen.phapp.net.API;
 import haakjeopenen.phapp.util.Notify;
 import haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout;
@@ -24,7 +24,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
     private NewsRecyclerViewAdapter adapter;
-    private ArrayList<NewsItem> newsList;
+    private ArrayList<Post> newsList;
 
     private RecyclerView mRecyclerView;
 
@@ -38,7 +38,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
 
@@ -65,7 +65,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         System.out.println("Refreshing: news");
         //TODO can we comment this out?
-        //ArrayList<NewsItem> list = new ArrayList<>();
+        //ArrayList<Post> list = new ArrayList<>();
         //adapter = new NewsRecyclerViewAdapter(list);
         API.getInstance().loadNews(newsList, this);
     }
