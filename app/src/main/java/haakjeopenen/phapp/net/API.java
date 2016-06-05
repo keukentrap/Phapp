@@ -164,6 +164,8 @@ public class API {
                         });
                     }
                 }
+                //not really finished but whatever
+                notify.notifyFinished();
             }
         });
     }
@@ -213,7 +215,7 @@ public class API {
                     notify.notifyUpdate();
                 }
 
-
+                notify.notifyFinished();
             }
         });
     }
@@ -250,7 +252,7 @@ public class API {
                     }
                 }
                 notify.notifyUpdate();
-
+                notify.notifyFinished();
             }
         });
     }

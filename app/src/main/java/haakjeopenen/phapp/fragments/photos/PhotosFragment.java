@@ -7,7 +7,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -19,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.squareup.picasso.Picasso;
 
@@ -51,12 +51,11 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
      */
     private int mShortAnimationDuration;
 
-    private PhotoZoomListener mListener;
-
     private API api;
     private PhotoAdapter imageadapter;
-    private GridView photosgridview;
+    private GridView mPhotosGridview;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
+    private ProgressBar mLoadingBar;
 
     public PhotosFragment() {
         api = API.getInstance(null);
@@ -77,52 +76,49 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         multiSwipeRefreshLayout.setSwipeableChildren(R.id.photosGridView);
         multiSwipeRefreshLayout.setOnRefreshListener(this);
 
+        mLoadingBar = (ProgressBar) view.findViewById(R.id.loading);
+
         // Retrieve and cache the system's default "short" animation time.
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        //contacttextview = (TextView) getView().findViewById(R.id.contacttextview);
-        photosgridview = (GridView) getView().findViewById(R.id.photosGridView);
+        mPhotosGridview = (GridView) view.findViewById(R.id.photosGridView);
 
         //check if this is the first time loading
         if (imageadapter == null) {
             images = new ArrayList<>();
             imageadapter = new PhotoAdapter(getActivity(), images, this);
             api.loadPhotos(images, this);
+
+
         } else {
-            photosgridview.setAdapter(imageadapter);
+            notifyFinished();
         }
+
+        return view;
     }
 
     public void notifyUpdate() {
         //System.out.println("notified UpdatePhotos");
+        mPhotosGridview.setAdapter(imageadapter);
+    }
+
+    @Override
+    public void notifyFinished() {
         multiSwipeRefreshLayout.setRefreshing(false);
-        photosgridview.setAdapter(imageadapter);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        mLoadingBar.setVisibility(View.GONE);
+        mPhotosGridview.setAdapter(imageadapter);
     }
 
     @Override
     public void onRefresh() {
         System.out.println("Refreshing");
+        mLoadingBar.setVisibility(View.GONE);
+
+        //TODO can we comment this out?
         ArrayList<Photo> list = new ArrayList<>();
         imageadapter = new PhotoAdapter(getActivity(), list, this);
+
         API.getInstance().loadPhotos(list, this);
     }
 

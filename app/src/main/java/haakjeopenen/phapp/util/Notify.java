@@ -7,4 +7,6 @@ package haakjeopenen.phapp.util;
  */
 public interface Notify {
     void notifyUpdate();
+
+    void notifyFinished();
 }

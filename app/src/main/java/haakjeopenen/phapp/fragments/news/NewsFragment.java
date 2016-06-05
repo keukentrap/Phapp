@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private ArrayList<Post> newsList;
 
     private RecyclerView mRecyclerView;
+    private ProgressBar mLoadingBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,9 +44,11 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
 
-        multiSwipeRefreshLayout = (MultiSwipeRefreshLayout) view;
+        multiSwipeRefreshLayout = (MultiSwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         multiSwipeRefreshLayout.setSwipeableChildren(R.id.list);
         multiSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mLoadingBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         //check if this is the first time loading
         if (adapter == null) {
@@ -55,7 +59,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             adapter = new NewsRecyclerViewAdapter(newsList);
         } else {
-            mRecyclerView.setAdapter(adapter);
+            notifyFinished();
         }
 
         return view;
@@ -72,7 +76,14 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void notifyUpdate() {
-        multiSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void notifyFinished() {
+        multiSwipeRefreshLayout.setRefreshing(false);
+        mLoadingBar.setVisibility(View.GONE);
+        mRecyclerView.setAdapter(adapter);
+
     }
 }

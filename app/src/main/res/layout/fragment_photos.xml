@@ -29,7 +29,13 @@
         android:contentDescription="Hoi"
         android:src="@drawable/sample_7"
         android:visibility="invisible" />
-        <!--TODO nice description-->
+
+        <ProgressBar
+            android:id="@+id/loading"
+            style="@android:style/Widget.Material.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top" />
 
 
 

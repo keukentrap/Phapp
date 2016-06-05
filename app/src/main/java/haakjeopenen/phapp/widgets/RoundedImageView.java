@@ -15,6 +15,9 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * Shamelessly copied from Stackoverflow
+ */
 public class RoundedImageView extends ImageView {
 
     public RoundedImageView(Context context) {

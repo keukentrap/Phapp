@@ -85,6 +85,11 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
         mRecyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void notifyFinished() {
+
+    }
+
     /**
      * Called when search button has been clicked.
      *

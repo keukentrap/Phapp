@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_container"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
+    <haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,4 +21,11 @@
             tools:context=".fragments.news.NewsFragment"
             tools:listitem="@layout/fragment_news_item" />
 
-</haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout>
+    </haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top" />
+</FrameLayout>
