@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package haakjeopenen.phapp.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -21,25 +21,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import haakjeopenen.phapp.nonactivityclasses.API;
+import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.net.API;
+
+//TODO David, clean this code please
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity { // implements LoaderCallbacks<Cursor>
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    //private static final int REQUEST_READ_CONTACTS = 0; nergens voor nodig (geen email)
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TO/DO: remove after connecting to a real authentication system.
-     */
-    /**private static final String[] DUMMY_CREDENTIALS = new String[]{
-     "foo@example.com:hello", "bar@example.com:world"
-     };*/
     private static final String PREFS_NAME = "Phapp_BasicLogin";
     private API api;
     /**
@@ -255,8 +246,8 @@ public class LoginActivity extends AppCompatActivity { // implements LoaderCallb
         private static final String PREFS_NAME = "Phapp_BasicLogin";
         private final String mUsername;
         private final String mPassword;
-        private boolean keepLoggedIn;
         private final Context context;
+        private boolean keepLoggedIn;
 
         UserLoginTask(String username, String password, boolean keepLoggedIn, Context context) {
             mUsername = username;

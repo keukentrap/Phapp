@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package haakjeopenen.phapp.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +26,8 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import haakjeopenen.phapp.nonactivityclasses.API;
-
-// Kijken wat hiervan nodig is
+import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.net.API;
 
 /**
  * H I D D E N   T E S T I N G   C O D E

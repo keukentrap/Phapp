@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.nonactivityclasses;
+package haakjeopenen.phapp.ui.phacebook;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +13,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.fragments.PostFragment.OnListFragmentInteractionListener;
+import haakjeopenen.phapp.models.NewsItem;
+import haakjeopenen.phapp.models.UserItem;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PostItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link NewsItem}.
  */
 public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<PhacebookRecyclerViewAdapter.ViewHolder> {
 
     private final List<UserItem> mValues;
-    //private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
 
     public PhacebookRecyclerViewAdapter(Context c, List<UserItem> items) {
@@ -43,6 +42,7 @@ public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<Phacebook
         holder.mName.setText(mValues.get(position).name);
         Picasso.with(mContext).load(mValues.get(position).avatarUrl).into(holder.mAvatar);
 
+        //TODO use it or remove onclickListener
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +66,7 @@ public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<Phacebook
             super(view);
             mView = view;
             mName = (TextView) view.findViewById(R.id.phacebook_name);
-            mAvatar= (ImageView) view.findViewById(R.id.phacebook_avatar);
+            mAvatar = (ImageView) view.findViewById(R.id.phacebook_avatar);
         }
 
         @Override

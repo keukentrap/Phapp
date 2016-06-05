@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.fragments;
+package haakjeopenen.phapp.ui.photos;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -25,16 +25,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.nonactivityclasses.API;
-import haakjeopenen.phapp.nonactivityclasses.ImageAdapter;
-import haakjeopenen.phapp.nonactivityclasses.ImageInfo;
-import haakjeopenen.phapp.nonactivityclasses.MultiSwipeRefreshLayout;
-import haakjeopenen.phapp.nonactivityclasses.PhotoZoomListener;
+import haakjeopenen.phapp.models.PhotoItem;
+import haakjeopenen.phapp.net.API;
+import haakjeopenen.phapp.util.Notify;
+import haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout;
 
+/**
+ * Simple photo gallery
+ * features:
+ * - RecyclerViewAdapter
+ * - Zoom in on photos
+ */
+public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PhotoZoomListener, Notify {
 
-public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PhotoZoomListener {
-
-    ArrayList<ImageInfo> images = new ArrayList<>();
+    ArrayList<PhotoItem> images = new ArrayList<>();
 
     /**
      * Hold a reference to the current animator, so that it can be canceled mid-way.
@@ -50,26 +54,9 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private PhotoZoomListener mListener;
 
     private API api;
-    private ImageAdapter imageadapter;
+    private PhotoAdapter imageadapter;
     private GridView photosgridview;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
-
-    //private Context mContext;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PhotosFragment.
-     */
-    public static PhotosFragment newInstance(String param1, String param2) {
-        PhotosFragment fragment = new PhotosFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public PhotosFragment() {
         api = API.getInstance(null);
@@ -107,14 +94,14 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         //check if this is the first time loading
         if (imageadapter == null) {
             images = new ArrayList<>();
-            imageadapter = new ImageAdapter(getActivity(), images, this);
+            imageadapter = new PhotoAdapter(getActivity(), images, this);
             api.loadPhotos(images, this);
         } else {
             photosgridview.setAdapter(imageadapter);
         }
     }
 
-    public void notifyUpdatePhotos() {
+    public void notifyUpdate() {
         //System.out.println("notified UpdatePhotos");
         multiSwipeRefreshLayout.setRefreshing(false);
         photosgridview.setAdapter(imageadapter);
@@ -134,13 +121,19 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh() {
         System.out.println("Refreshing");
-        ArrayList<ImageInfo> list = new ArrayList<>();
-        imageadapter = new ImageAdapter(getActivity(), list, this);
+        ArrayList<PhotoItem> list = new ArrayList<>();
+        imageadapter = new PhotoAdapter(getActivity(), list, this);
         API.getInstance().loadPhotos(list, this);
     }
 
 
-    private void zoomImageFromThumb(final View thumbView, ImageInfo imageInfo) {
+    /**
+     * huge method copied from the Android Developer site to animate the zoom in function
+     *
+     * @param thumbView
+     * @param photoItem
+     */
+    private void zoomImageFromThumb(final View thumbView, PhotoItem photoItem) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         if (mCurrentAnimator != null) {
@@ -151,7 +144,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         final ImageView expandedImageView = (ImageView) this.getView().findViewById(
                 R.id.expanded_image);
 
-        String imgurl = imageInfo.imgurl;
+        String imgurl = photoItem.imgurl;
         System.out.println(imgurl);
         try {
             Picasso.with(getActivity()).load(imgurl).into(expandedImageView);
@@ -310,8 +303,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onPhotoZoom(View thumbView, ImageInfo imageInfo) {
-        zoomImageFromThumb(thumbView, imageInfo);
+    public void onPhotoZoom(View thumbView, PhotoItem photoItem) {
+        zoomImageFromThumb(thumbView, photoItem);
 
     }
 }

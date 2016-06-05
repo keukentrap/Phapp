@@ -1,55 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PhaceBookFragment"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    tools:context=".ui.phacebook.PhaceBookFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:layout_weight="0"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
         <EditText
+            android:id="@+id/input_phacebook_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/name"
-            android:ems="10"
-            android:id="@+id/input_phacebook_field"
             android:layout_weight="0"
-            android:imeOptions="actionSearch" />
+            android:ems="10"
+            android:hint="@string/name"
+            android:imeOptions="actionSearch"
+            android:inputType="textPersonName" />
 
         <Button
+            android:id="@+id/search_phacebook_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search"
-            android:id="@+id/search_phacebook_button"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="0"
-            android:layout_gravity="center_horizontal" />
+            android:text="Search" />
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1">
 
-            <android.support.v7.widget.RecyclerView
+            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/result_view"
+                android:name="haakjeopenen.phapp.PhacebookFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="haakjeopenen.phapp.PhacebookFragment"
-                android:id="@+id/result_view"
                 android:layout_gravity="center_horizontal"
                 app:layoutManager="LinearLayoutManager"
                 tools:context=".fragments.PhacebookFragment"

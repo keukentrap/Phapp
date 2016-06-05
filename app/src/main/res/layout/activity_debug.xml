@@ -8,125 +8,125 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="haakjeopenen.phapp.DebugActivity">
+    tools:context=".ui.DebugActivity">
 
     <EditText
+        android:id="@+id/debugUrlText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/debugUrlText"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:text="http://dev.phocasnijmegen.nl/wp-json/wp/v2/"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Voer API-request in: (zonder /v1.1/)"
         android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/debugUrlText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:text="Voer API-request in: (zonder /v1.1/)"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/debugRequestText"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="POST body:"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/debugRequestText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/debugRequestText"
+        android:text="POST body:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
         android:id="@+id/debugRequestText2"
-        android:layout_below="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GET"
         android:id="@+id/sendDebugGet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/debugRequestText2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="sendAPIgetRequest"/>
+        android:onClick="sendAPIgetRequest"
+        android:text="GET" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Antwoord:"
         android:id="@+id/textView3"
-        android:layout_below="@+id/sendDebugGet"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/debugRequestAnswer"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/debugRequestText"
+        android:layout_below="@+id/sendDebugGet"
+        android:text="Antwoord:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/debugRequestAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/debugRequestText"
-        android:text="INIT"
-        android:scrollbars = "vertical"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/debugRequestText"
+        android:layout_below="@+id/textView3"
+        android:scrollbars="vertical"
+        android:text="INIT" />
 
     <Button
+        android:id="@+id/sendDebugPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="POST"
-        android:id="@+id/sendDebugPost"
-        android:onClick="sendAPIpostRequest"
         android:layout_below="@+id/debugRequestText2"
+        android:layout_toEndOf="@+id/sendDebugGet"
         android:layout_toRightOf="@+id/sendDebugGet"
-        android:layout_toEndOf="@+id/sendDebugGet"/>
+        android:onClick="sendAPIpostRequest"
+        android:text="POST" />
 
     <TextView
+        android:id="@+id/responseCodeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="000"
-        android:id="@+id/responseCodeView"
-        android:layout_below="@+id/sendDebugPost"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_below="@+id/sendDebugPost"
+        android:text="000"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Switch
+        android:id="@+id/oudecodeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Oude code"
-        android:id="@+id/oudecodeSwitch"
-        android:layout_below="@+id/debugRequestText2"
-        android:layout_alignRight="@+id/debugRequestText2"
         android:layout_alignEnd="@+id/debugRequestText2"
+        android:layout_alignRight="@+id/debugRequestText2"
+        android:layout_below="@+id/debugRequestText2"
+        android:checked="false"
         android:enabled="true"
-        android:checked="false"/>
+        android:text="Oude code" />
 
     <Button
+        android:id="@+id/button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="API T"
-        android:id="@+id/button"
         android:layout_below="@+id/debugRequestText2"
-        android:layout_toRightOf="@+id/sendDebugPost"
         android:layout_toEndOf="@+id/sendDebugPost"
-        android:onClick="apiTest"/>
+        android:layout_toRightOf="@+id/sendDebugPost"
+        android:onClick="apiTest"
+        android:text="API T" />
 </RelativeLayout>

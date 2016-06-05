@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.fragments;
+package haakjeopenen.phapp.ui;
 
 
 import android.os.Bundle;
@@ -9,11 +9,6 @@ import android.view.ViewGroup;
 
 import haakjeopenen.phapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MeFragment extends Fragment {
 
 

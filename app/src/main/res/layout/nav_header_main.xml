@@ -12,7 +12,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
-    <haakjeopenen.phapp.nonactivityclasses.RoundedImageView
+    <haakjeopenen.phapp.widgets.RoundedImageView
         android:id="@+id/avaView"
         android:layout_width="96dp"
         android:layout_height="96dp"

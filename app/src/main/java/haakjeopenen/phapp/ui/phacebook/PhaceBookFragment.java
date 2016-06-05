@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.fragments;
+package haakjeopenen.phapp.ui.phacebook;
 
 
 import android.app.Fragment;
@@ -16,15 +16,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.nonactivityclasses.API;
-import haakjeopenen.phapp.nonactivityclasses.DividerItemDecoration;
-import haakjeopenen.phapp.nonactivityclasses.PhacebookRecyclerViewAdapter;
-import haakjeopenen.phapp.nonactivityclasses.UserItem;
+import haakjeopenen.phapp.models.UserItem;
+import haakjeopenen.phapp.net.API;
+import haakjeopenen.phapp.util.Notify;
+import haakjeopenen.phapp.widgets.DividerItemDecoration;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link PhaceBookFragment} to search the user database
  */
-public class PhaceBookFragment extends Fragment implements View.OnClickListener {
+public class PhaceBookFragment extends Fragment implements View.OnClickListener, Notify {
 
     private API api;
     private Button mSearch;
@@ -39,13 +39,6 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,30 +48,30 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener 
         mName = (EditText) view.findViewById(R.id.input_phacebook_field);
 
         mName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				boolean handled = false;
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					onClick(v); // TODO: als er meer knoppen nodig zijn, view goed afhandelen
-					handled = true;
-				}
-				return handled;
-			}
-		});
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    onClick(v);
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
         mSearch = (Button) view.findViewById(R.id.search_phacebook_button);
+        mSearch.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.result_view);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true); //performance optimization
 
         //check if this is the first time loading
         if (adapter == null) {
             results = new ArrayList<>();
             adapter = new PhacebookRecyclerViewAdapter(view.getContext(), results);
 
-            mSearch.setOnClickListener(this);
+
             api = API.getInstance();
         } else {
             mRecyclerView.setAdapter(adapter);
@@ -93,12 +86,12 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener 
     }
 
     /**
-     * Called when a view has been clicked.
+     * Called when search button has been clicked.
      *
-     * @param v The view that was clicked.
+     * @param v The search button that was clicked.
      */
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) { // TODO: als er meer knoppen nodig zijn, view goed afhandelen
         String search = mName.getText().toString();
         System.out.println("Searching for: " + search);
 

@@ -1,13 +1,13 @@
-package haakjeopenen.phapp.nonactivityclasses;
+package haakjeopenen.phapp.models;
 
 /**
  * Created by wietze on 6/2/16.
  */
-public class ImageInfo {
+public class PhotoItem {
     public String imgurl;
     public String thumburl;
 
-    public ImageInfo(String imgurl, String thumburl) {
+    public PhotoItem(String imgurl, String thumburl) {
         this.imgurl = imgurl;
         this.thumburl = thumburl;
     }

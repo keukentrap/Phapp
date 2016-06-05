@@ -1,4 +1,4 @@
-package haakjeopenen.phapp.nonactivityclasses;
+package haakjeopenen.phapp.models;
 
 /**
  * Created by wietze on 6/3/16.

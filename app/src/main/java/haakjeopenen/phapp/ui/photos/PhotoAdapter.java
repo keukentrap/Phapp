@@ -1,38 +1,27 @@
-package haakjeopenen.phapp.nonactivityclasses;
+package haakjeopenen.phapp.ui.photos;
 
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.fragments.PhotosFragment;
-import haakjeopenen.phapp.fragments.PostFragment;
+import haakjeopenen.phapp.models.PhotoItem;
 
 /**
- * Created by U on 31-5-2016.
+ * {@link BaseAdapter} to display photos in the {@link PhotosFragment}
  */
-public class ImageAdapter extends BaseAdapter {
+public class PhotoAdapter extends BaseAdapter {
 	private final Context mContext;
-	private List<ImageInfo> mThumbs = new ArrayList<>();
 	private final PhotoZoomListener mListener;
+	private List<PhotoItem> mThumbs = new ArrayList<>();
 
-	public ImageAdapter(Context c, ArrayList<ImageInfo> thumbs, PhotoZoomListener listener) {
+	public PhotoAdapter(Context c, ArrayList<PhotoItem> thumbs, PhotoZoomListener listener) {
 		mContext = c;
 		mThumbs = thumbs;
 		mListener = listener;
@@ -56,12 +45,9 @@ public class ImageAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			// if it's not recycled, initialize some attributes
-			// imageView = (ImageView) parent.findViewById(R.id.post_image);
 			imageView = new ImageView(mContext);
-			//imageView.setLayoutParams(new GridView.LayoutParams(300 , 300));
 			imageView.setAdjustViewBounds(true);
 			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-			//imageView.setPadding(2, 2, 2, 2);
 		} else {
 			imageView = (ImageView) convertView;
 		}

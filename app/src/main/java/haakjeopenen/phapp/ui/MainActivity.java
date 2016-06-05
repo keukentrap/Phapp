@@ -1,4 +1,4 @@
-package haakjeopenen.phapp;
+package haakjeopenen.phapp.ui;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -21,12 +21,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-import haakjeopenen.phapp.fragments.AgendaFragment;
-import haakjeopenen.phapp.fragments.ContactFragment;
-import haakjeopenen.phapp.fragments.PhaceBookFragment;
-import haakjeopenen.phapp.fragments.PhotosFragment;
-import haakjeopenen.phapp.fragments.PostFragment;
-import haakjeopenen.phapp.nonactivityclasses.API;
+import haakjeopenen.phapp.R;
+import haakjeopenen.phapp.net.API;
+import haakjeopenen.phapp.ui.contact.ContactFragment;
+import haakjeopenen.phapp.ui.news.NewsFragment;
+import haakjeopenen.phapp.ui.phacebook.PhaceBookFragment;
+import haakjeopenen.phapp.ui.photos.PhotosFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment testFragment = new PostFragment();
+        Fragment testFragment = new NewsFragment();
         fragmentTransaction.replace(R.id.content_main, testFragment);
         fragmentTransaction.commit();
 
@@ -84,11 +84,10 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         nameText = (TextView) findViewById(R.id.nameText);
-        //TODO hij crasht hier soms
         nameText.setText(api.getDisplayName());
 
-		avaView = (ImageView) findViewById(R.id.avaView);
-		//avaView.setImageBitmap(api.getAvabitmap());
+        //load the avatar
+        avaView = (ImageView) findViewById(R.id.avaView);
 		Picasso.with(this).load(api.getAvaurl()).into(avaView);
 
         return true;
@@ -116,59 +115,45 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            // Forget everything
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("rememberLogin", false);
-            editor.putString("username", "");
-            editor.putString("password", "");
-            editor.commit();
-
-            api.logout();
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-            startActivity(intent);
-            this.finish();
+            logout();
             return true;
         }
 
-        //TODO ugly
-        if (id == R.id.nav_mainpage) {
-            setTitle("Phocas");
-        } else if (id == R.id.nav_contact) {
-            this.setTitle(R.string.contact);
-        } else if (id == R.id.nav_agenda) {
-            this.setTitle(R.string.agenda);
-        } else if (id == R.id.nav_photos) {
-            this.setTitle(R.string.photos);
-        } else if (id == R.id.nav_smoelenboek) {
-            this.setTitle(R.string.smoelenboek);
-        }
         loadFragment(id);
 
+        //hide the navigation drawer again
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
+    /**
+     * Start fragment linked with an item in the navigation drawer
+     *
+     * @param id id of item in navigation drawer
+     */
     private void loadFragment(int id) {
         fragmentTransaction = fragmentManager.beginTransaction();
         Fragment f;
         if (fragments.get(id) == null) {
-            //TODO also ugly
+            //TODO a bit ugly
             System.out.println("Creating new Fragment for: " + id);
             switch(id) {
                 case R.id.nav_mainpage:
-                    f = new PostFragment();
+                    setTitle("Phocas");
+                    f = new NewsFragment();
                     break;
                 case R.id.nav_contact:
+                    this.setTitle(R.string.contact);
                     f = new ContactFragment();
                     break;
                 case R.id.nav_agenda:
+                    this.setTitle(R.string.agenda);
                     f = new AgendaFragment();
                     break;
                 case R.id.nav_photos:
+                    this.setTitle(R.string.photos);
                     f = new PhotosFragment();
                     break;
                 case R.id.nav_authorizations:
@@ -182,6 +167,7 @@ public class MainActivity extends AppCompatActivity
                 case R.id.nav_weather:
                     return;
                 case R.id.nav_smoelenboek:
+                    this.setTitle(R.string.smoelenboek);
                     f = new PhaceBookFragment();
                     break;
                 default:
@@ -197,5 +183,25 @@ public class MainActivity extends AppCompatActivity
     public void setTitle(CharSequence title) {
 		mTitle = title;
 		getSupportActionBar().setTitle(mTitle);
+    }
+
+    /**
+     * Forget everything
+     */
+    private void logout() {
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("rememberLogin", false);
+        editor.putString("username", "");
+        editor.putString("password", "");
+        editor.commit();
+
+        api.logout();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+        startActivity(intent);
+        this.finish();
     }
 }
