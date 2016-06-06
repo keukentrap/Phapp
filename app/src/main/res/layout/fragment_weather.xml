@@ -11,8 +11,8 @@
         android:id="@+id/weatherPicture"
         android:layout_gravity="center_horizontal|top"
         android:longClickable="false"
-        android:minHeight="80dp"
-        android:minWidth="80dp"
+        android:minHeight="64dp"
+        android:minWidth="64dp"
         android:nestedScrollingEnabled="false"/>
 
     <TextView

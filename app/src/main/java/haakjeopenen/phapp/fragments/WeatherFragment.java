@@ -25,7 +25,7 @@ import haakjeopenen.phapp.net.WeatherReader;
  */
 public class WeatherFragment extends Fragment {
 	private OnFragmentInteractionListener mListener;
-	private final WeatherReader weatherreader = new WeatherReader(this);
+	private WeatherReader weatherreader;
 
 	private ImageView imageview;
 	private TextView weatherinfotext;
@@ -45,7 +45,11 @@ public class WeatherFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_weather, container, false);
 
 		imageview = (ImageView) view.findViewById(R.id.weatherPicture);
+		//imageview.setScaleType(null
+
 		weatherinfotext = (TextView) view.findViewById(R.id.weatherInfoText);
+
+		weatherreader = new WeatherReader(this);
 
 		// Inflate the layout for this fragment
 		return view;
@@ -60,13 +64,8 @@ public class WeatherFragment extends Fragment {
 
 	public void doneLoading()
 	{
-		// TODO: A disgrace?
-		if(imageview == null)
-			System.out.println("CAUTION: ImageView still null");
-		else {
-			Picasso.with(getActivity()).load(weatherreader.getImage()).into(imageview);
-			weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind()));
-		}
+		Picasso.with(getActivity()).load(weatherreader.getImage()).resize(370,370).centerCrop().into(imageview); // Original image is 37x37
+		weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind()));
 	}
 
 	@Override
