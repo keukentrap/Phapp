@@ -157,13 +157,13 @@ public class MainActivity extends AppCompatActivity
                     this.setTitle(R.string.photos);
                     f = new PhotosFragment();
                     break;
-                case R.id.nav_authorizations:
-                case R.id.nav_workactions:
-                case R.id.nav_werelookingfor:
-                case R.id.nav_planning:
-                case R.id.nav_weather:
-                    // Fallthrough
-                    return;
+//                case R.id.nav_authorizations:
+//                case R.id.nav_workactions:
+//                case R.id.nav_werelookingfor:
+//                case R.id.nav_planning:
+//                case R.id.nav_weather:
+//                    // Fallthrough
+//                    return;
                 case R.id.nav_smoelenboek:
                     this.setTitle(R.string.smoelenboek);
                     f = new PhaceBookFragment();
