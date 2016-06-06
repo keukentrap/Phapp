@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.fragments.AgendaFragment;
@@ -27,11 +28,14 @@ import haakjeopenen.phapp.fragments.WeatherFragment;
 import haakjeopenen.phapp.fragments.contact.ContactFragment;
 import haakjeopenen.phapp.fragments.news.NewsFragment;
 import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
+import haakjeopenen.phapp.fragments.photos.PhotoHighlightedFragment;
+import haakjeopenen.phapp.fragments.photos.PhotoZoomListener;
 import haakjeopenen.phapp.fragments.photos.PhotosFragment;
+import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.net.API;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
     private API api;
     private FragmentManager fragmentManager;
@@ -40,13 +44,18 @@ public class MainActivity extends AppCompatActivity
     private TextView nameText;
 	private ImageView avaView;
 
+    private Toolbar toolbar;
+
+
+
     private HashMap<Integer,Fragment> fragments;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -86,7 +95,9 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         nameText = (TextView) findViewById(R.id.nameText);
-        nameText.setText(api.getDisplayName());
+
+        if (api != null)
+            nameText.setText(api.getDisplayName());
 
         //load the avatar
         avaView = (ImageView) findViewById(R.id.avaView);
@@ -136,7 +147,7 @@ public class MainActivity extends AppCompatActivity
      * @param id id of item in navigation drawer
      */
     private void loadFragment(int id) {
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = getFragmentManager().beginTransaction();
         Fragment f;
         if (fragments.get(id) == null) {
             //TODO a bit ugly
@@ -156,7 +167,9 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case R.id.nav_photos:
                     this.setTitle(R.string.photos);
-                    f = new PhotosFragment();
+                    PhotosFragment fragment = new PhotosFragment();
+                    fragment.setPhotoZoomListener(this);
+                    f = fragment;
                     break;
 //                case R.id.nav_authorizations:
 //                case R.id.nav_workactions:
@@ -205,5 +218,25 @@ public class MainActivity extends AppCompatActivity
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(intent);
         this.finish();
+    }
+
+    @Override
+    public void onPhotoZoom(List<Photo> images, int position) {
+
+        PhotoHighlightedFragment newFragment = new PhotoHighlightedFragment();
+        newFragment.setImages(images);
+        newFragment.setPosition(position);
+
+        fragmentTransaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        fragmentTransaction.replace(R.id.content_main, newFragment);
+        fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction
+        fragmentTransaction.commit();
+
+
     }
 }

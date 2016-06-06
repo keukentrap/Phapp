@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.models.Photo;
@@ -52,13 +53,18 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private int mShortAnimationDuration;
 
     private API api;
-    private PhotoAdapter imageadapter;
+    private PhotoAdapter imageAdapter;
     private GridView mPhotosGridview;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
     private ProgressBar mLoadingBar;
+    private PhotoZoomListener mListener;
 
     public PhotosFragment() {
         api = API.getInstance(null);
+    }
+
+    public void setPhotoZoomListener(PhotoZoomListener mListener) {
+        this.mListener = mListener;
     }
 
     @Override
@@ -85,9 +91,13 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         mPhotosGridview = (GridView) view.findViewById(R.id.photosGridView);
 
         //check if this is the first time loading
-        if (imageadapter == null) {
+        if (imageAdapter == null) {
             images = new ArrayList<>();
-            imageadapter = new PhotoAdapter(getActivity(), images, this);
+            if (mListener != null) {
+                imageAdapter = new PhotoAdapter(getActivity(), images, mListener);
+            } else {
+                imageAdapter = new PhotoAdapter(getActivity(), images, this);
+            }
             api.loadPhotos(images, this);
 
 
@@ -100,14 +110,14 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     public void notifyUpdate() {
         //System.out.println("notified UpdatePhotos");
-        mPhotosGridview.setAdapter(imageadapter);
+        mPhotosGridview.setAdapter(imageAdapter);
     }
 
     @Override
     public void notifyFinished() {
         multiSwipeRefreshLayout.setRefreshing(false);
         mLoadingBar.setVisibility(View.GONE);
-        mPhotosGridview.setAdapter(imageadapter);
+        mPhotosGridview.setAdapter(imageAdapter);
     }
 
     @Override
@@ -117,7 +127,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         //TODO can we comment this out?
         ArrayList<Photo> list = new ArrayList<>();
-        imageadapter = new PhotoAdapter(getActivity(), list, this);
+        imageAdapter = new PhotoAdapter(getActivity(), list, this);
 
         API.getInstance().loadPhotos(list, this);
     }
@@ -299,8 +309,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onPhotoZoom(View thumbView, Photo photo) {
-        zoomImageFromThumb(thumbView, photo);
+    public void onPhotoZoom(List<Photo> images, int position) {
+        //zoomImageFromThumb(imageAdapter.get);
 
     }
 }

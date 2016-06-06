@@ -58,7 +58,7 @@ public class PhotoAdapter extends BaseAdapter {
 		imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onPhotoZoom(imageView,mThumbs.get(position));
+				mListener.onPhotoZoom(mThumbs, position);
 			}
 		});
 		return imageView;
