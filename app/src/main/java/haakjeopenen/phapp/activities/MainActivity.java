@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.fragments.AgendaFragment;
+import haakjeopenen.phapp.fragments.WeatherFragment;
 import haakjeopenen.phapp.fragments.contact.ContactFragment;
 import haakjeopenen.phapp.fragments.news.NewsFragment;
 import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
@@ -161,9 +162,12 @@ public class MainActivity extends AppCompatActivity
 //                case R.id.nav_workactions:
 //                case R.id.nav_werelookingfor:
 //                case R.id.nav_planning:
-//                case R.id.nav_weather:
 //                    // Fallthrough
 //                    return;
+                case R.id.nav_weather:
+					this.setTitle(R.string.weather);
+					f = new WeatherFragment();
+					break;
                 case R.id.nav_smoelenboek:
                     this.setTitle(R.string.smoelenboek);
                     f = new PhaceBookFragment();

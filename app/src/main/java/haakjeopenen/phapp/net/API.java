@@ -20,6 +20,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,12 +30,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.models.Post;
 import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.util.Notify;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
 
 /**
  * Created by David on 20-5-2016.
@@ -256,6 +267,24 @@ public class API {
             }
         });
     }
+
+    public void loadBuienradar(final WeatherReader weatherreader, final DocumentBuilder builder)
+	{
+		fullGetRequest("http://xml.buienradar.nl", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				Document document = null;
+				try {
+					document = builder.parse(new ByteArrayInputStream(response.getBytes()));
+				}
+				catch (SAXException | IOException ex) {
+					Logger.getLogger(WeatherReader.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+				weatherreader.doneLoading(document);
+			}
+		});
+	}
 
     public boolean checkLogin() {
         validLogin = -1;
