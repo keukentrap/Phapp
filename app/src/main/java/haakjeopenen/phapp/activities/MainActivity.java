@@ -5,12 +5,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity
 	private ImageView avaView;
 
     private Toolbar toolbar;
+    private MenuItem mShareItem;
+    private ShareActionProvider mShareActionProvider;
 
 
 
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 
+
         fragments = new HashMap<>();
 
         fragmentManager = getFragmentManager();
@@ -72,6 +78,8 @@ public class MainActivity extends AppCompatActivity
         Fragment testFragment = new NewsFragment();
         fragmentTransaction.replace(R.id.content_main, testFragment);
         fragmentTransaction.commit();
+
+
 
         api = API.getInstance(this);
 
@@ -102,6 +110,20 @@ public class MainActivity extends AppCompatActivity
         //load the avatar
         avaView = (ImageView) findViewById(R.id.avaView);
 		Picasso.with(this).load(api.getAvaurl()).into(avaView);
+
+        // Locate MenuItem with ShareActionProvider
+        mShareItem = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
+
+        mShareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener() {
+            @Override
+            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
+                System.out.println("Sharing...");
+                return true;
+            }
+        });
 
         return true;
     }
@@ -152,7 +174,7 @@ public class MainActivity extends AppCompatActivity
         if (fragments.get(id) == null) {
             //TODO a bit ugly
             System.out.println("Creating new Fragment for: " + id);
-            switch(id) {
+            switch (id) {
                 case R.id.nav_mainpage:
                     setTitle("Phocas");
                     f = new NewsFragment();
@@ -178,9 +200,9 @@ public class MainActivity extends AppCompatActivity
 //                    // Fallthrough
 //                    return;
                 case R.id.nav_weather:
-					this.setTitle(R.string.weather);
-					f = new WeatherFragment();
-					break;
+                    this.setTitle(R.string.weather);
+                    f = new WeatherFragment();
+                    break;
                 case R.id.nav_smoelenboek:
                     this.setTitle(R.string.smoelenboek);
                     f = new PhaceBookFragment();
@@ -188,9 +210,12 @@ public class MainActivity extends AppCompatActivity
                 default:
                     return;
             }
-            fragments.put(id,f);
+            fragments.put(id, f);
         }
+        mShareItem.setVisible(false);
+
         fragmentTransaction.replace(R.id.content_main, fragments.get(id));
+        fragmentTransaction.disallowAddToBackStack();
         fragmentTransaction.commit();
     }
 
@@ -219,6 +244,12 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
         this.finish();
     }
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
 
     @Override
     public void onPhotoZoom(List<Photo> images, int position) {
@@ -226,6 +257,16 @@ public class MainActivity extends AppCompatActivity
         PhotoHighlightedFragment newFragment = new PhotoHighlightedFragment();
         newFragment.setImages(images);
         newFragment.setPosition(position);
+
+        mShareItem.setVisible(true);
+
+        //TODO photo sharing not working
+        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+        myShareIntent.setType("image/*");
+        Uri uri = Uri.parse(images.get(position).imgurl);
+        myShareIntent.putExtra(Intent.EXTRA_STREAM,uri);
+        mShareActionProvider.setShareIntent(myShareIntent);
+
 
         fragmentTransaction = getFragmentManager().beginTransaction();
 
