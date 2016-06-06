@@ -158,14 +158,11 @@ public class MainActivity extends AppCompatActivity
                     f = new PhotosFragment();
                     break;
                 case R.id.nav_authorizations:
-                    return;
                 case R.id.nav_workactions:
-                    return;
                 case R.id.nav_werelookingfor:
-                    return;
                 case R.id.nav_planning:
-                    return;
                 case R.id.nav_weather:
+                    // Fallthrough
                     return;
                 case R.id.nav_smoelenboek:
                     this.setTitle(R.string.smoelenboek);
