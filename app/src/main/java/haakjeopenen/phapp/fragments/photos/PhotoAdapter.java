@@ -19,16 +19,16 @@ import haakjeopenen.phapp.models.Photo;
 public class PhotoAdapter extends BaseAdapter {
 	private final Context mContext;
 	private final PhotoZoomListener mListener;
-	private List<Photo> mThumbs = new ArrayList<>();
+	private List<Photo> mImages = new ArrayList<>();
 
 	public PhotoAdapter(Context c, ArrayList<Photo> thumbs, PhotoZoomListener listener) {
 		mContext = c;
-		mThumbs = thumbs;
+		mImages = thumbs;
 		mListener = listener;
 	}
 
 	public int getCount() {
-		return mThumbs.size();
+		return mImages.size();
 	}
 
 	public Object getItem(int position) {
@@ -52,13 +52,14 @@ public class PhotoAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		String thumburl = mThumbs.get(position).thumburl;
+		String thumburl = mImages.get(position).thumburl;
 		Picasso.with(mContext).load(thumburl).into(imageView);
+
 
 		imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onPhotoZoom(mThumbs, position);
+				mListener.onPhotoZoom(mImages, position);
 			}
 		});
 		return imageView;
@@ -69,7 +70,7 @@ public class PhotoAdapter extends BaseAdapter {
 	 */
 	public void resetThumbs()
 	{
-		mThumbs.clear();
+		mImages.clear();
 	}
 
 }

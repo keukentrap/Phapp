@@ -1,7 +1,6 @@
 package haakjeopenen.phapp.fragments.photos;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.widgets.TouchImageView;
 
@@ -19,12 +19,12 @@ import haakjeopenen.phapp.widgets.TouchImageView;
  * Created by wietze on 6/6/16.
  */
 public class PhotoZoomAdapter extends PagerAdapter {
-    private List<Photo> mThumbs = new ArrayList<>();
+    private List<Photo> mPhotos = new ArrayList<>();
     private Context mContext;
 
     public PhotoZoomAdapter(Context c, List<Photo> thumbs) {
         mContext = c;
-        mThumbs = thumbs;
+        mPhotos = thumbs;
     }
 
 
@@ -35,8 +35,8 @@ public class PhotoZoomAdapter extends PagerAdapter {
      */
     @Override
     public int getCount() {
-        if (mThumbs != null)
-            return mThumbs.size();
+        if (mPhotos != null)
+            return mPhotos.size();
         return 0;
     }
 
@@ -49,8 +49,8 @@ public class PhotoZoomAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         TouchImageView imageView = new TouchImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        Picasso.with(mContext).load(mThumbs.get(position).imgurl).into(imageView);
-        imageView.setBackgroundColor(Color.BLACK);
+        imageView.setId(R.id.imageView);
+        Picasso.with(mContext).load(mPhotos.get(position).imgurl).into(imageView);
         container.addView(imageView, 0);
         return imageView;
     }
