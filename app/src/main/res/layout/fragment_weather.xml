@@ -4,22 +4,19 @@
              android:layout_height="match_parent"
              tools:context="haakjeopenen.phapp.fragments.WeatherFragment">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weatherPicture"
         android:layout_gravity="center_horizontal|top"
         android:longClickable="false"
-        android:minHeight="64dp"
-        android:minWidth="64dp"
         android:nestedScrollingEnabled="false"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Loading..."
+        android:text="@string/loading"
         android:id="@+id/weatherInfoText"
         android:layout_gravity="center"/>
 </FrameLayout>

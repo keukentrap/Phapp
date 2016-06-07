@@ -31,6 +31,7 @@ import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
 import haakjeopenen.phapp.fragments.photos.PhotoHighlightedFragment;
 import haakjeopenen.phapp.fragments.photos.PhotoZoomListener;
 import haakjeopenen.phapp.fragments.photos.PhotosFragment;
+import haakjeopenen.phapp.models.FragmentHolder;
 import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.net.API;
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private HashMap<Integer,Fragment> fragments;
+    private HashMap<Integer,FragmentHolder> fragments;
 
 
     @Override
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+	//@Override
+	//private void onSaveInstanceState
 
     @Override
     public void onBackPressed() {
@@ -152,21 +156,22 @@ public class MainActivity extends AppCompatActivity
         if (fragments.get(id) == null) {
             //TODO a bit ugly
             System.out.println("Creating new Fragment for: " + id);
+            String title = "";
             switch(id) {
                 case R.id.nav_mainpage:
-                    setTitle("Phocas");
+					title = "Phocas";
                     f = new NewsFragment();
                     break;
                 case R.id.nav_contact:
-                    this.setTitle(R.string.contact);
+					title = getString(R.string.contact);
                     f = new ContactFragment();
                     break;
                 case R.id.nav_agenda:
-                    this.setTitle(R.string.agenda);
+					title = getString(R.string.agenda);
                     f = new AgendaFragment();
                     break;
                 case R.id.nav_photos:
-                    this.setTitle(R.string.photos);
+					title = getString(R.string.photos);
                     PhotosFragment fragment = new PhotosFragment();
                     fragment.setPhotoZoomListener(this);
                     f = fragment;
@@ -178,19 +183,21 @@ public class MainActivity extends AppCompatActivity
 //                    // Fallthrough
 //                    return;
                 case R.id.nav_weather:
-					this.setTitle(R.string.weather);
+					title = getString(R.string.weather);
 					f = new WeatherFragment();
 					break;
                 case R.id.nav_smoelenboek:
-                    this.setTitle(R.string.smoelenboek);
+					title = getString(R.string.smoelenboek);
                     f = new PhaceBookFragment();
                     break;
                 default:
                     return;
             }
-            fragments.put(id,f);
+			f.setRetainInstance(true);
+            fragments.put(id,new FragmentHolder(title, f));
         }
-        fragmentTransaction.replace(R.id.content_main, fragments.get(id));
+		this.setTitle(fragments.get(id).title);
+        fragmentTransaction.replace(R.id.content_main, fragments.get(id).fragment);
         fragmentTransaction.commit();
     }
 
