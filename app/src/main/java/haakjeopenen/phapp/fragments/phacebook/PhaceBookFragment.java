@@ -96,7 +96,7 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
      * @param v The search button that was clicked.
      */
     @Override
-    public void onClick(View v) { // TODO: als er meer knoppen nodig zijn, view goed afhandelen
+    public void onClick(View v) {
         String search = mName.getText().toString();
         System.out.println("Searching for: " + search);
 

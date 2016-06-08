@@ -41,14 +41,6 @@ public class PhacebookRecyclerViewAdapter extends RecyclerView.Adapter<Phacebook
 
         holder.mName.setText(mValues.get(position).name);
         Picasso.with(mContext).load(mValues.get(position).avatarUrl).into(holder.mAvatar);
-
-        //TODO use it or remove onclickListener
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     @Override

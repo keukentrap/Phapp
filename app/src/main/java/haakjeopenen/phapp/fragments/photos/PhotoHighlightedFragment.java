@@ -15,14 +15,14 @@ import haakjeopenen.phapp.models.Photo;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnPageSelectedListener} interface
+ * {@link OnPhotoHighlightedListener} interface
  * to handle interaction events.
  */
 public class PhotoHighlightedFragment extends Fragment {
     private int position;
     private List<Photo> images;
 
-    private OnPageSelectedListener mListener;
+    private OnPhotoHighlightedListener mListener;
 
     public PhotoHighlightedFragment() {
         // Required empty public constructor
@@ -36,7 +36,7 @@ public class PhotoHighlightedFragment extends Fragment {
         this.images = images;
     }
 
-    public void setOnFragmentInteractionListener(OnPageSelectedListener listener) {
+    public void setOnFragmentInteractionListener(OnPhotoHighlightedListener listener) {
         this.mListener = listener;
     }
 
@@ -62,7 +62,7 @@ public class PhotoHighlightedFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 System.out.println("Photo selected");
-                mListener.onPageSelected(images.get(position));
+                mListener.onPhotoHighlighted(images.get(position));
             }
 
             @Override
@@ -77,7 +77,5 @@ public class PhotoHighlightedFragment extends Fragment {
         return view;
     }
 
-    public interface OnPageSelectedListener {
-        void onPageSelected(Photo photo);
-    }
+
 }

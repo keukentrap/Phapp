@@ -18,10 +18,10 @@ import haakjeopenen.phapp.models.Photo;
  */
 public class PhotoAdapter extends BaseAdapter {
 	private final Context mContext;
-	private final PhotoZoomListener mListener;
+	private final PhotoClickedListener mListener;
 	private List<Photo> mImages = new ArrayList<>();
 
-	public PhotoAdapter(Context c, ArrayList<Photo> thumbs, PhotoZoomListener listener) {
+	public PhotoAdapter(Context c, ArrayList<Photo> thumbs, PhotoClickedListener listener) {
 		mContext = c;
 		mImages = thumbs;
 		mListener = listener;
@@ -59,7 +59,7 @@ public class PhotoAdapter extends BaseAdapter {
 		imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onPhotoZoom(mImages, position);
+				mListener.onPhotoClicked(mImages, position);
 			}
 		});
 		return imageView;

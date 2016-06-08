@@ -37,7 +37,7 @@ import haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout;
  * - RecyclerViewAdapter
  * - Zoom in on photos
  */
-public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PhotoZoomListener, Notify {
+public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PhotoClickedListener, Notify {
 
     private ArrayList<Photo> images = new ArrayList<>();
 
@@ -57,13 +57,13 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private GridView mPhotosGridview;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
     private ProgressBar mLoadingBar;
-    private PhotoZoomListener mListener;
+    private PhotoClickedListener mListener;
 
     public PhotosFragment() {
         api = API.getInstance(null);
     }
 
-    public void setPhotoZoomListener(PhotoZoomListener mListener) {
+    public void setPhotoZoomListener(PhotoClickedListener mListener) {
         this.mListener = mListener;
     }
 
@@ -125,11 +125,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         System.out.println("Refreshing");
         mLoadingBar.setVisibility(View.GONE);
 
-        //TODO can we comment this out?
-        ArrayList<Photo> list = new ArrayList<>();
-        imageAdapter = new PhotoAdapter(getActivity(), list, this);
-
-        API.getInstance().loadPhotos(list, this);
+        API.getInstance().loadPhotos(images, this);
     }
 
 
@@ -309,7 +305,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onPhotoZoom(List<Photo> images, int position) {
+    public void onPhotoClicked(List<Photo> images, int position) {
         //zoomImageFromThumb(imageAdapter.get);
     }
 }

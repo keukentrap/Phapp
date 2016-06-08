@@ -1,9 +1,7 @@
 package haakjeopenen.phapp.util;
 
-//TODO better name?
-
 /**
- * Created by wietze on 6/5/16.
+ * Interface for object to be notified when an API response update or finishes
  */
 public interface Notify {
     void notifyUpdate();

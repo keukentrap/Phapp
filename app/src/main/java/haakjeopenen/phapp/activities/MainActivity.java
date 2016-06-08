@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.WeatherFragment;
 import haakjeopenen.phapp.fragments.contact.ContactFragment;
 import haakjeopenen.phapp.fragments.news.NewsFragment;
 import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
+import haakjeopenen.phapp.fragments.photos.OnPhotoHighlightedListener;
+import haakjeopenen.phapp.fragments.photos.PhotoClickedListener;
 import haakjeopenen.phapp.fragments.photos.PhotoHighlightedFragment;
-import haakjeopenen.phapp.fragments.photos.PhotoZoomListener;
 import haakjeopenen.phapp.fragments.photos.PhotosFragment;
 import haakjeopenen.phapp.models.FragmentHolder;
 import haakjeopenen.phapp.models.Photo;
@@ -40,7 +40,7 @@ import haakjeopenen.phapp.util.ImageShare;
  * The main activity that holds the main menu and the fragment
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener, PhotoHighlightedFragment.OnPageSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PhotoClickedListener, OnPhotoHighlightedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
     private API api;
     private FragmentManager fragmentManager;
@@ -91,9 +91,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-	//@Override
-	//private void onSaveInstanceState
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -122,17 +119,6 @@ public class MainActivity extends AppCompatActivity
         mShareItem = menu.findItem(R.id.menu_item_share);
         mShareItem.setVisible(false);
 
-        // Fetch and store ShareActionProvider
-//        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
-
-
-//        mShareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener() {
-//            @Override
-//            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
-//                System.out.println("Sharing...");
-//                return true;
-//            }
-//        });
         return true;
     }
 
@@ -142,11 +128,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -180,7 +161,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = getFragmentManager().beginTransaction();
         Fragment f;
         if (fragments.get(id) == null) {
-            //TODO a bit ugly
             System.out.println("Creating new Fragment for: " + id);
             String title = "";
             switch(id) {
@@ -192,22 +172,12 @@ public class MainActivity extends AppCompatActivity
 					title = getString(R.string.contact);
                     f = new ContactFragment();
                     break;
-                case R.id.nav_agenda:
-					title = getString(R.string.agenda);
-                    f = new AgendaFragment();
-                    break;
                 case R.id.nav_photos:
 					title = getString(R.string.photos);
                     PhotosFragment fragment = new PhotosFragment();
                     fragment.setPhotoZoomListener(this);
                     f = fragment;
                     break;
-//                case R.id.nav_authorizations:
-//                case R.id.nav_workactions:
-//                case R.id.nav_werelookingfor:
-//                case R.id.nav_planning:
-//                    // Fallthrough
-//                    return;
                 case R.id.nav_weather:
 					title = getString(R.string.weather);
 					f = new WeatherFragment();
@@ -257,7 +227,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPhotoZoom(List<Photo> images, int position) {
+    public void onPhotoClicked(List<Photo> images, int position) {
 
         PhotoHighlightedFragment newFragment = new PhotoHighlightedFragment();
         newFragment.setImages(images);
@@ -285,7 +255,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPageSelected(Photo photo) {
+    public void onPhotoHighlighted(Photo photo) {
         this.photo = photo;
     }
 

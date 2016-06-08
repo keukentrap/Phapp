@@ -25,7 +25,6 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src/main/java)
 include $(BUILD_STATIC_JAVA_LIBRARY)
 
 # Include this library in the build server's output directory
-# TODO: Not yet.
 #$(call dist-for-goals, dist_files, $(LOCAL_BUILT_MODULE):volley.jar)
 
 # Include build files in subdirectories
