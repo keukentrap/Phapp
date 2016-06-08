@@ -1,8 +1,5 @@
 package haakjeopenen.phapp.net;
 
-import android.os.NetworkOnMainThreadException;
-
-import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,8 +9,6 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 import haakjeopenen.phapp.fragments.WeatherFragment;
 

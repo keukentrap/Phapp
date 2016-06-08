@@ -15,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private UserLoginTask mAuthTask = null;
     // UI references.
-    private AutoCompleteTextView mUsernameView; //TODO autocomplete weghalen??
+    private TextView mUsernameView;
     private EditText mPasswordView;
     private CheckBox mKeepLoggedIn;
     private View mProgressView;
@@ -47,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
+        mUsernameView = (TextView) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
         mKeepLoggedIn = (CheckBox) findViewById(R.id.keepLoggedIn);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

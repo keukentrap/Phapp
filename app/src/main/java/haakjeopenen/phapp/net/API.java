@@ -40,8 +40,6 @@ import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.util.Notify;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -245,8 +243,10 @@ public class API {
                 // Get page with specified slug if it exists!
                 JsonArray jArray = parseJsonArray(response);
                 if (jArray.size() == 0) { //Error when empty
-                    //TODO nice error message
-                    //result.setText(String.format(mContext.getString(R.string.page404), search));
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    //builder.setTitle();
+                    builder.setMessage(R.string.noresults);
+                    builder.create().show();
                 } else {
                     result.clear();
                     for (int i = 0; i < jArray.size(); i++) {
@@ -297,9 +297,7 @@ public class API {
                     validLogin = 1;
             }
         });
-        //TODO: Dit weghalen
-        // Zo van yo dit wordt ergens anders aangepast
-        while (validLogin == -1) ;
+        while (validLogin == -1);
 
         return validLogin == 1;
     }

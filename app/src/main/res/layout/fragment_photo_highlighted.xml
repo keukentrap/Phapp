@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.photos.PhotoHighlightedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="wrap_content"
