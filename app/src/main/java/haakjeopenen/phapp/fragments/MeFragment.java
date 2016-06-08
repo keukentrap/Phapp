@@ -13,7 +13,7 @@ public class MeFragment extends Fragment {
 
 
     public MeFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

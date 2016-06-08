@@ -11,8 +11,7 @@ import android.widget.TextView;
 import haakjeopenen.phapp.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
+ * Fragment for the calender
  */
 public class AgendaFragment extends Fragment implements CalendarView.OnDateChangeListener {
 
@@ -20,7 +19,7 @@ public class AgendaFragment extends Fragment implements CalendarView.OnDateChang
     private CalendarView mCalender;
 
     public AgendaFragment() {
-        // Required empty public constructor
+
     }
 
 	@Override
