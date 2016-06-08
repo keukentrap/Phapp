@@ -41,4 +41,5 @@
     <string name="noresults">Geen resultaten gevonden</string>
     <string name="buienradarText">Mede mogelijk gemaakt door data van buienradar.nl</string>
     <string name="share">Delen</string>
+    <string name="demologin">DEMO-LOGIN:\nGebruikersnaam: demo\nWachtwoord: demo</string>
 </resources>

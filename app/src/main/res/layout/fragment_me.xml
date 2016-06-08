@@ -10,8 +10,8 @@
         android:id="@+id/imageView"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/sample_1" />
+        android:layout_gravity="center_horizontal" />
+    <!-- android:src="@drawable/sample_1" -->
 
     <TextView
         android:layout_width="match_parent"

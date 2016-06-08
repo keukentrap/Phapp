@@ -45,4 +45,5 @@
     <string name="noresults">No results found</string>
     <string name="buienradarText">Powered by data from buienradar.nl</string>
     <string name="share">Share</string>
+    <string name="demologin">DEMO LOGIN:\nUsername: demo\nPassword: demo</string>
 </resources>

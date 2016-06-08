@@ -27,8 +27,8 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="false"
         android:contentDescription="Hoi"
-        android:src="@drawable/sample_7"
         android:visibility="invisible" />
+        <!-- android:src="@drawable/sample_7" -->
 
         <ProgressBar
             android:id="@+id/loading"

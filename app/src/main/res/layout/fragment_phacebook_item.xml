@@ -11,8 +11,8 @@
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="4dp"
-        android:cropToPadding="true"
-        android:src="@drawable/sample_6" />
+        android:cropToPadding="true" />
+    <!-- android:src="@drawable/sample_6" -->
 
     <TextView
         android:id="@+id/phacebook_name"
