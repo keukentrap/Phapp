@@ -31,24 +31,6 @@ import haakjeopenen.phapp.net.API;
 
 /**
  * H I D D E N   T E S T I N G   C O D E
- * I
- * D
- * D
- * E
- * N
- *
- * T
- * E
- * S
- * T
- * I
- * N
- * G
- *
- * C
- * O
- * D
- * E
  */
 @SuppressWarnings("ALL")
 public class DebugActivity extends AppCompatActivity {

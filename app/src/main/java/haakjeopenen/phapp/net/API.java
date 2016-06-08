@@ -20,6 +20,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,16 +36,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.DocumentBuilder;
+
 import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.models.Post;
 import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.util.Notify;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
 
 /**
  * Created by David on 20-5-2016.
@@ -93,7 +93,10 @@ public class API {
         mContext = context;
     }
 
-    public void cmd_test() { // TODO: remove this when no longer needed?
+    /**
+     * for debugging purposes
+     */
+    public void cmd_test() {
         System.out.println("STARTING COMMAND TEST");
         getRequest("test/1234?pretty=true", new Response.Listener<String>() {
             @Override
@@ -327,9 +330,6 @@ public class API {
         JsonObject jObject = parseJsonObject(response);
 
         if (jObject.has("code")) {
-            // TODO: If something in the login breaks, check here first.
-            //assert(false);
-            //validLogin = 0;
             return null;
         } else if (jObject.has("name") && jObject.get("name").getAsString() != null) {
             if (you) {

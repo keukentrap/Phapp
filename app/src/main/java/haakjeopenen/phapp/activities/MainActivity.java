@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import haakjeopenen.phapp.R;
-import haakjeopenen.phapp.fragments.AgendaFragment;
 import haakjeopenen.phapp.fragments.WeatherFragment;
 import haakjeopenen.phapp.fragments.contact.ContactFragment;
 import haakjeopenen.phapp.fragments.news.NewsFragment;
@@ -92,9 +91,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-	//@Override
-	//private void onSaveInstanceState
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,17 +119,6 @@ public class MainActivity extends AppCompatActivity
         mShareItem = menu.findItem(R.id.menu_item_share);
         mShareItem.setVisible(false);
 
-        // Fetch and store ShareActionProvider
-//        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
-
-
-//        mShareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener() {
-//            @Override
-//            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
-//                System.out.println("Sharing...");
-//                return true;
-//            }
-//        });
         return true;
     }
 
@@ -143,11 +128,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -181,7 +161,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = getFragmentManager().beginTransaction();
         Fragment f;
         if (fragments.get(id) == null) {
-            //TODO a bit ugly
             System.out.println("Creating new Fragment for: " + id);
             String title = "";
             switch(id) {
@@ -193,22 +172,12 @@ public class MainActivity extends AppCompatActivity
 					title = getString(R.string.contact);
                     f = new ContactFragment();
                     break;
-                case R.id.nav_agenda:
-					title = getString(R.string.agenda);
-                    f = new AgendaFragment();
-                    break;
                 case R.id.nav_photos:
 					title = getString(R.string.photos);
                     PhotosFragment fragment = new PhotosFragment();
                     fragment.setPhotoZoomListener(this);
                     f = fragment;
                     break;
-//                case R.id.nav_authorizations:
-//                case R.id.nav_workactions:
-//                case R.id.nav_werelookingfor:
-//                case R.id.nav_planning:
-//                    // Fallthrough
-//                    return;
                 case R.id.nav_weather:
 					title = getString(R.string.weather);
 					f = new WeatherFragment();
