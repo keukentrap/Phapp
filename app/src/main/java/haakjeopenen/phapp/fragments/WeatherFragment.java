@@ -29,10 +29,10 @@ public class WeatherFragment extends Fragment {
 
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+//	@Override
+//	public void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,13 +48,6 @@ public class WeatherFragment extends Fragment {
 
 		// Inflate the layout for this fragment
 		return view;
-	}
-
-	// TODO: Rename method, update argument and hook method into UI event?
-	public void onButtonPressed(Uri uri) {
-		if (mListener != null) {
-			mListener.onFragmentInteraction(uri);
-		}
 	}
 
 	public void doneLoading()

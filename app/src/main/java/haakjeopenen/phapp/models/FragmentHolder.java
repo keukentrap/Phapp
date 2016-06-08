@@ -6,8 +6,8 @@ import android.app.Fragment;
  * Created by U on 7-6-2016.
  */
 public class FragmentHolder {
-	public String title;
-	public Fragment fragment;
+	public final String title;
+	public final Fragment fragment;
 
 	public FragmentHolder(String title, Fragment fragment)
 	{

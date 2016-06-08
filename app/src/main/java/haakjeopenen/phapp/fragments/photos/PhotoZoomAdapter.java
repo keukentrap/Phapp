@@ -20,7 +20,7 @@ import haakjeopenen.phapp.widgets.TouchImageView;
  */
 public class PhotoZoomAdapter extends PagerAdapter {
     private List<Photo> mPhotos = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
 
     public PhotoZoomAdapter(Context c, List<Photo> thumbs) {
         mContext = c;

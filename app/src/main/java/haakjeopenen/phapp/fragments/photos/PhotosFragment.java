@@ -39,7 +39,7 @@ import haakjeopenen.phapp.widgets.MultiSwipeRefreshLayout;
  */
 public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PhotoZoomListener, Notify {
 
-    ArrayList<Photo> images = new ArrayList<>();
+    private ArrayList<Photo> images = new ArrayList<>();
 
     /**
      * Hold a reference to the current animator, so that it can be canceled mid-way.
@@ -52,7 +52,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
      */
     private int mShortAnimationDuration;
 
-    private API api;
+    private final API api;
     private PhotoAdapter imageAdapter;
     private GridView mPhotosGridview;
     private MultiSwipeRefreshLayout multiSwipeRefreshLayout;
@@ -67,10 +67,10 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         this.mListener = mListener;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

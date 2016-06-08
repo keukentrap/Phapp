@@ -28,7 +28,6 @@ import haakjeopenen.phapp.widgets.DividerItemDecoration;
 public class PhaceBookFragment extends Fragment implements View.OnClickListener, Notify {
 
     private API api;
-    private Button mSearch;
     private EditText mName;
     private RecyclerView mRecyclerView;
     private PhacebookRecyclerViewAdapter adapter;
@@ -60,7 +59,7 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
             }
         });
 
-        mSearch = (Button) view.findViewById(R.id.search_phacebook_button);
+        Button mSearch = (Button) view.findViewById(R.id.search_phacebook_button);
         mSearch.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.result_view);

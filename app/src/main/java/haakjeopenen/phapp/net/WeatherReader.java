@@ -16,24 +16,23 @@ import haakjeopenen.phapp.fragments.WeatherFragment;
  * Created by U on 6-6-2016.
  */
 public class WeatherReader {
-	private DocumentBuilderFactory factory;
 	private DocumentBuilder builder;
 
 	private ArrayList<String> stations;
-	NodeList stationnodes;
+	private NodeList stationnodes;
 
 	private API api;
 
-	private WeatherFragment weatherfragment;
+	private final WeatherFragment weatherfragment;
 
-	final int node = 1;
+	private final int node = 1;
 
 	public WeatherReader(WeatherFragment weatherfragment)
 	{
 		this.weatherfragment = weatherfragment;
 		try
 		{
-			factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			builder = factory.newDocumentBuilder();
 			api = API.getInstance(null);
 
@@ -46,11 +45,9 @@ public class WeatherReader {
 	/**
 	 * Load all the info
 	 */
-	public void read()
+	private void read()
 	{
-		stations = new ArrayList<String>();
-
-		Document document = getDocument();
+		stations = new ArrayList<>();
 
 		api.loadBuienradar(this, builder);
 	}
@@ -64,26 +61,6 @@ public class WeatherReader {
 		}
 
 		weatherfragment.doneLoading();
-	}
-
-	/**
-	 * Request the BuienRadar XML
-	 * @return Document if success
-	 */
-	public Document getDocument()
-	{
-		/*
-		try
-		{
-			return builder.parse("http://xml.buienradar.nl/");
-
-		} catch (SAXException | IOException ex)
-		{
-			Logger.getLogger(WeatherReader.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		*/
-		return null;
-
 	}
 
 	/**
