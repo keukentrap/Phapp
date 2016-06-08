@@ -84,6 +84,8 @@ public class DebugActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         api = API.getInstance(this);
+
+        this.setTitle("Debug");
     }
 
     public void sendAPIgetRequest(View v) throws Exception {

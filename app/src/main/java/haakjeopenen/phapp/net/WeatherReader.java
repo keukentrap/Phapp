@@ -107,6 +107,36 @@ public class WeatherReader {
 	}
 
 	/**
+	 * Get the humidity for the selected city
+	 *
+	 * @return humidity in %
+	 */
+	public String getHumidity()
+	{
+		return getInfoNode("luchtvochtigheid");
+	}
+
+	/**
+	 * Get the wind speed for the selected city
+	 *
+	 * @return wind speed in m/s
+	 */
+	public String getWindspeedMS()
+	{
+		return getInfoNode("windsnelheidMS");
+	}
+
+	/**
+	 * Get the precipitation for the selected city
+	 *
+	 * @return precipitation in mm/h
+	 */
+	public String getPrecipitation()
+	{
+		return getInfoNode("regenMMPU");
+	}
+
+	/**
 	 * Get the image representing the weather for the selected city
 	 *
 	 * @return string of image URL

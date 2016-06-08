@@ -65,7 +65,7 @@ public class WeatherFragment extends Fragment {
 	public void doneLoading()
 	{
 		Picasso.with(getActivity()).load(weatherreader.getImage()).resize(370,370).centerCrop().into(imageview); // Original image is 37x37
-		weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind()));
+		weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind(), weatherreader.getWindspeedMS(), weatherreader.getHumidity(), weatherreader.getPrecipitation()));
 	}
 
 	@Override

@@ -24,7 +24,7 @@ import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.net.API;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
