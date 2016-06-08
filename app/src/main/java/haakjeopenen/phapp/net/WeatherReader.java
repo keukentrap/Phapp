@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import haakjeopenen.phapp.fragments.WeatherFragment;
 
 /**
- * Created by U on 6-6-2016.
+ * Interprets the data from buienradar
  */
 public class WeatherReader {
 	private DocumentBuilder builder;
@@ -52,6 +52,10 @@ public class WeatherReader {
 		api.loadBuienradar(this, builder);
 	}
 
+	/**
+	 * Called as soon as a response is gotten, so it can be interpreted and loaded further
+	 * @param document
+	 */
 	public void doneLoading(Document document)
 	{
 		stationnodes = document.getElementsByTagName("weerstation");

@@ -505,7 +505,7 @@ public class API {
     }
 
 	/**
-     * Run t
+     * Call this in the response listener to cache the response for later
      * @param url
      * @param response
      */
@@ -514,11 +514,21 @@ public class API {
         requestsCache.put(url, response);
     }
 
+	/**
+     * Parse a string that contains a JsonArray
+     * @param jsonstring
+     * @return
+     */
     private JsonArray parseJsonArray(String jsonstring) {
         JsonElement jelement = getJsonParser().parse(jsonstring);
         return jelement.getAsJsonArray();
     }
 
+	/**
+     * Parse a string that contains a JsonObject
+     * @param jsonstring
+     * @return
+     */
     private JsonObject parseJsonObject(String jsonstring) {
         JsonElement jelement = getJsonParser().parse(jsonstring);
         return jelement.getAsJsonObject();
