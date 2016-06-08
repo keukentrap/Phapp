@@ -15,8 +15,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.ActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,11 +52,12 @@ public class MainActivity extends AppCompatActivity
 
     private Toolbar toolbar;
     private MenuItem mShareItem;
-    private ShareActionProvider mShareActionProvider;
+//    private ShareActionProvider mShareActionProvider;
 
 
 
     private HashMap<Integer,FragmentHolder> fragments;
+    private Intent shareIntent;
 
 
     @Override
@@ -119,16 +122,16 @@ public class MainActivity extends AppCompatActivity
         mShareItem = menu.findItem(R.id.menu_item_share);
 
         // Fetch and store ShareActionProvider
-        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
+//        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
 
-        mShareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener() {
-            @Override
-            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
-                System.out.println("Sharing...");
-                return true;
-            }
-        });
 
+//        mShareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener() {
+//            @Override
+//            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
+//                System.out.println("Sharing...");
+//                return true;
+//            }
+//        });
         return true;
     }
 
@@ -252,11 +255,11 @@ public class MainActivity extends AppCompatActivity
         this.finish();
     }
     // Call to update the share intent
-    private void setShareIntent(Intent shareIntent) {
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent);
-        }
-    }
+//    private void setShareIntent(Intent shareIntent) {
+//        if (mShareActionProvider != null) {
+//            mShareActionProvider.setShareIntent(shareIntent);
+//        }
+//    }
 
     @Override
     public void onPhotoZoom(List<Photo> images, int position) {
@@ -268,12 +271,11 @@ public class MainActivity extends AppCompatActivity
         mShareItem.setVisible(true);
 
         //TODO photo sharing not working
-        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
-        myShareIntent.setType("image/*");
+        shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
         Uri uri = Uri.parse(images.get(position).imgurl);
-        myShareIntent.putExtra(Intent.EXTRA_STREAM,uri);
-        mShareActionProvider.setShareIntent(myShareIntent);
-
+        shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
+//        mShareActionProvider.setShareIntent(shareIntent);
 
         fragmentTransaction = getFragmentManager().beginTransaction();
 
@@ -284,7 +286,10 @@ public class MainActivity extends AppCompatActivity
 
         // Commit the transaction
         fragmentTransaction.commit();
-
-
     }
+
+    public void sharePhoto(MenuItem m) {
+        startActivity(Intent.createChooser(shareIntent, "Share the thing!"));
+    }
+
 }
