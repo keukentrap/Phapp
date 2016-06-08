@@ -40,8 +40,6 @@ import haakjeopenen.phapp.models.User;
 import haakjeopenen.phapp.util.Notify;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -95,7 +93,7 @@ public class API {
         mContext = context;
     }
 
-    public void cmd_test() { // TODO: remove this when no longer needed
+    public void cmd_test() { // TODO: remove this when no longer needed?
         System.out.println("STARTING COMMAND TEST");
         getRequest("test/1234?pretty=true", new Response.Listener<String>() {
             @Override
@@ -181,6 +179,11 @@ public class API {
         });
     }
 
+	/**
+     * Load the HTML contents of the specified page and put it into textview when done
+     * @param pageslug the slug of the page that is being loaded
+     * @param textview the textview to put the page in
+     */
     public void loadPageContent(final String pageslug, final TextView textview) {
         //We use the slug to search the pages
         getRequest("pages?slug=" + pageslug, new Response.Listener<String>() {
@@ -242,11 +245,12 @@ public class API {
         getRequest("users?search=" + search, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Get page with specified slug if it exists!
                 JsonArray jArray = parseJsonArray(response);
                 if (jArray.size() == 0) { //Error when empty
-                    //TODO nice error message
-                    //result.setText(String.format(mContext.getString(R.string.page404), search));
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    //builder.setTitle();
+                    builder.setMessage(R.string.noresults);
+                    builder.create().show();
                 } else {
                     result.clear();
                     for (int i = 0; i < jArray.size(); i++) {
@@ -268,6 +272,11 @@ public class API {
         });
     }
 
+	/**
+     * Load data from buienradar.
+     * @param weatherreader The WeatherReader object
+     * @param builder The DocumentBuilder
+     */
     public void loadBuienradar(final WeatherReader weatherreader, final DocumentBuilder builder)
 	{
 		fullGetRequest("http://xml.buienradar.nl", new Response.Listener<String>() {
@@ -286,6 +295,11 @@ public class API {
 		});
 	}
 
+	/**
+     * Check your own account, which should work if the login details are correct (in which case we
+     * can load the user details like avatar and such), otherwise we let the LoginActivity know
+     * @return true if login is valid, false if invalid
+     */
     public boolean checkLogin() {
         validLogin = -1;
         getRequest("users/me", new Response.Listener<String>() {
@@ -297,9 +311,7 @@ public class API {
                     validLogin = 1;
             }
         });
-        //TODO: Dit weghalen
-        // Zo van yo dit wordt ergens anders aangepast
-        while (validLogin == -1) ;
+        while (validLogin == -1);
 
         return validLogin == 1;
     }
@@ -492,6 +504,11 @@ public class API {
         queue.add(stringRequest);
     }
 
+	/**
+     * Run t
+     * @param url
+     * @param response
+     */
     private void cacheRequest(String url, String response) {
         // If it already exists, it should just be overwritten...
         requestsCache.put(url, response);

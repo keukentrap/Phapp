@@ -16,12 +16,7 @@ import haakjeopenen.phapp.R;
 import haakjeopenen.phapp.net.WeatherReader;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WeatherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment for the weather
  */
 public class WeatherFragment extends Fragment {
 	private OnFragmentInteractionListener mListener;
@@ -65,7 +60,7 @@ public class WeatherFragment extends Fragment {
 	public void doneLoading()
 	{
 		Picasso.with(getActivity()).load(weatherreader.getImage()).resize(370,370).centerCrop().into(imageview); // Original image is 37x37
-		weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind()));
+		weatherinfotext.setText(String.format(getActivity().getString(R.string.weathertemplate), weatherreader.getTemp(), weatherreader.getWind(), weatherreader.getWindspeedMS(), weatherreader.getHumidity(), weatherreader.getPrecipitation()));
 	}
 
 	@Override

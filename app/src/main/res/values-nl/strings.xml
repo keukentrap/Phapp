@@ -37,6 +37,8 @@
     <string name="name">Naam</string>
     <string name="hello_blank_fragment">hoi</string>
     <string name="userdeleted">Gebruiker verwijderd</string>
-    <string name="weathertemplate" formatted="false">%s°C\nWind: %s</string>
+    <string name="weathertemplate" formatted="false">%s°C\nWind: %s %s m/s\nLuchtvochtigheid: %s%%\nNeerslag: %s mm/u</string>
+    <string name="noresults">Geen resultaten gevonden</string>
+    <string name="buienradarText">Mede mogelijk gemaakt door data van buienradar.nl</string>
     <string name="share">Delen</string>
 </resources>

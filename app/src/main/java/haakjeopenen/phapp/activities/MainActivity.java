@@ -36,6 +36,9 @@ import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.net.API;
 import haakjeopenen.phapp.util.ImageShare;
 
+/**
+ * The main activity that holds the main menu and the fragment
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener, PhotoHighlightedFragment.OnPageSelectedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";

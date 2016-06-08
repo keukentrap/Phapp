@@ -22,6 +22,7 @@ import haakjeopenen.phapp.util.Notify;
 import haakjeopenen.phapp.widgets.DividerItemDecoration;
 
 /**
+ * The fragment for Phacebook/Smoelenboek
  * {@link PhaceBookFragment} to search the user database
  */
 public class PhaceBookFragment extends Fragment implements View.OnClickListener, Notify {
@@ -36,7 +37,7 @@ public class PhaceBookFragment extends Fragment implements View.OnClickListener,
 
 
     public PhaceBookFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

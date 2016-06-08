@@ -1,8 +1,5 @@
 package haakjeopenen.phapp.net;
 
-import android.os.NetworkOnMainThreadException;
-
-import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,8 +9,6 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 import haakjeopenen.phapp.fragments.WeatherFragment;
 
@@ -109,6 +104,36 @@ public class WeatherReader {
 	public String getWind()
 	{
 		return getInfoNode("windrichting");
+	}
+
+	/**
+	 * Get the humidity for the selected city
+	 *
+	 * @return humidity in %
+	 */
+	public String getHumidity()
+	{
+		return getInfoNode("luchtvochtigheid");
+	}
+
+	/**
+	 * Get the wind speed for the selected city
+	 *
+	 * @return wind speed in m/s
+	 */
+	public String getWindspeedMS()
+	{
+		return getInfoNode("windsnelheidMS");
+	}
+
+	/**
+	 * Get the precipitation for the selected city
+	 *
+	 * @return precipitation in mm/h
+	 */
+	public String getPrecipitation()
+	{
+		return getInfoNode("regenMMPU");
 	}
 
 	/**

@@ -41,6 +41,8 @@
     <string name="description_zoom_touch_close">description_zoom_touch_close</string>
     <string name="name">Name</string>
     <string name="hello_blank_fragment">hello</string>
-    <string name="weathertemplate" formatted="false">%s°C\nWind: %s</string>
+    <string name="weathertemplate" formatted="false">%s°C\nWind: %s %s m/s\nHumidity: %s%%\nPrecipitation: %s mm/h</string>
+    <string name="noresults">No results found</string>
+    <string name="buienradarText">Powered by data from buienradar.nl</string>
     <string name="share">Share</string>
 </resources>

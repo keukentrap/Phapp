@@ -35,6 +35,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
      * fragment (e.g. upon screen orientation changes).
      */
     public NewsFragment() {
+
     }
 
     @Override

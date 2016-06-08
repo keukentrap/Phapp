@@ -19,4 +19,12 @@
         android:text="@string/loading"
         android:id="@+id/weatherInfoText"
         android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/buienradarText"
+        android:id="@+id/buienradarText"
+        android:layout_gravity="left|bottom"/>
 </FrameLayout>
