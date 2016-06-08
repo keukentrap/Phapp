@@ -69,9 +69,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {
         System.out.println("Refreshing: news");
-        //TODO can we comment this out?
-        //ArrayList<Post> list = new ArrayList<>();
-        //adapter = new NewsRecyclerViewAdapter(list);
         API.getInstance().loadNews(newsList, this);
     }
 

@@ -28,8 +28,9 @@ import haakjeopenen.phapp.fragments.WeatherFragment;
 import haakjeopenen.phapp.fragments.contact.ContactFragment;
 import haakjeopenen.phapp.fragments.news.NewsFragment;
 import haakjeopenen.phapp.fragments.phacebook.PhaceBookFragment;
+import haakjeopenen.phapp.fragments.photos.OnPhotoHighlightedListener;
+import haakjeopenen.phapp.fragments.photos.PhotoClickedListener;
 import haakjeopenen.phapp.fragments.photos.PhotoHighlightedFragment;
-import haakjeopenen.phapp.fragments.photos.PhotoZoomListener;
 import haakjeopenen.phapp.fragments.photos.PhotosFragment;
 import haakjeopenen.phapp.models.FragmentHolder;
 import haakjeopenen.phapp.models.Photo;
@@ -40,7 +41,7 @@ import haakjeopenen.phapp.util.ImageShare;
  * The main activity that holds the main menu and the fragment
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener, PhotoHighlightedFragment.OnPageSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PhotoClickedListener, OnPhotoHighlightedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
     private API api;
     private FragmentManager fragmentManager;
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPhotoZoom(List<Photo> images, int position) {
+    public void onPhotoClicked(List<Photo> images, int position) {
 
         PhotoHighlightedFragment newFragment = new PhotoHighlightedFragment();
         newFragment.setImages(images);
@@ -285,7 +286,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPageSelected(Photo photo) {
+    public void onPhotoHighlighted(Photo photo) {
         this.photo = photo;
     }
 

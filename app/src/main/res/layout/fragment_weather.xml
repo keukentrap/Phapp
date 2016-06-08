@@ -4,22 +4,6 @@
              android:layout_height="match_parent"
              tools:context="haakjeopenen.phapp.fragments.WeatherFragment">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weatherPicture"
-        android:layout_gravity="center_horizontal|top"
-        android:longClickable="false"
-        android:nestedScrollingEnabled="false"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/loading"
-        android:id="@+id/weatherInfoText"
-        android:layout_gravity="center"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,4 +11,30 @@
         android:text="@string/buienradarText"
         android:id="@+id/buienradarText"
         android:layout_gravity="left|bottom"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1.5">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/weatherPicture"
+            android:layout_gravity="center_vertical|right"
+            android:longClickable="false"
+            android:nestedScrollingEnabled="false"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/loading"
+            android:id="@+id/weatherInfoText"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 </FrameLayout>

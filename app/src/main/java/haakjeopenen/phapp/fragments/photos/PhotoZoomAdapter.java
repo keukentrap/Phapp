@@ -47,10 +47,15 @@ public class PhotoZoomAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        //create an image the user can pinch zoom
         TouchImageView imageView = new TouchImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setId(R.id.imageView);
+
+        //load full image from website
         Picasso.with(mContext).load(mPhotos.get(position).imgurl).into(imageView);
+
+        //finally, add it
         container.addView(imageView, 0);
         return imageView;
     }
