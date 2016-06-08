@@ -311,6 +311,5 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onPhotoZoom(List<Photo> images, int position) {
         //zoomImageFromThumb(imageAdapter.get);
-
     }
 }

@@ -5,20 +5,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.view.ActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,9 +34,10 @@ import haakjeopenen.phapp.fragments.photos.PhotosFragment;
 import haakjeopenen.phapp.models.FragmentHolder;
 import haakjeopenen.phapp.models.Photo;
 import haakjeopenen.phapp.net.API;
+import haakjeopenen.phapp.util.ImageShare;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PhotoZoomListener, PhotoHighlightedFragment.OnPageSelectedListener {
     private static final String PREFS_NAME = "Phapp_BasicLogin";
     private API api;
     private FragmentManager fragmentManager;
@@ -53,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private MenuItem mShareItem;
 //    private ShareActionProvider mShareActionProvider;
+    private Photo photo;
 
 
 
@@ -120,6 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         // Locate MenuItem with ShareActionProvider
         mShareItem = menu.findItem(R.id.menu_item_share);
+        mShareItem.setVisible(false);
 
         // Fetch and store ShareActionProvider
 //        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(mShareItem);
@@ -254,12 +252,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
         this.finish();
     }
-    // Call to update the share intent
-//    private void setShareIntent(Intent shareIntent) {
-//        if (mShareActionProvider != null) {
-//            mShareActionProvider.setShareIntent(shareIntent);
-//        }
-//    }
 
     @Override
     public void onPhotoZoom(List<Photo> images, int position) {
@@ -267,15 +259,12 @@ public class MainActivity extends AppCompatActivity
         PhotoHighlightedFragment newFragment = new PhotoHighlightedFragment();
         newFragment.setImages(images);
         newFragment.setPosition(position);
+        newFragment.setOnFragmentInteractionListener(this);
 
+        this.photo = images.get(position);
+
+        //Set share icon visible
         mShareItem.setVisible(true);
-
-        //TODO photo sharing not working
-        shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        Uri uri = Uri.parse(images.get(position).imgurl);
-        shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
-//        mShareActionProvider.setShareIntent(shareIntent);
 
         fragmentTransaction = getFragmentManager().beginTransaction();
 
@@ -289,7 +278,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void sharePhoto(MenuItem m) {
-        startActivity(Intent.createChooser(shareIntent, "Share the thing!"));
+        new ImageShare(this).shareImage(photo);
     }
+
+    @Override
+    public void onPageSelected(Photo photo) {
+        this.photo = photo;
+    }
+
 
 }

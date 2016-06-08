@@ -1,8 +1,6 @@
 package haakjeopenen.phapp.fragments.photos;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -17,7 +15,7 @@ import haakjeopenen.phapp.models.Photo;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PhotoHighlightedFragment.OnFragmentInteractionListener} interface
+ * {@link OnPageSelectedListener} interface
  * to handle interaction events.
  */
 public class PhotoHighlightedFragment extends Fragment {
@@ -30,7 +28,7 @@ public class PhotoHighlightedFragment extends Fragment {
     private int position;
     private List<Photo> images;
 
-    private OnFragmentInteractionListener mListener;
+    private OnPageSelectedListener mListener;
 
     public PhotoHighlightedFragment() {
         // Required empty public constructor
@@ -42,6 +40,10 @@ public class PhotoHighlightedFragment extends Fragment {
 
     public void setImages(List<Photo> images) {
         this.images = images;
+    }
+
+    public void setOnFragmentInteractionListener(OnPageSelectedListener listener) {
+        this.mListener = listener;
     }
 
     @Override
@@ -57,12 +59,23 @@ public class PhotoHighlightedFragment extends Fragment {
 
         PhotoZoomAdapter adapter = new PhotoZoomAdapter(view.getContext(), images);
 
-//        AdapterViewFlipper mAdapterViewFlipper = (AdapterViewFlipper) view.findViewById(R.id.adapterViewFlipper);
-//        mAdapterViewFlipper.setAdapter(adapter);
-//
-//        mAdapterViewFlipper.startFlipping();
+        final ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+            @Override
+            public void onPageSelected(int position) {
+                System.out.println("Photo selected");
+                mListener.onPageSelected(images.get(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(position);
@@ -70,40 +83,7 @@ public class PhotoHighlightedFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnPageSelectedListener {
+        void onPageSelected(Photo photo);
     }
 }
